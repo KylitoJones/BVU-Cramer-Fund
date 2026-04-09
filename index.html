@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BVU Cramer Fund</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #002868;
+  --navy-light: #1a3f80;
+  --gold: #c9a84c;
+  --gold-light: #e8d5a3;
+  --cream: #f7f5ef;
+  --white: #ffffff;
+  --gray-100: #f0ede6;
+  --gray-200: #e0ddd5;
+  --gray-400: #b0aca2;
+  --gray-600: #706d65;
+  --gray-800: #3a3834;
+  --green: #1e7a45;
+  --red: #b83232;
+  --green-bg: #e8f4ee;
+  --red-bg: #faeaea;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--gray-800); }
+
+/* NAV */
+nav {
+  background: var(--navy);
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  position: sticky; top: 0; z-index: 200;
+  border-bottom: 3px solid var(--gold);
+}
+.nav-brand { display: flex; align-items: center; gap: 10px; }
+.nav-crest {
+  width: 34px; height: 34px;
+  border: 2px solid var(--gold);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Playfair Display', serif;
+  color: var(--gold); font-size: 13px; font-weight: 700;
+}
+.nav-name { font-family: 'Playfair Display', serif; color: #fff; font-size: 16px; }
+.nav-name em { color: var(--gold); font-style: normal; }
+.nav-links { display: flex; gap: 1.75rem; list-style: none; }
+.nav-links a { color: var(--gray-400); text-decoration: none; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; transition: color .2s; }
+.nav-links a:hover, .nav-links a.active { color: var(--gold); }
+@media(max-width:640px){ .nav-links { display:none; } }
+
+/* HERO */
+.hero {
+  background: var(--navy);
+  padding: 3.5rem 2rem 2.5rem;
+  position: relative;
+}
+.hero::after {
+  content:''; position: absolute; bottom:0; left:0; right:0; height:3px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+.hero-inner { max-width: 1160px; margin: 0 auto; }
+.hero-eyebrow { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: .5rem; }
+.hero h1 { font-family: 'Playfair Display', serif; color: #fff; font-size: 2.6rem; line-height: 1.15; margin-bottom: .75rem; }
+.hero-sub { color: var(--gray-400); font-size: 14px; font-weight: 300; max-width: 500px; line-height: 1.7; margin-bottom: 2rem; }
+.hero-stats { display: flex; flex-wrap: wrap; gap: 2rem; }
+.hs { display: flex; flex-direction: column; gap: 3px; }
+.hs-label { font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gray-600); }
+.hs-val { font-family: 'Playfair Display', serif; font-size: 1.6rem; color: #fff; }
+.hs-val.up { color: #5bcf8f; }
+.hs-val.down { color: #f07070; }
+
+/* MAIN */
+main { max-width: 1160px; margin: 0 auto; padding: 2.5rem 2rem 4rem; }
+
+/* SECTION HEADER */
+.sec-head {
+  display: flex; align-items: baseline; justify-content: space-between;
+  border-bottom: 2px solid var(--navy); padding-bottom: .6rem; margin-bottom: 1.5rem;
+}
+.sec-head h2 { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--navy); }
+.sec-meta { font-size: 12px; color: var(--gray-600); }
+
+/* FILTER TABS */
+.tabs { display: flex; gap: 6px; margin-bottom: 1rem; }
+.tab {
+  font-size: 12px; padding: 5px 14px; border-radius: 4px; cursor: pointer;
+  border: 1px solid var(--gray-200); background: var(--white); color: var(--gray-600);
+  transition: all .15s;
+}
+.tab.active { background: var(--navy); color: var(--gold); border-color: var(--navy); }
+.tab:hover:not(.active) { border-color: var(--navy); color: var(--navy); }
+
+/* TABLE */
+.table-wrap {
+  background: var(--white); border: 1.5px solid var(--gray-200); border-radius: 6px;
+  overflow: hidden; margin-bottom: 3rem; overflow-x: auto;
+}
+table { width: 100%; border-collapse: collapse; font-size: 13px; min-width: 780px; }
+thead tr { background: var(--navy); }
+thead th {
+  padding: 10px 14px; text-align: right; font-size: 10px; letter-spacing: 1.2px;
+  text-transform: uppercase; color: var(--gold-light); font-weight: 500; white-space: nowrap;
+}
+thead th:first-child { text-align: left; }
+tbody tr { border-bottom: 1px solid var(--gray-100); transition: background .12s; cursor: pointer; }
+tbody tr:last-child { border-bottom: none; }
+tbody tr:hover { background: #f0ecd8; }
+tbody tr.row-active { background: #e8dfc4; }
+td { padding: 10px 14px; text-align: right; color: var(--gray-600); white-space: nowrap; }
+td:first-child { text-align: left; }
+.td-sym { font-weight: 500; color: var(--navy); font-size: 14px; }
+.td-co { font-size: 11px; color: var(--gray-400); margin-top: 1px; max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.up { color: var(--green); font-weight: 500; }
+.down { color: var(--red); font-weight: 500; }
+.neutral { color: var(--gray-600); }
+.badge {
+  display: inline-block; font-size: 10px; padding: 2px 8px; border-radius: 3px;
+  background: var(--gray-100); color: var(--gray-600);
+}
+.badge.etf { background: #e8f0fc; color: #2a4fa8; }
+
+/* LIVE DOT */
+.live-dot {
+  display: inline-block; width: 7px; height: 7px; border-radius: 50%;
+  background: var(--green); margin-right: 5px;
+  animation: pulse 2s infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+
+/* SHIMMER */
+.shim {
+  display: inline-block; border-radius: 3px; color: transparent;
+  background: linear-gradient(90deg, var(--gray-100) 25%, var(--gray-200) 50%, var(--gray-100) 75%);
+  background-size: 200% 100%; animation: shim 1.4s infinite;
+}
+@keyframes shim { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
+
+/* CARDS */
+.cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px,1fr)); gap: 1.1rem; }
+.card {
+  background: var(--white); border: 1.5px solid var(--gray-200); border-radius: 6px;
+  overflow: hidden; cursor: pointer; transition: transform .2s, box-shadow .2s, border-color .2s;
+}
+.card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,40,104,.1); border-color: var(--gold); }
+.card.card-hl { border-color: var(--gold); box-shadow: 0 4px 20px rgba(201,168,76,.25); }
+.card-top {
+  background: var(--navy); padding: 12px 14px;
+  display: flex; justify-content: space-between; align-items: flex-start;
+}
+.card-sym { font-family: 'Playfair Display', serif; font-size: 20px; color: #fff; line-height: 1; }
+.card-co-name { font-size: 11px; color: var(--gray-400); margin-top: 2px; }
+.card-px { text-align: right; }
+.card-px-val { font-size: 16px; font-weight: 500; color: #fff; }
+.card-px-chg { font-size: 11px; margin-top: 2px; }
+.card-body { padding: 12px 14px; }
+.card-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 9px; }
+.ctag {
+  font-size: 10px; padding: 2px 8px; border-radius: 3px;
+  background: var(--gray-100); color: var(--gray-600); border: 1px solid var(--gray-200);
+}
+.ctag.buy { background: var(--green-bg); color: var(--green); border-color: #b4ddc6; }
+.ctag.sell { background: var(--red-bg); color: var(--red); border-color: #f0b8b8; }
+.ctag.hold { background: #fdf7e8; color: #8a6d10; border-color: var(--gold-light); }
+.card-thesis-lbl { font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold); margin-bottom: 5px; font-weight: 500; }
+.card-thesis { font-size: 13px; color: var(--gray-600); line-height: 1.65; font-style: italic; }
+.card-thesis.placeholder { color: var(--gray-400); font-style: italic; }
+.card-foot {
+  margin-top: 10px; padding-top: 8px; border-top: 1px solid var(--gray-100);
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 11px; color: var(--gray-400);
+}
+.card-foot strong { color: var(--navy); font-weight: 500; }
+.card-wt { font-family: 'Playfair Display', serif; font-size: 13px; color: var(--navy); }
+
+/* ETF SECTION */
+.etf-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px,1fr)); gap: .75rem; margin-bottom: 3rem; }
+.etf-card {
+  background: var(--white); border: 1px solid var(--gray-200); border-radius: 5px;
+  padding: 12px 14px; display: flex; justify-content: space-between; align-items: center;
+}
+.etf-left .etf-sym { font-weight: 500; color: var(--navy); font-size: 14px; }
+.etf-left .etf-name { font-size: 11px; color: var(--gray-400); margin-top: 1px; max-width: 160px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.etf-right { text-align: right; }
+.etf-px { font-weight: 500; color: var(--gray-800); font-size: 14px; }
+.etf-chg { font-size: 11px; margin-top: 2px; }
+.etf-mv { font-size: 11px; color: var(--gray-400); }
+
+/* FOOTER */
+footer {
+  background: var(--navy); border-top: 3px solid var(--gold);
+  padding: 1.75rem 2rem; text-align: center;
+}
+footer p { color: var(--gray-600); font-size: 12px; line-height: 1.8; }
+footer strong { color: var(--gold-light); }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">
+    <div class="nav-crest">BVU</div>
+    <span class="nav-name">BVU <em>Cramer Fund</em></span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#holdings" class="active">Holdings</a></li>
+    <li><a href="#thesis">Thesis</a></li>
+    <li><a href="#etfs">ETFs</a></li>
+    <li><a href="#about">About</a></li>
+  </ul>
+</nav>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Student Managed Investment Fund — Buena Vista University</div>
+    <h1>BVU Cramer Fund</h1>
+    <p class="hero-sub">A student-managed charitable equity portfolio applying fundamental analysis to identify long-term value across sectors and geographies.</p>
+    <div class="hero-stats">
+      <div class="hs"><span class="hs-label">Portfolio Value</span><span class="hs-val" id="stat-val">$163,582</span></div>
+      <div class="hs"><span class="hs-label">Total Gain</span><span class="hs-val up">+$57,901</span></div>
+      <div class="hs"><span class="hs-label">Total Return</span><span class="hs-val up">+55.6%</span></div>
+      <div class="hs"><span class="hs-label">Day Change</span><span class="hs-val down" id="stat-day">-$336</span></div>
+      <div class="hs"><span class="hs-label">Positions</span><span class="hs-val">54</span></div>
+    </div>
+  </div>
+</div>
+
+<main>
+
+  <!-- HOLDINGS TABLE -->
+  <section id="holdings" style="margin-bottom:3rem">
+    <div class="sec-head">
+      <h2>All Holdings</h2>
+      <span class="sec-meta"><span class="live-dot"></span>Auto-refreshes every 60s &nbsp;·&nbsp; Last: <span id="last-upd">—</span></span>
+    </div>
+    <div class="tabs">
+      <div class="tab active" onclick="filterTable('all',this)">All (54)</div>
+      <div class="tab" onclick="filterTable('equity',this)">Equities (40)</div>
+      <div class="tab" onclick="filterTable('etf',this)">ETFs (14)</div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th style="text-align:left">Symbol</th>
+            <th>Price</th>
+            <th>Day Chg $</th>
+            <th>Day Chg %</th>
+            <th>Mkt Value</th>
+            <th>Gain $</th>
+            <th>Gain %</th>
+            <th>% of Acct</th>
+            <th>Type</th>
+          </tr>
+        </thead>
+        <tbody id="tbl-body"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- THESIS CARDS (Equities) -->
+  <section id="thesis" style="margin-bottom:3rem">
+    <div class="sec-head">
+      <h2>Equity Thesis Cards</h2>
+      <span class="sec-meta">Update thesis text in the HOLDINGS array in the source code</span>
+    </div>
+    <div class="cards-grid" id="cards-grid"></div>
+  </section>
+
+  <!-- ETFs -->
+  <section id="etfs">
+    <div class="sec-head">
+      <h2>ETF Positions</h2>
+      <span class="sec-meta">14 funds</span>
+    </div>
+    <div class="etf-grid" id="etf-grid"></div>
+  </section>
+
+</main>
+
+<footer id="about">
+  <p><strong>BVU Cramer Fund</strong> · Buena Vista University, Storm Lake, Iowa<br>
+  Student-managed charitable investment fund. For educational purposes only. Not investment advice.<br>
+  Prices via Yahoo Finance. Data as of <span id="footer-upd">—</span></p>
+</footer>
+
+<script>
+// ─── HOLDINGS DATA ───────────────────────────────────────────────────────────
+// Edit thesis, analyst, stance, sector, dateAdded for each position.
+// stance options: "buy" | "hold" | "sell"
+const HOLDINGS = [
+  // ── EQUITIES ──
+  { sym:"AAPL",  name:"Apple Inc.",                  qty:2,   price:258.28, dayChg:-0.62,  dayPct:-0.24, mktVal:516.56,    gain:167.34,  gainPct:47.92,  pct:0.32, type:"equity", sector:"Technology",         stance:"hold", analyst:"[Analyst]", dateAdded:"[Date]", thesis:"Apple's services segment and ecosystem lock-in provide durable recurring revenue. We believe the market underestimates Services margin expansion and the Vision Pro platform cycle. Strong buybacks supported by a fortress balance sheet. [Update this thesis with your team's original analysis.]" },
+  { sym:"AMGN",  name:"Amgen Inc.",                  qty:1,   price:348.00, dayChg:-1.81,  dayPct:-0.52, mktVal:348.00,    gain:80.33,   gainPct:30.01,  pct:0.21, type:"equity", sector:"Healthcare",          stance:"hold", analyst:"[Analyst]", dateAdded:"[Date]", thesis:"Amgen's biosimilars pipeline and GLP-1 obesity drug candidate (MariTide) represent meaningful growth vectors beyond its core biologic franchise. A strong dividend and robust free cash flow generation support the thesis. [Update this thesis with your team's original analysis.]" },
+  { sym:"AMX",   name:"America Movil S.A.B. ADR",   qty:14,  price:26.38,  dayChg:0.09,   dayPct:0.34,  mktVal:369.32,    gain:39.77,   gainPct:12.07,  pct:0.23, type:"equity", sector:"Telecom",             stance:"hold", analyst:"[Analyst]", dateAdded:"[Date]", thesis:"America Movil is the dominant telecom operator across Latin America with significant pricing power in key markets. Peso depreciation and macro volatility are headwinds, but the company's scale and network infrastructure provide a durable competitive position. [Update with your team's thesis.]" },
+  { sym:"ASML",  name:"ASML Holding N.V. ADR",       qty:1,   price:1406.07,dayChg:-14.98, dayPct:-1.05, mktVal:1406.07,   gain:710.73,  gainPct:102.21, pct:0.86, type:"equity", sector:"Semiconductors",      stance:"buy",  analyst:"[Analyst]", dateAdded:"[Date]", thesis:"ASML holds a global monopoly on extreme ultraviolet (EUV) lithography machines—the single most critical piece of equipment in advanced semiconductor manufacturing. With no near-term competitor and explosive AI-driven chip demand, ASML is a long-duration compounder. [Update with your team's thesis.]" },
+  { sym:"AUR",   name:"Aurora Innovation Inc.",      qty:170, price:4.20,   dayChg:-0.03,  dayPct:-0.71, mktVal:714.00,    gain:-49.28,  gainPct:-6.46,  pct:0.44, type:"equity", sector:"Autonomous Vehicles", stance:"hold", analyst:"[Analyst]", dateAdded:"[Date]", thesis:"Aurora is launching its commercial driverless trucking service on the Dallas-Houston corridor. If AV trucking achieves commercial scale, the total addressable market is enormous. High risk given pre-revenue stage, but a meaningful option bet on autonomous logistics. [Update with your team's thesis.]" },
+  { sym:"BRK/B", name:"Berkshire Hathaway Cl. B",   qty:1,   price:479.75, dayChg:0.00,   dayPct:0.00,  mktVal:479.75,    gain:117.52,  gainPct:32.44,  pct:0.29, type:"equity", sector:"Financials",          stance:"hold", analyst:"[Analyst]", dateAdded:"[Date]", thesis:"Berkshire's $160B+ cash hoard provides both downside protection and optionality for large acquisitions in a volatile market. Insurance operations benefit from higher-for-longer rates. Held as a portfolio anchor and defensive ballast. [Update with your team's thesis.]" },
+  { sym:"CCJ",   name:"Cameco Corp.",                qty:6,   price:114.85, dayChg:-1.05,  dayPct:-0.91, mktVal:689.10,    gain:397.32,  gainPct:136.17, pct:0.42, type:"equity", sector:"Energy (Uranium)",    stance:"buy",  analyst:"[Analyst]", dateAdded:"[Date]", thesis:"Cameco is the world's largest publicly traded uranium producer. The global nuclear renaissance—driven by data center power demand and decarbonization policy—is creating a structural uranium supply deficit. Cameco is the clearest pure-play beneficiary with tier-one assets in Saskatchewan. [Update with your team's thesis.]" },
+  { sym:"CEG",   name:"Constellation Energy Corp.", qty:2,   price:282.97, dayChg:-1.30,  dayPct:-0.46, mktVal:565.94,    gain:-96.45,  gainPct:-14.56, pct:0.35, type:"equity", sector:"Utilities",           stance:"hold", analyst:"[Analyst]", dateAdded:"[Date]", thesis:"Constellation is the largest U.S. nuclear operator and is well-positioned to supply clean, baseload power to hyperscaler data centers. The Microsoft-Three Mile Island deal validated nuclear power purchase agreements as a growth model. Monitoring near-term margin pressure. [Update with your team's thesis.]" },
+  { sym:"CRWD",  name:"CrowdStrike Holdings Cl. A", qty:1,   price:424.99, dayChg:-1.52,  dayPct:-0.36, mktVal:424.99,    gain:97.93,   gainPct:29.94,  pct:0.26, type:"equity", sector:"Cybersecurity",       stance:"buy",  analyst:"[Analyst]", dateAdded:"[Date]", thesis:"CrowdStrike's Falcon platform has established best-in-class endpoint detection with an expanding platform across cloud, identity, and SIEM. The company has largely recovered from the 2024 software incident and accelerating annual recurring revenue suggests the thesis remains intact. [Update with your team's thesis.]" },
+  { sym:"CTVA",  name:"Corteva Inc.",                qty:5,   price:84.04,  dayChg:0.08,   dayPct:0.10,  mktVal:420.20,    gain:45.20,   gainPct:12.05,  pct:0.26, type:"equity", sector:"Agriculture",         stance:"buy",  analyst:"[Analyst]", dateAdded:"[Date]", thesis:"Corteva is the global leader in agricultural seed and crop protection, with a proprietary R&D pipeline providing long-term pricing power. Global food security concerns and precision agriculture trends are secular tailwinds. Valuation remains reasonable relative to its defensive earnings quality. [Update with your team's thesis.]" },
+  { sym:"CVX",   name:"Chevron Corp.",               qty:2,   price:194.00, dayChg:1.11,   dayPct:0.58,  mktVal:388.00,    gain:55.56,   gainPct:16.71,  pct:0.24, type:"equity", sector:"Energy",              stance:"hold", analyst:"[Analyst]", dateAdded:"[Date]", thesis:"Chevron offers an attractive combination of a well-covered 3.5% dividend, disciplined capital allocation, and long-duration LNG assets. Permian Basin production growth provides a clear volume driver. Held as an energy sector hedge and income generator. [Update with your team's thesis.]" },
+  { sym:"EXPE",  name:"Expedia Group Inc.",          qty:3,   price:236.90, dayChg:0.00,   dayPct:0.00,  mktVal:710.70,    gain:129.45,  gainPct:22.27,  pct:0.43, type:"equity", sector:"Travel/Leisure",      stance:"buy",  analyst:"[Analyst]", dateAdded:"[Date]", thesis:"Expedia is leveraging AI to improve conversion and reduce customer acquisition costs across its Vrbo, Hotels.com, and Expedia brands. Trading at a significant discount to Booking Holdings despite comparable travel demand, the valuation gap appears unjustified. [Update with your team's thesis.]" },
+  { sym:"GE",    name:"GE Aerospace",                qty:3,   price:307.00, dayChg:-1.06,  dayPct:-0.34, mktVal:921.00,    gain:650.93,  gainPct:241.02, pct:0.56, type:"equity", sector:"Industrials",         stance:"buy",  analyst:"[Analyst]", dateAdded:"[Date]", thesis:"Post-separation, GE Aerospace is a pure-play jet engine and services company with one of the strongest installed base moats in industrial history. Services revenue (higher-margin) grows as the global fleet ages. Massive multi-year order backlog provides revenue visibility through 2030+. [Update with your team's thesis.]" },
+  { sym:"GOOGL", name:"Alphabet Inc. Cl. A",         qty:3,   price:315.50, dayChg:-1.82,  dayPct:-0.57, mktVal:946.49,    gain:553.70,  gainPct:140.97, pct:0.58, type:"equity", sector:"Technology",         stance:"buy",  analyst:"[Analyst]", dateAdded:"[Date]", thesis:"Alphabet remains the dominant gateway to the internet and is aggressively monetizing its AI advantage through Gemini and Google Cloud. The market undervalues YouTube, Waymo, and the Search business's durability in an AI-assisted query environment. The valuation is compelling relative to earnings power. [Update with your team's thesis.]" },
+  { sym:"IHS",   name:"IHS Holding Ltd.",            qty:60,  price:8.26,   dayChg:0.00,   dayPct:0.00,  mktVal:495.60,    gain:-8.91,   gainPct:-1.77,  pct:0.30, type:"equity", sector:"Telecom Infrastructure",stance:"hold", analyst:"[Analyst]", dateAdded:"[Date]", thesis:"IHS Towers operates the largest independent tower portfolio in Africa, serving the continent's rapid mobile data growth. Currency and sovereign risk are real headwinds, but IHS's long-term contracts and irreplaceable tower assets provide structural value as African data consumption expands. [Update with your team's thesis.]" },
+  { sym:"IONQ",  name:"IonQ Inc.",                   qty:14,  price:28.75,  dayChg:-0.24,  dayPct:-0.83, mktVal:402.50,    gain:-143.50, gainPct:-26.28, pct:0.25, type:"equity", sector:"Quantum Computing",   stance:"hold", analyst:"[Analyst]", dateAdded:"[Date]", thesis:"IonQ is the leading pure-play quantum computing company with differentiated trapped-ion architecture. The position is a high-risk, long-horizon bet on quantum advantage becoming commercially viable. Revenue is early-stage but growing. Sized appropriately given the speculative risk profile. [Update with your team's thesis.]" },
+  { sym:"JPM",   name:"JPMorgan Chase & Co.",        qty:2,   price:304.08, dayChg:-3.89,  dayPct:-1.26, mktVal:608.16,    gain:157.34,  gainPct:34.90,  pct:0.37, type:"equity", sector:"Financials",          stance:"hold", analyst:"[Analyst]", dateAdded:"[Date]", thesis:"JPMorgan is the best-managed large bank in the world with industry-leading returns on equity and a dominant investment banking and consumer franchise. Higher-for-longer rates have meaningfully expanded net interest income. Held as a core financial sector anchor. [Update with your team's thesis.]" },
+  { sym:"KDK",   name:"Kodiak AI Inc.",              qty:85,  price:7.95,   dayChg:0.10,   dayPct:1.27,  mktVal:675.75,    gain:-84.15,  gainPct:-11.07, pct:0.41, type:"equity", sector:"AI / Defense Tech",   stance:"hold", analyst:"[Analyst]", dateAdded:"[Date]", thesis:"Kodiak AI is developing autonomous military vehicle technology under significant U.S. Army contracts. The defense autonomy market is early-stage but the government's clear commitment to unmanned ground systems creates a durable demand runway. Speculative but strategically relevant. [Update with your team's thesis.]" },
+  { sym:"KO",    name:"The Coca-Cola Co.",           qty:6,   price:77.27,  dayChg:-0.02,  dayPct:-0.03, mktVal:463.62,    gain:117.72,  gainPct:34.03,  pct:0.28, type:"equity", sector:"Consumer Staples",    stance:"hold", analyst:"[Analyst]", dateAdded:"[Date]", thesis:"Coca-Cola is one of the world's most durable consumer franchises with pricing power that has consistently outpaced inflation. The 2.8% dividend yield and Buffett's long-term endorsement provide downside support. Held as a defensive income position. [Update with your team's thesis.]" },
+  { sym:"LLY",   name:"Eli Lilly and Co.",           qty:2,   price:947.92, dayChg:-5.38,  dayPct:-0.56, mktVal:1895.84,   gain:804.86,  gainPct:73.77,  pct:1.16, type:"equity", sector:"Healthcare",          stance:"buy",  analyst:"[Analyst]", dateAdded:"[Date]", thesis:"Eli Lilly's GLP-1 franchise (Mounjaro, Zepbound) represents one of the largest drug launches in pharmaceutical history, addressing a global obesity epidemic. Manufacturing capacity is the primary gating factor on a revenue opportunity we believe the market still underestimates in the out-years. [Update with your team's thesis.]" },
+  { sym:"LOW",   name:"Lowe's Companies Inc.",       qty:2,   price:242.87, dayChg:-0.79,  dayPct:-0.32, mktVal:485.74,    gain:66.80,   gainPct:15.95,  pct:0.30, type:"equity", sector:"Consumer Discretionary",stance:"hold", analyst:"[Analyst]", dateAdded:"[Date]", thesis:"Lowe's benefits from a structurally undersupplied U.S. housing stock, deferred home improvement demand, and aging housing inventory. The Pro customer segment provides higher-ticket, higher-margin revenue stability. Monitoring the rate-sensitive housing market for improved remodeling activity. [Update with your team's thesis.]" },
+  { sym:"MAR",   name:"Marriott International Cl. A",qty:2,   price:346.59, dayChg:-1.99,  dayPct:-0.57, mktVal:693.18,    gain:181.94,  gainPct:35.59,  pct:0.42, type:"equity", sector:"Travel/Leisure",      stance:"buy",  analyst:"[Analyst]", dateAdded:"[Date]", thesis:"Marriott's asset-light franchise model generates high returns on invested capital with limited balance sheet risk. International travel normalization, particularly in Asia Pacific, provides a multi-year recovery tailwind. Bonvoy loyalty ecosystem deepens pricing power in premium segments. [Update with your team's thesis.]" },
+  { sym:"MSFT",  name:"Microsoft Corp.",             qty:1,   price:374.95, dayChg:0.62,   dayPct:0.17,  mktVal:374.95,    gain:53.55,   gainPct:16.66,  pct:0.23, type:"equity", sector:"Technology",         stance:"buy",  analyst:"[Analyst]", dateAdded:"[Date]", thesis:"Microsoft's Azure is capturing the enterprise AI wave through deep OpenAI integration and Copilot monetization. The combination of Office 365 pricing power, LinkedIn network effects, and Azure growth makes this one of the highest-quality compounders globally. [Update with your team's thesis.]" },
+  { sym:"NVDA",  name:"NVIDIA Corp.",                qty:6,   price:180.87, dayChg:-1.21,  dayPct:-0.66, mktVal:1085.22,   gain:835.79,  gainPct:335.08, pct:0.66, type:"equity", sector:"Semiconductors",      stance:"buy",  analyst:"[Analyst]", dateAdded:"[Date]", thesis:"NVIDIA's CUDA ecosystem creates a switching-cost moat that has translated GPU dominance into AI infrastructure dominance. Blackwell GPU demand continues to significantly outpace supply. We believe inference workload scaling will extend the AI capex cycle well beyond consensus expectations. [Update with your team's thesis.]" },
+  { sym:"PGR",   name:"Progressive Corp.",           qty:3,   price:194.81, dayChg:-3.28,  dayPct:-1.66, mktVal:584.43,    gain:156.87,  gainPct:36.69,  pct:0.36, type:"equity", sector:"Insurance",           stance:"hold", analyst:"[Analyst]", dateAdded:"[Date]", thesis:"Progressive is the best-underwritten auto insurer in the U.S., consistently achieving combined ratios that outperform peers. Telematics data advantage through Snapshot drives adverse selection away from the book. Held as a high-quality financial services compounder. [Update with your team's thesis.]" },
+  { sym:"PLD",   name:"Prologis Inc. (REIT)",        qty:4,   price:137.50, dayChg:0.09,   dayPct:0.07,  mktVal:550.00,    gain:46.52,   gainPct:9.24,   pct:0.34, type:"equity", sector:"Real Estate",         stance:"hold", analyst:"[Analyst]", dateAdded:"[Date]", thesis:"Prologis is the global leader in logistics real estate, with irreplaceable last-mile distribution facilities near major population centers. E-commerce structurally underpins demand for modern warehouse space. Rate pressure is a headwind but the industrial REIT thesis remains structurally intact. [Update with your team's thesis.]" },
+  { sym:"PLTR",  name:"Palantir Technologies Cl. A", qty:18,  price:141.69, dayChg:0.93,   dayPct:0.66,  mktVal:2550.42,   gain:2122.38, gainPct:495.84, pct:1.56, type:"equity", sector:"AI / Government Tech", stance:"hold", analyst:"[Analyst]", dateAdded:"[Date]", thesis:"Palantir's AIP platform is accelerating commercial enterprise adoption of its AI operating system, complementing a long-standing and sticky government business. After a massive runup, we are monitoring valuation carefully — the business is excellent but the stock is priced for continued hypergrowth execution. [Update with your team's thesis.]" },
+  { sym:"PONY",  name:"Pony AI Inc. ADR",            qty:70,  price:9.58,   dayChg:-0.17,  dayPct:-1.74, mktVal:670.60,    gain:-83.30,  gainPct:-11.05, pct:0.41, type:"equity", sector:"Autonomous Vehicles", stance:"hold", analyst:"[Analyst]", dateAdded:"[Date]", thesis:"Pony AI is one of the most advanced autonomous vehicle companies globally, with active robotaxi operations in China and international expansion plans. The position is speculative and sized accordingly. Ongoing regulatory progress in China is the key near-term catalyst to monitor. [Update with your team's thesis.]" },
+  { sym:"PSA",   name:"Public Storage (REIT)",       qty:1,   price:290.45, dayChg:0.45,   dayPct:0.16,  mktVal:290.45,    gain:27.45,   gainPct:10.44,  pct:0.18, type:"equity", sector:"Real Estate",         stance:"hold", analyst:"[Analyst]", dateAdded:"[Date]", thesis:"Public Storage is the largest self-storage REIT with dominant market share in high-barrier coastal markets. The business model has historically demonstrated recession resilience. The 4.3% dividend yield provides income while we await improved same-store revenue growth. [Update with your team's thesis.]" },
+  { sym:"QBTS",  name:"D-Wave Quantum Inc.",         qty:75,  price:14.47,  dayChg:-0.10,  dayPct:-0.69, mktVal:1085.25,   gain:666.36,  gainPct:159.08, pct:0.66, type:"equity", sector:"Quantum Computing",   stance:"hold", analyst:"[Analyst]", dateAdded:"[Date]", thesis:"D-Wave is the only company currently selling annealing-based quantum computers at commercial scale, with a SaaS-like Leap platform generating recurring revenue. While near-term profitability remains uncertain, the position benefits from growing quantum interest from enterprise and government customers. [Update with your team's thesis.]" },
+  { sym:"RGTI",  name:"Rigetti Computing Inc.",      qty:33,  price:14.35,  dayChg:-0.18,  dayPct:-1.24, mktVal:473.55,    gain:59.40,   gainPct:14.34,  pct:0.29, type:"equity", sector:"Quantum Computing",   stance:"hold", analyst:"[Analyst]", dateAdded:"[Date]", thesis:"Rigetti is pursuing superconducting qubit architecture and cloud-based quantum computing access. Revenue is nascent and the path to profitability is long, but the technology roadmap is credible. Maintained as a speculative, small-weight bet within a broader quantum basket. [Update with your team's thesis.]" },
+  { sym:"SNEX",  name:"StoneX Group Inc.",           qty:15,  price:91.29,  dayChg:-0.33,  dayPct:-0.36, mktVal:1369.35,   gain:947.28,  gainPct:224.44, pct:0.84, type:"equity", sector:"Financials",          stance:"buy",  analyst:"[Analyst]", dateAdded:"[Date]", thesis:"StoneX operates a global financial services network serving institutional and commercial clients in commodities, currencies, and equities. Its niche market-making role in frontier and emerging market currencies creates a durable and high-return business largely ignored by large-cap-focused investors. [Update with your team's thesis.]" },
+  { sym:"SPG",   name:"Simon Property Group (REIT)", qty:2,   price:194.58, dayChg:0.54,   dayPct:0.28,  mktVal:389.16,    gain:19.14,   gainPct:5.17,   pct:0.24, type:"equity", sector:"Real Estate",         stance:"hold", analyst:"[Analyst]", dateAdded:"[Date]", thesis:"Simon Property Group operates the highest-quality mall portfolio in the U.S. and has demonstrated that premium destination retail is more resilient than feared. The 4.6% dividend and ongoing international joint ventures (TRG, Klépierre) add return layers. Rate-sensitive valuation is the key risk. [Update with your team's thesis.]" },
+  { sym:"SPOT",  name:"Spotify Technology S.A.",     qty:3,   price:484.43, dayChg:1.26,   dayPct:0.26,  mktVal:1453.28,   gain:984.14,  gainPct:209.78, pct:0.89, type:"equity", sector:"Media / Streaming",   stance:"buy",  analyst:"[Analyst]", dateAdded:"[Date]", thesis:"Spotify has achieved true global audio dominance with 600M+ users and is finally demonstrating pricing power and operating leverage. The podcast and audiobook expansion expands the content moat. We believe the market is still underpricing Spotify's path to mid-teens EBIT margins at scale. [Update with your team's thesis.]" },
+  { sym:"TIGO",  name:"Millicom International Cellular",qty:8,price:80.47, dayChg:-0.01,  dayPct:-0.01, mktVal:643.76,    gain:128.88,  gainPct:25.03,  pct:0.39, type:"equity", sector:"Telecom",             stance:"buy",  analyst:"[Analyst]", dateAdded:"[Date]", thesis:"Millicom (Tigo) is the leading telecom operator in Central America and Africa, serving markets with rapidly growing mobile and broadband penetration. The company's recent delisting from Nasdaq and transition to a single Stockholm listing reflects strategic restructuring to drive long-term shareholder value. [Update with your team's thesis.]" },
+  { sym:"TTWO",  name:"Take-Two Interactive Software",qty:3,  price:201.93, dayChg:-0.20,  dayPct:-0.10, mktVal:605.79,    gain:129.72,  gainPct:27.25,  pct:0.37, type:"equity", sector:"Gaming",              stance:"hold", analyst:"[Analyst]", dateAdded:"[Date]", thesis:"Take-Two's entire thesis centers on GTA VI, anticipated to be the highest-grossing entertainment product in history. We believe the street is too conservative on launch-year revenue and the multi-year monetization tail. Holding through near-term cash burn in anticipation of the transformational release. [Update with your team's thesis.]" },
+  { sym:"UNP",   name:"Union Pacific Corp.",         qty:2,   price:247.07, dayChg:-2.04,  dayPct:-0.82, mktVal:494.14,    gain:72.72,   gainPct:17.26,  pct:0.30, type:"equity", sector:"Industrials",         stance:"hold", analyst:"[Analyst]", dateAdded:"[Date]", thesis:"Union Pacific is one of two Class I railroads serving the western U.S., operating an irreplaceable infrastructure network with significant pricing power. Precision scheduled railroading has structurally improved margins. Held as a long-duration industrial compounder with inflation-hedging characteristics. [Update with your team's thesis.]" },
+  { sym:"VIV",   name:"Telefônica Brasil S.A. ADR",  qty:34,  price:16.30,  dayChg:-0.27,  dayPct:-1.63, mktVal:554.20,    gain:17.69,   gainPct:3.30,   pct:0.34, type:"equity", sector:"Telecom",             stance:"hold", analyst:"[Analyst]", dateAdded:"[Date]", thesis:"Vivo (Telefônica Brasil) is the dominant mobile and broadband operator in Brazil, benefiting from a duopoly market structure and strong ARPU growth from 5G and fiber rollout. The 2.6% dividend yield and BRL appreciation potential offer an attractive total return profile. [Update with your team's thesis.]" },
+  { sym:"VZ",    name:"Verizon Communications Inc.", qty:11,  price:48.05,  dayChg:0.01,   dayPct:0.02,  mktVal:528.55,    gain:162.80,  gainPct:44.51,  pct:0.32, type:"equity", sector:"Telecom",             stance:"hold", analyst:"[Analyst]", dateAdded:"[Date]", thesis:"Verizon's 5.8% dividend yield and debt deleveraging story make it an attractive income holding. Fixed wireless access is gaining traction as a broadband substitute, adding a growth vector to an otherwise mature business. Held for yield and as a defensive portfolio anchor. [Update with your team's thesis.]" },
+  { sym:"WMT",   name:"Walmart Inc.",                qty:14,  price:127.05, dayChg:-0.21,  dayPct:-0.17, mktVal:1778.70,   gain:336.06,  gainPct:23.29,  pct:1.09, type:"equity", sector:"Consumer Staples",    stance:"buy",  analyst:"[Analyst]", dateAdded:"[Date]", thesis:"Walmart's omnichannel dominance and growing advertising and marketplace businesses are transforming it from a low-margin retailer into a high-margin platform company. International (Walmex, Flipkart) and Sam's Club provide meaningful upside optionality that the market is only beginning to price in. [Update with your team's thesis.]" },
+  // ── ETFs ──
+  { sym:"FRDM",  name:"Freedom 100 Emerging Markets ETF",        qty:147, price:59.37,  dayChg:-0.12,  dayPct:-0.20, mktVal:8727.39,   gain:4421.76, gainPct:102.70, pct:5.34,  type:"etf", sector:"Emerging Markets ETF",   stance:"hold", analyst:"", dateAdded:"", thesis:"" },
+  { sym:"GDX",   name:"VanEck Gold Miners ETF",                  qty:6,   price:97.79,  dayChg:-0.39,  dayPct:-0.40, mktVal:586.74,    gain:139.41,  gainPct:31.16,  pct:0.36,  type:"etf", sector:"Materials ETF",          stance:"hold", analyst:"", dateAdded:"", thesis:"" },
+  { sym:"VAW",   name:"Vanguard Materials ETF",                  qty:6,   price:234.21, dayChg:-0.45,  dayPct:-0.19, mktVal:1405.26,   gain:365.04,  gainPct:35.09,  pct:0.86,  type:"etf", sector:"Materials ETF",          stance:"hold", analyst:"", dateAdded:"", thesis:"" },
+  { sym:"VCR",   name:"Vanguard Consumer Discretionary ETF",     qty:19,  price:366.73, dayChg:0.00,   dayPct:0.00,  mktVal:6967.87,   gain:1767.76, gainPct:33.99,  pct:4.26,  type:"etf", sector:"Consumer Disc. ETF",     stance:"hold", analyst:"", dateAdded:"", thesis:"" },
+  { sym:"VDC",   name:"Vanguard Consumer Staples ETF",           qty:23,  price:227.68, dayChg:0.00,   dayPct:0.00,  mktVal:5236.64,   gain:710.08,  gainPct:15.69,  pct:3.20,  type:"etf", sector:"Consumer Stap. ETF",     stance:"hold", analyst:"", dateAdded:"", thesis:"" },
+  { sym:"VDE",   name:"Vanguard Energy ETF",                     qty:9,   price:164.41, dayChg:-0.37,  dayPct:-0.22, mktVal:1479.69,   gain:342.54,  gainPct:30.12,  pct:0.90,  type:"etf", sector:"Energy ETF",             stance:"hold", analyst:"", dateAdded:"", thesis:"" },
+  { sym:"VFH",   name:"Vanguard Financials ETF",                 qty:165, price:125.73, dayChg:0.20,   dayPct:0.16,  mktVal:20745.47,  gain:7137.92, gainPct:52.46,  pct:12.68, type:"etf", sector:"Financials ETF",         stance:"hold", analyst:"", dateAdded:"", thesis:"" },
+  { sym:"VGT",   name:"Vanguard Information Technology ETF",     qty:68,  price:735.74, dayChg:-3.36,  dayPct:-0.45, mktVal:50030.32,  gain:21722.60,gainPct:76.74,  pct:30.58, type:"etf", sector:"Technology ETF",         stance:"hold", analyst:"", dateAdded:"", thesis:"" },
+  { sym:"VHT",   name:"Vanguard Health Care ETF",                qty:54,  price:278.00, dayChg:-0.20,  dayPct:-0.07, mktVal:15012.00,  gain:2121.12, gainPct:16.45,  pct:9.18,  type:"etf", sector:"Health Care ETF",        stance:"hold", analyst:"", dateAdded:"", thesis:"" },
+  { sym:"VIS",   name:"Vanguard Industrials ETF",                qty:36,  price:331.22, dayChg:1.53,   dayPct:0.47,  mktVal:11924.05,  gain:4855.81, gainPct:68.70,  pct:7.29,  type:"etf", sector:"Industrials ETF",        stance:"hold", analyst:"", dateAdded:"", thesis:"" },
+  { sym:"VNQ",   name:"Vanguard Real Estate ETF",                qty:12,  price:92.01,  dayChg:-0.11,  dayPct:-0.12, mktVal:1104.12,   gain:167.40,  gainPct:17.87,  pct:0.67,  type:"etf", sector:"Real Estate ETF",        stance:"hold", analyst:"", dateAdded:"", thesis:"" },
+  { sym:"VOX",   name:"Vanguard Communication Services ETF",     qty:37,  price:186.39, dayChg:-1.30,  dayPct:-0.69, mktVal:6896.39,   gain:2971.06, gainPct:75.69,  pct:4.22,  type:"etf", sector:"Comm. Services ETF",     stance:"hold", analyst:"", dateAdded:"", thesis:"" },
+  { sym:"VPU",   name:"Vanguard Utilities ETF",                  qty:7,   price:200.91, dayChg:-1.18,  dayPct:-0.58, mktVal:1406.37,   gain:442.12,  gainPct:45.85,  pct:0.86,  type:"etf", sector:"Utilities ETF",          stance:"hold", analyst:"", dateAdded:"", thesis:"" },
+  { sym:"XME",   name:"SPDR S&P Metals & Mining ETF",           qty:3,   price:112.57, dayChg:-0.78,  dayPct:-0.69, mktVal:337.71,    gain:60.75,   gainPct:21.93,  pct:0.21,  type:"etf", sector:"Materials ETF",          stance:"hold", analyst:"", dateAdded:"", thesis:"" },
+];
+
+// ── LIVE PRICES ──────────────────────────────────────────────────────────────
+const liveCache = {};
+async function fetchLive(sym) {
+  const yfSym = sym === "BRK/B" ? "BRK-B" : sym;
+  try {
+    const r = await fetch(`https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(yfSym)}?interval=1d&range=2d`);
+    if (!r.ok) return null;
+    const j = await r.json();
+    const m = j.chart.result[0].meta;
+    return { price: m.regularMarketPrice, chg: m.regularMarketPrice - m.chartPreviousClose, pct: ((m.regularMarketPrice - m.chartPreviousClose) / m.chartPreviousClose) * 100 };
+  } catch { return null; }
+}
+
+// ── FORMATTING ────────────────────────────────────────────────────────────────
+const fmt$ = v => "$" + Math.abs(v).toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});
+const fmtChg = (v,p) => (v>=0?"+":"-") + fmt$(v) + " (" + (p>=0?"+":"") + p.toFixed(2) + "%)";
+const cls = v => v > 0 ? "up" : v < 0 ? "down" : "neutral";
+
+// ── CURRENT FILTER ────────────────────────────────────────────────────────────
+let currentFilter = "all";
+let highlighted = null;
+
+function filterTable(f, el) {
+  currentFilter = f;
+  document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+  el.classList.add("active");
+  renderTable();
+}
+
+// ── TABLE RENDER ──────────────────────────────────────────────────────────────
+function renderTable() {
+  const tbody = document.getElementById("tbl-body");
+  tbody.innerHTML = "";
+  const rows = HOLDINGS.filter(h => currentFilter === "all" || (currentFilter === "equity" && h.type === "equity") || (currentFilter === "etf" && h.type === "etf"));
+  rows.forEach((h, i) => {
+    const live = liveCache[h.sym];
+    const px = live ? live.price : h.price;
+    const chg = live ? live.chg : h.dayChg;
+    const pct = live ? live.pct : h.dayPct;
+    const loading = !live;
+    const tr = document.createElement("tr");
+    tr.dataset.sym = h.sym;
+    if (highlighted === h.sym) tr.classList.add("row-active");
+    tr.innerHTML = `
+      <td><div class="td-sym">${h.sym}</div><div class="td-co">${h.name}</div></td>
+      <td>${loading ? '<span class="shim">$000.00</span>' : fmt$(px)}</td>
+      <td class="${cls(chg)}">${loading ? '<span class="shim">+0.00</span>' : (chg>=0?"+":"-")+fmt$(chg)}</td>
+      <td class="${cls(pct)}">${loading ? '<span class="shim">+0.00%</span>' : (pct>=0?"+":"")+pct.toFixed(2)+"%"}</td>
+      <td>${fmt$(h.mktVal)}</td>
+      <td class="${cls(h.gain)}">${(h.gain>=0?"+":"-")+fmt$(h.gain)}</td>
+      <td class="${cls(h.gainPct)}">${(h.gainPct>=0?"+":"")+h.gainPct.toFixed(2)+"%"}</td>
+      <td>${h.pct.toFixed(2)}%</td>
+      <td><span class="badge${h.type==='etf'?' etf':''}">${h.type==='etf'?'ETF':'Equity'}</span></td>`;
+    if (h.type === "equity") {
+      tr.addEventListener("click", () => {
+        highlighted = h.sym;
+        renderTable();
+        const card = document.querySelector(`.card[data-sym="${h.sym}"]`);
+        if (card) { card.classList.add("card-hl"); card.scrollIntoView({behavior:"smooth",block:"nearest"}); }
+        document.querySelectorAll(".card").forEach(c => { if(c.dataset.sym !== h.sym) c.classList.remove("card-hl"); });
+      });
+    }
+    tbody.appendChild(tr);
+  });
+}
+
+// ── THESIS CARDS ─────────────────────────────────────────────────────────────
+function renderCards() {
+  const grid = document.getElementById("cards-grid");
+  grid.innerHTML = "";
+  HOLDINGS.filter(h => h.type === "equity").forEach(h => {
+    const live = liveCache[h.sym];
+    const px = live ? live.price : h.price;
+    const chg = live ? live.chg : h.dayChg;
+    const pct = live ? live.pct : h.dayPct;
+    const isUp = pct >= 0;
+    const card = document.createElement("div");
+    card.className = "card";
+    card.dataset.sym = h.sym;
+    const isPlaceholder = h.thesis.includes("[Update this thesis");
+    card.innerHTML = `
+      <div class="card-top">
+        <div>
+          <div class="card-sym">${h.sym}</div>
+          <div class="card-co-name">${h.name}</div>
+        </div>
+        <div class="card-px">
+          <div class="card-px-val">${fmt$(px)}</div>
+          <div class="card-px-chg ${isUp?'up':'down'}">${(pct>=0?"+":"")+pct.toFixed(2)+"%"}</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-tags">
+          <span class="ctag ${h.stance}">${h.stance.charAt(0).toUpperCase()+h.stance.slice(1)}</span>
+          <span class="ctag">${h.sector}</span>
+          ${h.dateAdded && h.dateAdded !== "[Date]" ? `<span class="ctag">Added ${h.dateAdded}</span>` : ""}
+        </div>
+        <div class="card-thesis-lbl">Investment Thesis</div>
+        <p class="card-thesis${isPlaceholder?' placeholder':''}">${h.thesis}</p>
+        <div class="card-foot">
+          <span>${h.analyst && h.analyst !== "[Analyst]" ? "Analyst: <strong>"+h.analyst+"</strong>" : "<em style='color:var(--gray-400)'>Add analyst name in source</em>"}</span>
+          <span class="card-wt">${h.pct.toFixed(2)}% of acct</span>
+        </div>
+      </div>`;
+    card.addEventListener("click", () => {
+      highlighted = h.sym;
+      document.querySelectorAll(".card").forEach(c => c.classList.remove("card-hl"));
+      card.classList.add("card-hl");
+      renderTable();
+    });
+    grid.appendChild(card);
+  });
+}
+
+// ── ETF GRID ──────────────────────────────────────────────────────────────────
+function renderETFs() {
+  const grid = document.getElementById("etf-grid");
+  grid.innerHTML = "";
+  HOLDINGS.filter(h => h.type === "etf").forEach(h => {
+    const live = liveCache[h.sym];
+    const px = live ? live.price : h.price;
+    const pct = live ? live.pct : h.dayPct;
+    const isUp = pct >= 0;
+    const d = document.createElement("div");
+    d.className = "etf-card";
+    d.innerHTML = `
+      <div class="etf-left">
+        <div class="etf-sym">${h.sym}</div>
+        <div class="etf-name">${h.name}</div>
+      </div>
+      <div class="etf-right">
+        <div class="etf-px">${fmt$(px)}</div>
+        <div class="etf-chg ${isUp?'up':'down'}">${(pct>=0?"+":"")+pct.toFixed(2)+"%"}</div>
+        <div class="etf-mv">${fmt$(h.mktVal)} · ${h.pct.toFixed(2)}%</div>
+      </div>`;
+    grid.appendChild(d);
+  });
+}
+
+// ── LOAD / REFRESH ────────────────────────────────────────────────────────────
+async function loadAll() {
+  renderTable(); renderCards(); renderETFs();
+  await Promise.all(HOLDINGS.map(async h => {
+    const live = await fetchLive(h.sym);
+    if (live) liveCache[h.sym] = live;
+  }));
+  renderTable(); renderCards(); renderETFs();
+  const now = new Date().toLocaleTimeString();
+  document.getElementById("last-upd").textContent = now;
+  document.getElementById("footer-upd").textContent = new Date().toLocaleString();
+}
+
+loadAll();
+setInterval(loadAll, 60000);
+</script>
+</body>
+</html>
