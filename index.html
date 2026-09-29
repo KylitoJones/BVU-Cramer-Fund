@@ -3,509 +3,826 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BVU Cramer Fund</title>
+<title>Cramer Student Managed Investment Fund · Buena Vista University</title>
+<meta name="description" content="Live holdings, allocation, performance and investment theses of the Robert L. Cramer Student Managed Investment Fund at Buena Vista University.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@125,700;125,900&family=Merriweather:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.js"></script>
 <style>
-:root {
-  --navy: #002868;
-  --navy-light: #1a3f80;
-  --gold: #c9a84c;
-  --gold-light: #e8d5a3;
-  --cream: #f7f5ef;
-  --white: #ffffff;
-  --gray-100: #f0ede6;
-  --gray-200: #e0ddd5;
-  --gray-400: #b0aca2;
-  --gray-600: #706d65;
-  --gray-800: #3a3834;
-  --green: #1e7a45;
-  --red: #b83232;
-  --green-bg: #e8f4ee;
-  --red-bg: #faeaea;
+:root{
+  --navy:#032C54; --navy2:#002C5F; --navy3:#0B3D6E;
+  --gold:#FECB00; --gold2:#F2AF00; --cream:#EDEBC3;
+  --sky:#0089C3;
+  --paper:#F8F7F2; --white:#fff;
+  --ink:#0E1B2B; --ink2:#3C4757; --ink3:#71808F; --line:#DEDCD1; --line2:#EDEBE2;
+  --up:#1E8A4C; --dn:#C8322B; --upbg:#E6F4EB; --dnbg:#FBE9E7;
+  --xpat: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22' viewBox='0 0 22 22'%3E%3Cpath d='M3 3l16 16M19 3L3 19' stroke='%23FECB00' stroke-width='1.6' fill='none'/%3E%3C/svg%3E");
 }
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--gray-800); }
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Montserrat',Arial,sans-serif;background:var(--paper);color:var(--ink);line-height:1.5;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wide{font-family:'Archivo','Arial Black',Arial,sans-serif;font-stretch:125%;font-weight:900;letter-spacing:.01em;text-transform:uppercase;line-height:1.02}
+.serif{font-family:'Merriweather',Cambria,Georgia,serif}
+.eyebrow{font-family:'Merriweather',Cambria,Georgia,serif;font-weight:700;color:var(--gold2);font-size:14px;letter-spacing:.01em}
+.xpat{position:absolute;top:0;left:0;width:176px;height:32px;background:var(--xpat) repeat;background-size:16px 16px;opacity:.75;pointer-events:none}
+.xpat.dim{opacity:.35}
+.container{max-width:1180px;margin:0 auto;padding:0 28px}
+.up{color:var(--up)} .dn{color:var(--dn)} .flat{color:var(--ink3)}
+.mono{font-variant-numeric:tabular-nums}
 
 /* NAV */
-nav {
-  background: var(--navy);
-  height: 60px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 2rem;
-  position: sticky; top: 0; z-index: 200;
-  border-bottom: 3px solid var(--gold);
-}
-.nav-brand { display: flex; align-items: center; gap: 10px; }
-.nav-crest {
-  width: 34px; height: 34px;
-  border: 2px solid var(--gold);
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-family: 'Playfair Display', serif;
-  color: var(--gold); font-size: 13px; font-weight: 700;
-}
-.nav-name { font-family: 'Playfair Display', serif; color: #fff; font-size: 16px; }
-.nav-name em { color: var(--gold); font-style: normal; }
-.nav-links { display: flex; gap: 1.75rem; list-style: none; }
-.nav-links a { color: var(--gray-400); text-decoration: none; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; transition: color .2s; }
-.nav-links a:hover, .nav-links a.active { color: var(--gold); }
-@media(max-width:640px){ .nav-links { display:none; } }
+nav{background:var(--navy);height:64px;position:sticky;top:0;z-index:300;border-bottom:3px solid var(--gold)}
+nav .container{height:100%;display:flex;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+.brand img{height:34px;width:auto}
+.brand .t1{font-family:'Merriweather',serif;font-weight:700;color:#fff;font-size:15px;line-height:1.1}
+.brand .t2{font-family:'Montserrat',sans-serif;color:var(--gold);font-size:10px;letter-spacing:.14em;text-transform:uppercase;font-weight:600}
+.navlinks{display:flex;gap:22px;list-style:none}
+.navlinks a{color:#C9D3E0;text-decoration:none;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;transition:color .15s}
+.navlinks a:hover{color:var(--gold)}
+@media(max-width:820px){.navlinks{display:none}}
 
 /* HERO */
-.hero {
-  background: var(--navy);
-  padding: 3.5rem 2rem 2.5rem;
-  position: relative;
-}
-.hero::after {
-  content:''; position: absolute; bottom:0; left:0; right:0; height:3px;
-  background: linear-gradient(90deg, transparent, var(--gold), transparent);
-}
-.hero-inner { max-width: 1160px; margin: 0 auto; }
-.hero-eyebrow { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: .5rem; }
-.hero h1 { font-family: 'Playfair Display', serif; color: #fff; font-size: 2.6rem; line-height: 1.15; margin-bottom: .75rem; }
-.hero-sub { color: var(--gray-400); font-size: 14px; font-weight: 300; max-width: 500px; line-height: 1.7; margin-bottom: 2rem; }
-.hero-stats { display: flex; flex-wrap: wrap; gap: 2rem; }
-.hs { display: flex; flex-direction: column; gap: 3px; }
-.hs-label { font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gray-600); }
-.hs-val { font-family: 'Playfair Display', serif; font-size: 1.6rem; color: #fff; }
-.hs-val.up { color: #5bcf8f; }
-.hs-val.down { color: #f07070; }
+.hero{background:var(--navy);color:#fff;position:relative;overflow:hidden;padding:64px 0 48px}
+.hero .container{position:relative}
+.hero h1{font-size:clamp(38px,6.2vw,74px);color:#fff;margin:10px 0 8px}
+.hero h1 span{color:var(--gold)}
+.hero .tag{font-family:'Merriweather',serif;font-style:italic;color:var(--cream);font-size:17px;margin-bottom:30px}
+.status{display:inline-flex;align-items:center;gap:8px;font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;font-weight:600;color:#C9D3E0;border:1px solid rgba(255,255,255,.18);padding:6px 12px;border-radius:999px;margin-bottom:26px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--gold);animation:pulse 1.8s infinite}
+.dot.ok{background:#4CD97B;animation:none}
+.dot.err{background:#F07070;animation:none}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.25}}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:18px 28px;border-top:1px solid rgba(255,255,255,.15);padding-top:26px}
+.stat .l{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:#9FB0C4;font-weight:600;margin-bottom:6px}
+.stat .v{font-family:'Archivo',Arial,sans-serif;font-stretch:125%;font-weight:900;font-size:30px;color:#fff;line-height:1}
+.stat .v.gold{color:var(--gold)}
+.stat .v.up{color:#4CD97B}.stat .v.dn{color:#F07070}
+.stat .s{font-size:11.5px;color:#9FB0C4;margin-top:6px}
+.hero .xdeco{position:absolute;right:28px;top:0;bottom:0;width:1px;border-left:1.5px dashed rgba(254,203,0,.5)}
+.hero .xdeco::before,.hero .xdeco::after{content:'';position:absolute;left:-9px;width:18px;height:18px;background:var(--xpat) center/18px no-repeat}
+.hero .xdeco::before{top:24px}.hero .xdeco::after{bottom:24px}
+@media(max-width:820px){.hero .xdeco{display:none}}
 
-/* MAIN */
-main { max-width: 1160px; margin: 0 auto; padding: 2.5rem 2rem 4rem; }
+/* SECTIONS */
+section{padding:56px 0;position:relative}
+section.alt{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+section.dark{background:var(--navy);color:#fff}
+.sec-head{margin-bottom:26px}
+.sec-head h2{font-size:clamp(24px,3vw,34px);color:var(--navy);margin-top:4px}
+.dark .sec-head h2{color:#fff}
+.sec-head p{color:var(--ink3);font-size:14px;max-width:720px;margin-top:8px}
+.dark .sec-head p{color:#9FB0C4}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+@media(max-width:860px){.grid2,.grid3{grid-template-columns:1fr}}
 
-/* SECTION HEADER */
-.sec-head {
-  display: flex; align-items: baseline; justify-content: space-between;
-  border-bottom: 2px solid var(--navy); padding-bottom: .6rem; margin-bottom: 1.5rem;
-}
-.sec-head h2 { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--navy); }
-.sec-meta { font-size: 12px; color: var(--gray-600); }
+.card{background:#fff;border:1px solid var(--line);border-radius:6px;padding:22px 24px;position:relative}
+.dark .card{background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.12)}
+.card h3{font-family:'Montserrat',sans-serif;font-weight:700;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--navy);margin-bottom:14px;display:flex;justify-content:space-between;align-items:baseline}
+.dark .card h3{color:var(--gold)}
+.card h3 small{font-weight:500;letter-spacing:.02em;text-transform:none;color:var(--ink3);font-size:11.5px}
+.dark .card h3 small{color:#9FB0C4}
 
-/* FILTER TABS */
-.tabs { display: flex; gap: 6px; margin-bottom: 1rem; }
-.tab {
-  font-size: 12px; padding: 5px 14px; border-radius: 4px; cursor: pointer;
-  border: 1px solid var(--gray-200); background: var(--white); color: var(--gray-600);
-  transition: all .15s;
-}
-.tab.active { background: var(--navy); color: var(--gold); border-color: var(--navy); }
-.tab:hover:not(.active) { border-color: var(--navy); color: var(--navy); }
+/* FAQ */
+.faq{list-style:none}
+.faq li{padding:10px 0;border-bottom:1px solid var(--line2);font-size:14px;display:flex;gap:14px}
+.faq li:last-child{border-bottom:none}
+.faq b{font-family:'Merriweather',serif;color:var(--navy);min-width:150px;font-size:13.5px}
+.strat{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+@media(max-width:860px){.strat{grid-template-columns:repeat(2,1fr)}}
+.strat div{border-top:3px solid var(--gold);padding-top:12px}
+.strat b{display:block;font-family:'Archivo',Arial,sans-serif;font-stretch:125%;font-weight:900;text-transform:uppercase;font-size:12.5px;color:var(--navy);margin-bottom:6px;line-height:1.15}
+.strat p{font-size:12.5px;color:var(--ink2)}
+.strat .tk{font-size:11px;color:var(--ink3);margin-top:6px;letter-spacing:.04em}
 
-/* TABLE */
-.table-wrap {
-  background: var(--white); border: 1.5px solid var(--gray-200); border-radius: 6px;
-  overflow: hidden; margin-bottom: 3rem; overflow-x: auto;
-}
-table { width: 100%; border-collapse: collapse; font-size: 13px; min-width: 780px; }
-thead tr { background: var(--navy); }
-thead th {
-  padding: 10px 14px; text-align: right; font-size: 10px; letter-spacing: 1.2px;
-  text-transform: uppercase; color: var(--gold-light); font-weight: 500; white-space: nowrap;
-}
-thead th:first-child { text-align: left; }
-tbody tr { border-bottom: 1px solid var(--gray-100); transition: background .12s; cursor: pointer; }
-tbody tr:last-child { border-bottom: none; }
-tbody tr:hover { background: #f0ecd8; }
-tbody tr.row-active { background: #e8dfc4; }
-td { padding: 10px 14px; text-align: right; color: var(--gray-600); white-space: nowrap; }
-td:first-child { text-align: left; }
-.td-sym { font-weight: 500; color: var(--navy); font-size: 14px; }
-.td-co { font-size: 11px; color: var(--gray-400); margin-top: 1px; max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.up { color: var(--green); font-weight: 500; }
-.down { color: var(--red); font-weight: 500; }
-.neutral { color: var(--gray-600); }
-.badge {
-  display: inline-block; font-size: 10px; padding: 2px 8px; border-radius: 3px;
-  background: var(--gray-100); color: var(--gray-600);
-}
-.badge.etf { background: #e8f0fc; color: #2a4fa8; }
+/* DONUTS */
+.donut-wrap{display:grid;grid-template-columns:200px 1fr;gap:20px;align-items:center}
+.donut-wrap canvas{max-width:200px;max-height:200px}
+.legend{list-style:none;font-size:12.5px}
+.legend li{display:grid;grid-template-columns:12px 1fr auto;gap:10px;align-items:center;padding:4px 0;border-bottom:1px dotted var(--line)}
+.legend li:last-child{border:none}
+.legend i{width:12px;height:12px;border-radius:3px;display:block}
+.legend .n{color:var(--ink2)}
+.legend .p{font-weight:600;color:var(--navy)}
+@media(max-width:520px){.donut-wrap{grid-template-columns:1fr;justify-items:center}.faq li{flex-direction:column;gap:2px}.faq b{min-width:0}.sbar,.sbar-head{grid-template-columns:110px 1fr 48px 48px}}
 
-/* LIVE DOT */
-.live-dot {
-  display: inline-block; width: 7px; height: 7px; border-radius: 50%;
-  background: var(--green); margin-right: 5px;
-  animation: pulse 2s infinite;
-}
-@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+/* SECTOR BARS */
+.sbar{display:grid;grid-template-columns:150px 1fr 60px 60px;gap:10px;align-items:center;font-size:12px;padding:6px 0;border-bottom:1px dotted var(--line)}
+.sbar:last-child{border:none}
+.sbar .n{color:var(--ink2);font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sbar .bars{position:relative;height:16px}
+.sbar .bars i{position:absolute;left:0;height:6px;border-radius:2px;display:block}
+.sbar .bars i.f{top:1px;background:var(--navy)}
+.sbar .bars i.s{top:9px;background:var(--gold)}
+.sbar .f-v{font-weight:700;color:var(--navy);text-align:right}
+.sbar .s-v{color:var(--ink3);text-align:right}
+.sbar-head{display:grid;grid-template-columns:150px 1fr 60px 60px;gap:10px;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);padding-bottom:6px}
+.sbar-head span:nth-child(3){text-align:right;color:var(--navy);font-weight:700}
+.sbar-head span:nth-child(4){text-align:right}
+.key{display:flex;gap:16px;font-size:11px;color:var(--ink3);margin-top:12px}
+.key i{display:inline-block;width:14px;height:6px;border-radius:2px;margin-right:6px;vertical-align:middle}
 
-/* SHIMMER */
-.shim {
-  display: inline-block; border-radius: 3px; color: transparent;
-  background: linear-gradient(90deg, var(--gray-100) 25%, var(--gray-200) 50%, var(--gray-100) 75%);
-  background-size: 200% 100%; animation: shim 1.4s infinite;
-}
-@keyframes shim { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
+/* PERFORMANCE */
+.perf-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:22px}
+@media(max-width:860px){.perf-stats{grid-template-columns:repeat(2,1fr)}}
+.pstat{border:1px solid rgba(255,255,255,.14);padding:16px 18px;border-radius:6px;background:rgba(255,255,255,.04)}
+.pstat .l{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#9FB0C4;font-weight:600}
+.pstat .v{font-family:'Archivo',Arial,sans-serif;font-stretch:125%;font-weight:900;font-size:30px;color:var(--gold);margin:6px 0 2px;line-height:1}
+.pstat .s{font-size:11.5px;color:#C9D3E0}
+.chartbox{position:relative;height:280px}
+.chartbox.tall{height:300px}
+.strip{display:grid;grid-template-columns:repeat(13,1fr);gap:4px}
+@media(max-width:1000px){.strip{grid-template-columns:repeat(7,1fr)}}
+@media(max-width:600px){.strip{grid-template-columns:repeat(4,1fr)}}
+.strip div{border-radius:4px;padding:10px 6px;text-align:center;min-height:82px;display:flex;flex-direction:column;justify-content:center}
+.strip .n{font-size:10px;font-weight:700;letter-spacing:.02em;line-height:1.2;text-transform:uppercase}
+.strip .v{font-family:'Archivo',Arial,sans-serif;font-stretch:125%;font-weight:900;font-size:16px;margin:4px 0 2px}
+.strip .s{font-size:9.5px;opacity:.85}
+.scale{height:6px;border-radius:3px;background:linear-gradient(90deg,#1E8A4C,#7BC47F,#E9E4C8,#E48A80,#C8322B);margin-top:12px;position:relative}
+.scale span{position:absolute;top:9px;font-size:10px;color:#9FB0C4}
+.scale span:first-child{left:0}.scale span:last-child{right:0}
 
-/* CARDS */
-.cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px,1fr)); gap: 1.1rem; }
-.card {
-  background: var(--white); border: 1.5px solid var(--gray-200); border-radius: 6px;
-  overflow: hidden; cursor: pointer; transition: transform .2s, box-shadow .2s, border-color .2s;
-}
-.card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,40,104,.1); border-color: var(--gold); }
-.card.card-hl { border-color: var(--gold); box-shadow: 0 4px 20px rgba(201,168,76,.25); }
-.card-top {
-  background: var(--navy); padding: 12px 14px;
-  display: flex; justify-content: space-between; align-items: flex-start;
-}
-.card-sym { font-family: 'Playfair Display', serif; font-size: 20px; color: #fff; line-height: 1; }
-.card-co-name { font-size: 11px; color: var(--gray-400); margin-top: 2px; }
-.card-px { text-align: right; }
-.card-px-val { font-size: 16px; font-weight: 500; color: #fff; }
-.card-px-chg { font-size: 11px; margin-top: 2px; }
-.card-body { padding: 12px 14px; }
-.card-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 9px; }
-.ctag {
-  font-size: 10px; padding: 2px 8px; border-radius: 3px;
-  background: var(--gray-100); color: var(--gray-600); border: 1px solid var(--gray-200);
-}
-.ctag.buy { background: var(--green-bg); color: var(--green); border-color: #b4ddc6; }
-.ctag.sell { background: var(--red-bg); color: var(--red); border-color: #f0b8b8; }
-.ctag.hold { background: #fdf7e8; color: #8a6d10; border-color: var(--gold-light); }
-.card-thesis-lbl { font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold); margin-bottom: 5px; font-weight: 500; }
-.card-thesis { font-size: 13px; color: var(--gray-600); line-height: 1.65; font-style: italic; }
-.card-thesis.placeholder { color: var(--gray-400); font-style: italic; }
-.card-foot {
-  margin-top: 10px; padding-top: 8px; border-top: 1px solid var(--gray-100);
-  display: flex; justify-content: space-between; align-items: center;
-  font-size: 11px; color: var(--gray-400);
-}
-.card-foot strong { color: var(--navy); font-weight: 500; }
-.card-wt { font-family: 'Playfair Display', serif; font-size: 13px; color: var(--navy); }
+/* WINNERS */
+.wtable{width:100%;border-collapse:collapse;font-size:13px}
+.wtable th{text-align:left;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);padding:6px 8px;border-bottom:2px solid var(--navy)}
+.wtable th:last-child,.wtable td:last-child{text-align:right}
+.wtable td{padding:8px;border-bottom:1px solid var(--line2)}
+.wtable tr:nth-child(odd) td{background:#FFF9DE}
+.wtable td.sym{font-weight:700;color:var(--navy)}
+.wtable td.nm{color:var(--ink3);font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:180px}
+.wtable td.r{font-weight:700;text-align:right}
+.wtable td.since{font-size:10px;color:var(--ink3);text-align:right}
 
-/* ETF SECTION */
-.etf-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px,1fr)); gap: .75rem; margin-bottom: 3rem; }
-.etf-card {
-  background: var(--white); border: 1px solid var(--gray-200); border-radius: 5px;
-  padding: 12px 14px; display: flex; justify-content: space-between; align-items: center;
-}
-.etf-left .etf-sym { font-weight: 500; color: var(--navy); font-size: 14px; }
-.etf-left .etf-name { font-size: 11px; color: var(--gray-400); margin-top: 1px; max-width: 160px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.etf-right { text-align: right; }
-.etf-px { font-weight: 500; color: var(--gray-800); font-size: 14px; }
-.etf-chg { font-size: 11px; margin-top: 2px; }
-.etf-mv { font-size: 11px; color: var(--gray-400); }
+/* HOLDINGS */
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.tab{font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;font-weight:600;padding:7px 14px;border-radius:4px;cursor:pointer;border:1px solid var(--line);background:#fff;color:var(--ink2);transition:all .15s}
+.tab.active{background:var(--navy);color:var(--gold);border-color:var(--navy)}
+.tab:hover:not(.active){border-color:var(--navy);color:var(--navy)}
+.tablewrap{background:#fff;border:1px solid var(--line);border-radius:6px;overflow:auto}
+table.h{width:100%;border-collapse:collapse;font-size:13px;min-width:900px}
+table.h thead tr{background:var(--navy)}
+table.h th{padding:11px 12px;text-align:right;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);font-weight:700;white-space:nowrap;cursor:pointer;user-select:none}
+table.h th:first-child{text-align:left}
+table.h th.sorted::after{content:' ▾';color:#fff}
+table.h th.sorted.asc::after{content:' ▴'}
+table.h td{padding:10px 12px;text-align:right;border-bottom:1px solid var(--line2);white-space:nowrap;color:var(--ink2)}
+table.h td:first-child{text-align:left}
+table.h tbody tr{cursor:pointer;transition:background .12s}
+table.h tbody tr:hover{background:#FFF9DE}
+table.h tbody tr.hl{background:#FDEFB2}
+.sym{font-weight:700;color:var(--navy);font-size:14px}
+.co{font-size:11px;color:var(--ink3);max-width:220px;overflow:hidden;text-overflow:ellipsis}
+.pill{display:inline-block;font-size:10px;font-weight:600;letter-spacing:.04em;padding:2px 8px;border-radius:3px;background:var(--line2);color:var(--ink2)}
+.pill.etf{background:#E3F1F8;color:#005C85}
+.pill.buy{background:var(--upbg);color:var(--up)}
+.pill.hold{background:#FFF3C4;color:#7A5A00}
+.pill.sell{background:var(--dnbg);color:var(--dn)}
+.shim{display:inline-block;color:transparent;border-radius:3px;background:linear-gradient(90deg,#EEECE3 25%,#E0DDD2 50%,#EEECE3 75%);background-size:200% 100%;animation:shim 1.4s infinite}
+@keyframes shim{0%{background-position:200% 0}100%{background-position:-200% 0}}
+table.h tfoot td{font-weight:700;color:var(--navy);background:#F3F1E8;border-top:2px solid var(--navy)}
+
+/* THESIS CARDS */
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+.tc{background:#fff;border:1px solid var(--line);border-radius:6px;overflow:hidden;cursor:pointer;transition:transform .18s,box-shadow .18s,border-color .18s}
+.tc:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(3,44,84,.10);border-color:var(--gold)}
+.tc.hl{border-color:var(--gold);box-shadow:0 0 0 2px var(--gold) inset}
+.tc-top{background:var(--navy);padding:14px 16px;display:flex;justify-content:space-between;align-items:flex-start;position:relative;overflow:hidden}
+.tc-top::after{content:'';position:absolute;right:-6px;top:-6px;width:60px;height:36px;background:var(--xpat) repeat;opacity:.35}
+.tc-sym{font-family:'Archivo',Arial,sans-serif;font-stretch:125%;font-weight:900;font-size:20px;color:#fff;line-height:1}
+.tc-co{font-size:11px;color:#9FB0C4;margin-top:4px}
+.tc-px{text-align:right;position:relative;z-index:1}
+.tc-px .p{font-weight:700;color:#fff;font-size:16px}
+.tc-px .c{font-size:11px;margin-top:2px}
+.tc-px .c.up{color:#4CD97B}.tc-px .c.dn{color:#F07070}
+.tc-body{padding:14px 16px}
+.tc-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.tc-lbl{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold2);font-weight:700;margin-bottom:5px}
+.tc-th{font-family:'Merriweather',serif;font-size:12.5px;line-height:1.65;color:var(--ink2)}
+.tc-th .todo{color:#B3891A;font-style:italic}
+.tc-foot{margin-top:12px;padding-top:9px;border-top:1px solid var(--line2);display:flex;justify-content:space-between;align-items:center;font-size:11px;color:var(--ink3)}
+.tc-foot b{color:var(--navy)}
+.tc-foot .w{font-weight:700;color:var(--navy)}
+.tc-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:10px}
+.tc-stats div{background:var(--paper);border-radius:4px;padding:6px 8px}
+.tc-stats .l{font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3)}
+.tc-stats .v{font-size:12.5px;font-weight:700;color:var(--navy)}
+
+/* TRADES */
+.timeline{position:relative;padding-left:22px}
+.timeline::before{content:'';position:absolute;left:5px;top:6px;bottom:6px;border-left:1.5px dashed rgba(254,203,0,.55)}
+.tday{position:relative;margin-bottom:18px}
+.tday::before{content:'';position:absolute;left:-22px;top:5px;width:11px;height:11px;background:var(--xpat) center/11px no-repeat}
+.tday .d{font-family:'Merriweather',serif;font-weight:700;color:var(--gold);font-size:13px;margin-bottom:6px}
+.trow{display:grid;grid-template-columns:52px 70px 1fr auto;gap:10px;font-size:12.5px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.08);align-items:center}
+.trow .a{font-size:10px;font-weight:700;letter-spacing:.08em;padding:2px 0;text-align:center;border-radius:3px}
+.trow .a.B{background:rgba(76,217,123,.15);color:#4CD97B}
+.trow .a.S{background:rgba(240,112,112,.15);color:#F07070}
+.trow .a.X{background:rgba(254,203,0,.15);color:var(--gold)}
+.trow .s{font-weight:700;color:#fff}
+.trow .n{color:#9FB0C4;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.trow .amt{color:#C9D3E0;font-variant-numeric:tabular-nums}
+.tl-more{margin-top:10px;background:none;border:1px solid rgba(255,255,255,.25);color:var(--gold);padding:8px 16px;border-radius:4px;font:600 11.5px Montserrat,sans-serif;letter-spacing:.08em;text-transform:uppercase;cursor:pointer}
+.tl-more:hover{border-color:var(--gold)}
+.income{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.income div{border-top:2px solid var(--gold);padding-top:8px}
+.income .y{font-size:10px;letter-spacing:.12em;color:#9FB0C4;text-transform:uppercase}
+.income .v{font-family:'Archivo',Arial,sans-serif;font-stretch:125%;font-weight:900;font-size:20px;color:#fff}
 
 /* FOOTER */
-footer {
-  background: var(--navy); border-top: 3px solid var(--gold);
-  padding: 1.75rem 2rem; text-align: center;
-}
-footer p { color: var(--gray-600); font-size: 12px; line-height: 1.8; }
-footer strong { color: var(--gold-light); }
+footer{background:var(--navy);color:#9FB0C4;padding:34px 0;border-top:3px solid var(--gold);font-size:12px}
+footer .container{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;align-items:center}
+footer img{height:38px;background:#fff;padding:5px 10px;border-radius:4px}
+footer p{max-width:640px;line-height:1.7}
+footer b{color:#fff}
+.note{font-size:11px;color:var(--ink3);margin-top:10px;line-height:1.6}
+.dark .note{color:#9FB0C4}
+.hidden{display:none!important}
+#banner{background:#FFF3C4;color:#5A4200;font-size:12.5px;padding:10px 0;border-bottom:1px solid #EAD27A}
+#banner .container{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center}
+#banner button{background:var(--navy);color:var(--gold);border:none;padding:6px 12px;border-radius:4px;font:600 11px Montserrat,sans-serif;letter-spacing:.08em;text-transform:uppercase;cursor:pointer}
 </style>
 </head>
 <body>
 
 <nav>
-  <div class="nav-brand">
-    <div class="nav-crest">BVU</div>
-    <span class="nav-name">BVU <em>Cramer Fund</em></span>
+  <div class="container">
+    <a class="brand" href="#top">
+      <img src="data:image/png;base64,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" alt="Buena Vista University">
+      <span><span class="t1">Cramer Student Managed Investment Fund</span><br><span class="t2">Buena Vista University</span></span>
+    </a>
+    <ul class="navlinks">
+      <li><a href="#about">About</a></li>
+      <li><a href="#allocation">Allocation</a></li>
+      <li><a href="#performance">Performance</a></li>
+      <li><a href="#holdings">Holdings</a></li>
+      <li><a href="#thesis">Thesis</a></li>
+      <li><a href="#activity">Activity</a></li>
+    </ul>
   </div>
-  <ul class="nav-links">
-    <li><a href="#holdings" class="active">Holdings</a></li>
-    <li><a href="#thesis">Thesis</a></li>
-    <li><a href="#etfs">ETFs</a></li>
-    <li><a href="#about">About</a></li>
-  </ul>
 </nav>
 
-<div class="hero">
-  <div class="hero-inner">
-    <div class="hero-eyebrow">Student Managed Investment Fund — Buena Vista University</div>
-    <h1>BVU Cramer Fund</h1>
-    <p class="hero-sub">A student-managed charitable equity portfolio applying fundamental analysis to identify long-term value across sectors and geographies.</p>
-    <div class="hero-stats">
-      <div class="hs"><span class="hs-label">Portfolio Value</span><span class="hs-val" id="stat-val">$163,582</span></div>
-      <div class="hs"><span class="hs-label">Total Gain</span><span class="hs-val up">+$57,901</span></div>
-      <div class="hs"><span class="hs-label">Total Return</span><span class="hs-val up">+55.6%</span></div>
-      <div class="hs"><span class="hs-label">Day Change</span><span class="hs-val down" id="stat-day">-$336</span></div>
-      <div class="hs"><span class="hs-label">Positions</span><span class="hs-val">54</span></div>
-    </div>
+<div id="banner" class="hidden">
+  <div class="container">
+    <span id="banner-msg"></span>
+    <button onclick="loadAll(true)">Retry</button>
   </div>
 </div>
 
-<main>
+<header class="hero" id="top">
+  <div class="xpat"></div>
+  <div class="xdeco"></div>
+  <div class="container">
+    <div class="eyebrow">Robert L. Cramer Student Managed Investment Fund · FINC 475 Portfolio Management</div>
+    <h1 class="wide">Disciplined <span>Diversification</span><br>&amp; Informed Selection</h1>
+    <p class="tag">An ETF core with handpicked equities, managed by Buena Vista University students since September 2023.</p>
+    <div class="status"><span class="dot" id="dot"></span><span id="status-txt">Connecting to market data…</span></div>
+    <div class="stats">
+      <div class="stat"><div class="l">Portfolio value</div><div class="v gold" id="s-val">—</div><div class="s" id="s-val-s">incl. cash</div></div>
+      <div class="stat"><div class="l">Today</div><div class="v" id="s-day">—</div><div class="s" id="s-day-s">day change</div></div>
+      <div class="stat"><div class="l">YTD return</div><div class="v" id="s-ytd">—</div><div class="s" id="s-ytd-s">S&amp;P 500: —</div></div>
+      <div class="stat"><div class="l">Since inception</div><div class="v" id="s-inc">—</div><div class="s">vs $100,000 · Sep 2023</div></div>
+      <div class="stat"><div class="l">Sharpe ratio</div><div class="v" id="s-sharpe">—</div><div class="s">trailing 1y · rf 3%</div></div>
+      <div class="stat"><div class="l">Market beta</div><div class="v" id="s-beta">—</div><div class="s">trailing 1y vs S&amp;P 500</div></div>
+    </div>
+  </div>
+</header>
 
-  <!-- HOLDINGS TABLE -->
-  <section id="holdings" style="margin-bottom:3rem">
-    <div class="sec-head">
-      <h2>All Holdings</h2>
-      <span class="sec-meta"><span class="live-dot"></span>Auto-refreshes every 60s &nbsp;·&nbsp; Last: <span id="last-upd">—</span></span>
+<!-- ABOUT -->
+<section id="about" class="alt">
+  <div class="xpat dim"></div>
+  <div class="container">
+    <div class="sec-head"><div class="eyebrow">Investing at BVU</div><h2 class="wide">About the fund</h2></div>
+    <div class="grid2">
+      <div class="card">
+        <h3>Cramer Fund FAQ</h3>
+        <ul class="faq">
+          <li><b>Origin</b><span>Former president/COO of Fareway and former BVU trustee Robert L. Cramer donated $100,000 to give students hands-on experience managing a real portfolio.</span></li>
+          <li><b>Inception</b><span>Class started Spring 2022; first investments placed September 22, 2023</span></li>
+          <li><b>Initial investment</b><span>$100,000</span></li>
+          <li><b>Category</b><span>ETF core with handpicked equities</span></li>
+          <li><b>Benchmark</b><span>S&amp;P 500</span></li>
+          <li><b>Methodology</b><span>Top-down approach — sector allocation first, then security selection</span></li>
+          <li><b>Asset classes</b><span>Limited to long equity positions</span></li>
+          <li><b>Horizon</b><span>Buy-and-hold, 3 to 5 years</span></li>
+          <li><b>2025 result</b><span>+21.7% return · 1.58 Sharpe · 0.76 beta · $165,355 ending value</span></li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>2026 strategies</h3>
+        <div class="strat">
+          <div><b>Global telecom</b><p>Thematic allocation to emerging-market telecoms.</p><div class="tk">AMX · VIV · IHS · TIGO</div></div>
+          <div><b>Self-driving vehicles</b><p>Thematic allocation to autonomous platforms spanning the U.S. and China.</p><div class="tk">AUR · KDK · PONY</div></div>
+          <div><b>Agriculture science</b><p>Corteva plans to split its seed and crop-protection businesses, unlocking value.</p><div class="tk">CTVA</div></div>
+          <div><b>Exits &amp; cost recovery</b><p>Sold NVDA to cover cost basis; exited falling positions in TMUS and DASH; trimmed the quantum basket.</p><div class="tk">NVDA · PLTR · QBTS · RGTI</div></div>
+        </div>
+        <h3 style="margin-top:22px">2025 additions</h3>
+        <ul class="faq">
+          <li><b>Quantum</b><span>Thematic bet on quantum computing — IONQ, QBTS, RGTI</span></li>
+          <li><b>Travel</b><span>Added EXPE, exited ABNB, to better rotate into travel</span></li>
+          <li><b>Metals</b><span>Added GDX and XME, rotating into gold miners and metals/mining</span></li>
+          <li><b>Staples</b><span>Initiated WMT and added to VDC for defensive exposure</span></li>
+        </ul>
+      </div>
     </div>
+  </div>
+</section>
+
+<!-- ALLOCATION -->
+<section id="allocation">
+  <div class="container">
+    <div class="sec-head"><div class="eyebrow">Live · market value weighted</div><h2 class="wide">Allocation</h2>
+      <p>Weights recompute from live prices on every refresh. Sector weights look through each ETF to its GICS sector; FRDM is tracked as its own emerging-markets sleeve.</p></div>
+    <div class="grid2">
+      <div class="card"><h3>Total holdings by class <small id="alloc-asof"></small></h3>
+        <div class="donut-wrap"><canvas id="donut-class"></canvas><ul class="legend" id="leg-class"></ul></div>
+      </div>
+      <div class="card"><h3>Sector weights</h3>
+        <div class="donut-wrap"><canvas id="donut-sector"></canvas><ul class="legend" id="leg-sector"></ul></div>
+      </div>
+    </div>
+    <div class="card" style="margin-top:20px"><h3>Cramer Fund vs. S&amp;P 500 sector weights <small>S&amp;P weights as of Sept 2026 — edit <code>SP500_WEIGHTS</code> in the source to update</small></h3>
+      <div class="sbar-head"><span>Sector</span><span></span><span>Fund</span><span>S&amp;P</span></div>
+      <div id="sector-bars"></div>
+      <div class="key"><span><i style="background:var(--navy)"></i>Cramer Fund</span><span><i style="background:var(--gold)"></i>S&amp;P 500</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- PERFORMANCE -->
+<section id="performance" class="dark">
+  <div class="xpat"></div>
+  <div class="container">
+    <div class="sec-head"><div class="eyebrow">Live · trailing twelve months</div><h2 class="wide">Performance</h2>
+      <p>Time-weighted returns reconstructed from the fund's full trade ledger and daily closing prices, so trades, splits and additions are reflected on the day they happened. Equity positions only; the small cash balance is excluded.</p></div>
+    <div class="perf-stats">
+      <div class="pstat"><div class="l">Trailing 1-year return</div><div class="v" id="p-1y">—</div><div class="s" id="p-1y-s">S&amp;P 500: —</div></div>
+      <div class="pstat"><div class="l">YTD return</div><div class="v" id="p-ytd">—</div><div class="s" id="p-ytd-s">S&amp;P 500: —</div></div>
+      <div class="pstat"><div class="l">Sharpe ratio</div><div class="v" id="p-sharpe">—</div><div class="s">annualized, daily returns, rf 3%</div></div>
+      <div class="pstat"><div class="l">Market beta</div><div class="v" id="p-beta">—</div><div class="s" id="p-beta-s">std dev of monthly returns: —</div></div>
+    </div>
+    <div class="grid2">
+      <div class="card"><h3>Monthly returns <small>BVU fund vs S&amp;P 500</small></h3><div class="chartbox"><canvas id="ch-monthly"></canvas></div></div>
+      <div class="card"><h3>Growth of $100 <small>trailing 12 months</small></h3><div class="chartbox"><canvas id="ch-growth"></canvas></div></div>
+    </div>
+    <div class="card" style="margin-top:20px"><h3>Sector / class performance <small>year to date</small></h3>
+      <div class="strip" id="strip"></div>
+      <div class="scale"><span>best</span><span>worst</span></div>
+      <p class="note" style="margin-top:26px">Sector tiles show YTD price return of the fund's Vanguard sector ETF. "Individual equities" is the time-weighted YTD return of the fund's stock-picking sleeve. Colors scale from the best to the worst tile.</p>
+    </div>
+    <div class="card" style="margin-top:20px"><h3>Weekly advance / decline of Cramer Fund stocks <small>individual equities held that week · trailing 52 weeks</small></h3>
+      <div class="chartbox tall"><canvas id="ch-ad"></canvas></div>
+    </div>
+  </div>
+</section>
+
+<!-- SPOTLIGHT -->
+<section id="spotlight" class="alt">
+  <div class="xpat dim"></div>
+  <div class="container">
+    <div class="sec-head"><div class="eyebrow">Live · individual equities</div><h2 class="wide">Spotlight</h2></div>
+    <div class="grid2">
+      <div class="card"><h3>Winners <small>YTD, or since purchase for 2026 additions</small></h3>
+        <table class="wtable"><thead><tr><th>Ticker</th><th>Company</th><th>Return</th></tr></thead><tbody id="winners"></tbody></table></div>
+      <div class="card"><h3>Laggards <small>YTD, or since purchase for 2026 additions</small></h3>
+        <table class="wtable"><thead><tr><th>Ticker</th><th>Company</th><th>Return</th></tr></thead><tbody id="laggards"></tbody></table></div>
+    </div>
+  </div>
+</section>
+
+<!-- HOLDINGS -->
+<section id="holdings">
+  <div class="container">
+    <div class="sec-head"><div class="eyebrow">Live · refreshes every 5 minutes</div><h2 class="wide">All holdings</h2>
+      <p>Share counts and cost basis come from the brokerage ledger through <span id="ledger-date"></span>. Click any column header to sort; click a stock to jump to its thesis card.</p></div>
     <div class="tabs">
-      <div class="tab active" onclick="filterTable('all',this)">All (54)</div>
-      <div class="tab" onclick="filterTable('equity',this)">Equities (40)</div>
-      <div class="tab" onclick="filterTable('etf',this)">ETFs (14)</div>
+      <div class="tab active" data-f="all">All</div>
+      <div class="tab" data-f="equity">Individual equities</div>
+      <div class="tab" data-f="etf">ETFs</div>
     </div>
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th style="text-align:left">Symbol</th>
-            <th>Price</th>
-            <th>Day Chg $</th>
-            <th>Day Chg %</th>
-            <th>Mkt Value</th>
-            <th>Gain $</th>
-            <th>Gain %</th>
-            <th>% of Acct</th>
-            <th>Type</th>
-          </tr>
-        </thead>
-        <tbody id="tbl-body"></tbody>
+    <div class="tablewrap">
+      <table class="h">
+        <thead><tr>
+          <th data-k="sym">Symbol</th><th data-k="qty">Qty</th><th data-k="price">Price</th><th data-k="dayPct">Day %</th>
+          <th data-k="mv">Mkt value</th><th data-k="cost">Cost basis</th><th data-k="gain">Gain $</th><th data-k="gainPct">Gain %</th><th data-k="w">% of acct</th><th data-k="cls">Type</th>
+        </tr></thead>
+        <tbody id="tbody"></tbody>
+        <tfoot><tr id="tfoot"></tr></tfoot>
       </table>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- THESIS CARDS (Equities) -->
-  <section id="thesis" style="margin-bottom:3rem">
-    <div class="sec-head">
-      <h2>Equity Thesis Cards</h2>
-      <span class="sec-meta">Update thesis text in the HOLDINGS array in the source code</span>
+<!-- THESIS -->
+<section id="thesis" class="alt">
+  <div class="xpat dim"></div>
+  <div class="container">
+    <div class="sec-head"><div class="eyebrow">Why we own it</div><h2 class="wide">Investment thesis</h2>
+      <p>One card per individual equity. Edit each holding's <code>thesis</code>, <code>analyst</code> and <code>stance</code> in the <code>HOLDINGS</code> array at the top of the script. Purchase dates and cost are pulled from the ledger automatically.</p></div>
+    <div class="cards" id="cards"></div>
+  </div>
+</section>
+
+<!-- ACTIVITY -->
+<section id="activity" class="dark">
+  <div class="xpat"></div>
+  <div class="container">
+    <div class="sec-head"><div class="eyebrow">From the brokerage ledger</div><h2 class="wide">Trade activity</h2>
+      <p>Every buy, sell and split since the fund's first trades on September 22, 2023. Newest first.</p></div>
+    <div class="grid2">
+      <div class="card">
+        <h3>Trades</h3>
+        <div class="timeline" id="timeline"></div>
+        <button class="tl-more" id="tl-more">Show full history</button>
+      </div>
+      <div>
+        <div class="card"><h3>Dividend &amp; interest income <small>net of foreign tax</small></h3>
+          <div class="income">
+            <div><div class="y">2023</div><div class="v">$767</div></div>
+            <div><div class="y">2024</div><div class="v">$1,596</div></div>
+            <div><div class="y">2025</div><div class="v">$1,660</div></div>
+            <div><div class="y">2026 YTD</div><div class="v">$1,302</div></div>
+          </div>
+          <p class="note">Total income since inception: $5,326. Dividends are held as cash, not reinvested.</p>
+        </div>
+        <div class="card" style="margin-top:20px"><h3>Ledger summary</h3>
+          <ul class="faq" style="font-size:13px">
+            <li style="border-color:rgba(255,255,255,.1)"><b style="color:var(--gold)">Buys</b><span id="lg-buys"></span></li>
+            <li style="border-color:rgba(255,255,255,.1)"><b style="color:var(--gold)">Sells</b><span id="lg-sells"></span></li>
+            <li style="border-color:rgba(255,255,255,.1)"><b style="color:var(--gold)">Splits</b><span id="lg-splits"></span></li>
+            <li style="border-color:rgba(255,255,255,.1)"><b style="color:var(--gold)">Realized</b><span id="lg-real"></span></li>
+            <li><b style="color:var(--gold)">Cash</b><span id="lg-cash"></span></li>
+          </ul>
+        </div>
+      </div>
     </div>
-    <div class="cards-grid" id="cards-grid"></div>
-  </section>
+  </div>
+</section>
 
-  <!-- ETFs -->
-  <section id="etfs">
-    <div class="sec-head">
-      <h2>ETF Positions</h2>
-      <span class="sec-meta">14 funds</span>
-    </div>
-    <div class="etf-grid" id="etf-grid"></div>
-  </section>
-
-</main>
-
-<footer id="about">
-  <p><strong>BVU Cramer Fund</strong> · Buena Vista University, Storm Lake, Iowa<br>
-  Student-managed charitable investment fund. For educational purposes only. Not investment advice.<br>
-  Prices via Yahoo Finance. Data as of <span id="footer-upd">—</span></p>
+<footer>
+  <div class="container">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAhIAAABqCAYAAADp07g6AABG40lEQVR42u2deZycRZ3/39+q5+meSSaTzExIALkEVBZU0AiGI+kJoAKi4hF/3uCNLroeu67XGsb7Yl1X1EVdFQ9UBjwQFBGS6RyAQGQRDQgCcptjrszZ3U9V/f6o6p6eK3cggXq/XvPKZLr76eep81Pf+n6/BZFIJBKJRCKRSCQSiUQikUgkEolEIpFIJBKJRCKRSCQSiUQikUgkEolEIpFIJBKJRCKRSCQSiUQikUgkEolEIpFIJBKJRCKRSCQSiUQikUgkEolEIpFIJBKJRCKRSCQSiUQikUgkEolEIpFIJBKJRCKRSGRPQXbu40s1bJBYjNtL0QAulkMkEolEIpFIJBKJRJ607IQ1oZDQqs8F2wqYWJTbhMO5HOJ+Rs/KOwAF2FgskUgkEtlbSXZQfDj2G8xRbu5A51txcS7cVh2BJFAZvgu4AwoKirHwIpFIJPKkEhIenTqgB5c146wNq+vIloWELydRpVgWkUgkEnlyC4kgJ8I1akJCRJDoflnD2nE+laGcXCyhSCQSiUQhMeWau1zBGbvT8SBPGHIpUVlFIpFIJAqJrSCAc46nHLQvc2Y3YY19Uk+gAhhruffvj1CpZFFMRCKRSCQKiS1OnErhhob57MfeymtfeQpZZki0flIWqnMOEaF/8xDPPeUdPHjfI6h8Duti6ohIJBKJRCGxRfL5lDRJ0Fqh5Mntf5nPpSgVfVAjkUgkEoXEtIvv6i/ibfkMDI0AYIxFtOLJmMDROQcI1rnatka0RUQikUjkiciOL5dNRcLnXW3yzOf49Jd/yEOPbCRNkpqJ/8n24xwoJXzqP3/Io/c9jMrngrgI4su5aKaIRCKRyJNcSDxKBRjxtgiHtQ7dkOP+dfdxznmfo1LJcLj6CfRJQWYMWit++osVXPDFi6GxAWvtmIjwfpiD/r/zoqEiEolEIns1O+oNqeBRQ/6gB1Dy6vA3cc5JMrORe267m0FnOf3k4zDWPmn8BKy1aK25/Y77eOXrP0bZWkh0dXcnQ9IEU7mCXvkSnGPhG1FIRCKRSORJKSQcoBi9/6/kD9LodAlYAyjnQDfkuX7VrRx11GE865+eSmbME15M2LCNMzg0wktf/1Hu/9uDqBkNOOsAZxGtsdn9lMovpbK6H7qAjigkIpFIJPKkFBKBpZrR3xRpOHABKj0CjAEUIbvl1dfeyJmnn8h+81qx1iITcin4XY+qtX9vmFP9fU5+Dr+Fo5Ti7H/+PNdduQrdMsvn0gCLKDAMU8nOYnDNnbBMwZIoIiKRSCSy17OTWZKcgEDTSXPJp9ej1OEhraVSWmEHhjnm2KMoXvlVZs1s9F/4BEzMZKxFK8V/fety3v/eL6LnzMKYql+EM0iisSPn0r3mIliqoTOelhqJRCKRKCRqVgk6Da0nPR9JiwhpuK7oRGO6+3nT21/BxV//MNY5VJ2QMMbg9gaDRLg/UUKWeQ2Qz6XjRMS1XWs5/ZUfxIrCKak6mWZIkmAq36an6x1QSKCYxWYXiUQikSgkxhEmyDmL/pk0f6G3SqBEBLKMpuYm1t/xcxob8zUxMTQ8ykvf8DE2bOhBpwmyRx/O4RClsKUyaWMDP/6fj/L0ww7EOoc1liTRfOj8i/jSp79Nsk8rWZbh/SIShcluQbslbCwOh4vFY8MjkUgk8oRhF2W2LBpYqunr/DptheNQ6ZtwmQVRzjlyuZS6LAogPsLhj3+6m76HNkCaQKm8B8stAWtBKX7ww097EWEdSklNFeRyKaJU1fHDghKs2UBF3kBP1yA+1DaKiEgkEolEITHlkr1q4cj0L8i5N9UbO6bLJTGjMc/mxjzJjAYOPuBQlBL2xLQTSglmpMT73/c63vjqF2CnCGmtOlxW/+fTelZuYKD41ygiIpFIJBKFxLYKCmXz2xoM4hzYSoXmWa3c9Ptv0NiQr2XD3BOtEvk0qUVnbLspY68JSYk8+VBQUDAo0OS8ZTG21ScHSzXcGwayQ210AI/9a08SEoDsUEE1NuRrDox7KjsocqrupLukcHdK5EX2ZGQX1Kdsx+eClaxop7hGbCu7pj62t04ew2frNEAQD2tjve8WEfHk6V/JnnIjPoIj2XMtEuwRoas70QCXKehScdW55+rUx/AaAliaFx5Okj8TJc1Y7qdn9FK4cSROKrt0ct/TytHXbVv7KQjPxyLg/kBP8drYBXdpGVtmLX4aafJilJmF4z66uQyKo0/E/rXHCInqgVd7yIS9hzbOQtgz2rgdaUL3sT7ktMNS89NYpkJWzSgo9pjVywLtzZ+DAiPTdICjgHudfx9MCCWuM6MeKvCXupca6z4zz0GnoaVwEkpdjkrn+WBtB628CXfqK+i9dvOTW0wUkjFz9Jb6WrVcBwXWZlOUV12fnapeG6ery927Sp5T+DiiP4VSwV7iYE7hE/QVPxXGhujPtbNlPPuEJSTJpSg9F0n8Pn5r+Rx6Fr4EbnzCiYkk1vteoW4d+xTmY9X1vvHNH0bQTDabOhxje53iFI4MlvQC94G7ETd6JT0dD4+7duTxHXRaC/sjchWiZuOaB5DmiXUbtsc2WmgWnGqB7N/o5ke10Ov5iw4mU9dAM7BpFJmfjGsTInOw9j7Moy+jnz5EPodK5+HKJZxocI4kfzK2dB7wmSdn4rQwibbJ/4M5FyC2BzffIFOOk9VynYWbNYBbeBo9Nz7M2InIjqZCG3m5ClH74pr7keakVq/OGR/zrvbB2Qvo5gu7ucx9W2s59Vmo7JPgwGZlfz+SoNUnmXPiFfR13EZ0Dt95C5TOfQGt52IrZZyo0L9OoY1/oZvPP9H6VxQSe0fDFDbO20jLxi+g5T9QuUNx0+xQqLoqdRYkjAeiCjh3Drahn7YlF1MZ6WDzjT1RTDyuWEDomfcorRs/CXwWnT7T1+00c4EzgPkK5eS3vu6KBhDWqwdpdRci8ll0OmPsGgJKgcn+D8cX6F/dR+vJ+yP26biKA0nDxGFwxuJ47uMmlh93Onxfq+R+S1I+GuT96DSZtj6UBpvdgZNl9Bz4D7hR6iZgYbDYQ27x5xH5NDp9Fs6OPab/LDj7AzL3M18Gnbtx8l4q0AmqchgqAWcMSK42UIhyqOTpwG2190Z2rB3PLsxBcRjWVPuXgGQ4a7Fy5HZci71lbFax7vcWMdFp6O26iNLg0VRGvoI1Qzhr/eBv/Y81Q9jSJZjy/2JKl2Er9xLODMNmGS4ziJqNSt9L0vA7Zh3bFi4f95Ie77rt6bqcbnM0lfKnsG4UZ81Y3RqDcxaT3YLJnk131wcYuK67tvIFB8WMnq6vUjbHYMvL/eddhjU9ZKPvo3v5c+ntusq/d3AAGPYq01WvYUEEYehxGH/cnlMXODZf00NP14dwlaPJKlfhXKiDWn8zONdLufwxNv3jGHpW/DysLt2Ea1l6Vv6CTZuPoVz+OM70+s9ag610YexJdHedTX/x73V1uZuf0A6Hia2u7WBBFM4Nxu64C+h/eAQYxacZCurR+TIWSv5NG2TLljH2qq3nKCT2KgoJAzd307vyA+Bu97kqakscBbKZTQ+9he4Vb6O7aylJz7Ox2VuAzYhoCCY2Vy6jc88jN/N8//nzo5B43FmqoThKb9cnsLYT0ZrqKbveoqTADtC78nb/3qmiAZbmGFh5N4arEK0RlYC9kJ6VX4Vl4j+3TNFz02awv0DldGgXgugUZwUxP/LXOtLt/ucNq/d9Ck173li0NEfP6nWI6fD3JorqtoUkGuyt9HV9FtaVw7Ns4TnXVujr+gzW3uTrVTSa8+jtWuO3ph6LtL6d3vpl1E0YczeSVr9XkDTBZXeRpTf5RUVn3NbYcSGq4G8l4FdITvstaBFE53AGxF7i31p007eXDguFhPkvmLm3PHjc2tirCGZsFiRMF/436+AmBp7jHbfWdw4B32N2wZFLvudVMcrXu7HA6aHhGsbMy7KVjjKdCW5b38801xBvUq0q9XkuDGg7OqFNZRoUWKrGvqPd7oTTqfjJed1U97wDq+xO4yeVdovt+i7OvTFMXoBonHGIKjDnpGfT1/mnKfZYBS6tsN/zZlCS1wFgs2GoXOLfuy58BwJOSF74H1RGm1DyKpxLcXTj3CfpWXWNbyNbdbibps5qk9YWyiDce8upB6HMt7DuebSevJie5eu2w9kvfGd9fe6SdlPFn2SMmTn9MLlU+y2ALe11dxpAw1Jg49g9GZPznz/STj+pTPKTqVsAVst9m5/X9+3+Yh8zl7ychuwb4Bb4l7L/w7pzvZXr/Kp/xLaKG7eN44Hb9nrcZX1/iv6PeKfk4HS81f7dpca3rSNdGDOmeyZfzq787xiXQ9QrQ//aSGY66F+5ItyHmfx9SxV0GmaduJBcchFZppj/7IWs/9MQk7f/tkd8bs/ndqjMo5DYK1XvWgPt09iYSnZswggDTkNfJ1nlfJQ+GGcdiOCsAPvSuv7p9HCH7zQ7NKnuzIA91nm8iX8aM18HTOv8tVRPGIDcmDlxqu+pHzyK4ye2rVILoQ0e+h1uyyvR7R0MiwaKkCvcgjF3ovQRPjc7CpxFJRrnXgv8aYrvUyCGkROfhuZo/9Syjk3pPXCpDabsEEXwPGH92mHgHTQVPkq+kqO7bzOsG6QaurZFK+ZS2XKdjRu0pq6HlkUnoLIfoNLDcAYyGnz5rpOttxfqJu9p662+be0oFlF2KyJBbVsf6bTj+qxImMiWBUtHQU0xWbkpBRjYKco9THwdW+kng8LQir8wxBJmLJrPTOXYuHz92CKiw+5kv96Oz9X3uynrScEytiAsQ3seFJ9Ua7pymzjOFO229dsOx/Y5nY5FTnVfPwi8jaaTPkK+ISXZ0E/3lIKAmqWLTkPr4jdB8nWUbsKZDYy2pEy9BfgY1E8UEpH6AWz9gjJzm9eDHOz3xKvxtaLROrebvntrDnRh5RMG49mLDiZRRwP74lQZK3eTmlvZ2DFYJyjsNIM52/Y9hSbmygKMPB2sQ+R2egb+CJ0Vtsnhry6Edp9CE5YjsHIYijYcJZx9BMxf6F3zYN19bY8joYOlmo2dg7S1X4aoj+OMCwsp8UfQ8v+g0AGdU4eQqdxLUDrBOXDZ92FVBq/WYQXkJoUZDhY3MTixrLYkpDrCJHZantbhQyE5AuX28dOu9CLZJpzcTc/gelhbmbwa7DS0FN6O0l9FSSMuy3BoLEPbYIlw48q1qdBGgzoS5w4EZmPcZnD3Y0bWMXBzd52g3tP3mu2WJ7da2ftnbz7hMHLpsVjmgjwa8kA8FCa+aepwUj+xDK96lOFt7q+7YWwI99RYOICZHIPjACwZSu6jkruVzdf0hEXEdO2yrj2v3Vqb9edBzX30MLLkWLTdTPfKX09eqYd7mn1SCyr9JxSHgJuDYwihD9zDKO5kY3Fwm+pxcPXGLfev2rimmLv4C0j6b96lomLBVegfHGLnI2jqrc1uJ8ftKCSenCxT7NOVx7r5YVEq4SwQhzMb2Dh611jYW+ENiP53cBtxTtcmL8QiKsWZP9Dd9YFayGFb++sR9W/genAuGTtvXQxInsx8k77iD6foQOH/hYS5+jycvBbMMxE1A0n8S8o4rDxC65LfYrLP0t9xX12n8190wNJGhjecieNgRM9D7BxgDk5aERJE58B8H1f6CeQ/Be4skINItID2nutzm/+KXfI/9Kz42hY6kd9Oap55DIm8CpHnYHk2wlwSrX2cuAWXgVPDtJ38J5z9CT1dF9aZibevc5a5krz5SNjeCOZS6xB1EG32RLpZPn7F3Wk5/LQ8vaOv8UOsGQETkgwFi01b4QjQ7VizL0raEObgpAVcs/exsUNY8zZ6Vz04+Z5D2bcu/ieU/hfs6MmIPhClGpDgIiA2fMINMnfO/Zgln6R3xaW19gKO1vbPoZIPgwFnDb7CIccFtC3ZCK4J9Exctoqe4ufq2o6CQo457gUkyek4ewxwJLhmVCKIBmV8VEsys4fcyTdgKt+mb9Wv9sjcCK7q4NzhaD35SMQVgPng2hBm41wryKxQL5vp7nolrYWTkORDYE5A9Ey0Cu3ODjL35OvISsvoW3PbhOf19dhaOBUlz8YxF6EFxxygDWhAkgRrbqBnxQcBmLNoMTr5GkL3+HGgrjuIq4Buxppb6Ol6FyxspLXhMpRqAVfCoYPwrYCaibMbaRx9NQ/dOFprV371fTbYY0HNQiWgrK/DtLKJfU5egc2+RPfKmydYDUNSrSXPAFmCs/MRaQU3Jzzb7JpwLV35cgYPH6D1gA8im16FS59BLjeDbPRXwK8n5dRpXfwKRL8Z7LEI85FkbIfRGXAmw9JHW/v/UR56jRes1a26wjNRshjcPJA2HHMQQj0iiCtTyV5F/+reMeHSYZldmIOW7yHpWbjMeD8VpXDSSlvzD3BLDEIDombhSt+kW19JK1cjeibiRmtlPV4TWYRGrB2gVH4dQzdsYEZhPg1yKSIpQvgcIBic5MBpnHkzPSvv2N4x6wkpJJyra+9PNt1gtB4zY85T0FGmsugU0tzB/nh3UUAGOsWaK3wmw7z3uaioG0jtg6j86T5stG4OlASMDYNTu4WikJnrSaQPnVsyPkQuRD2p0d8Fc2FdOFkY5JpPOIxU/RBJjkfCNjKAq/QCLYgScE9B67eh1Om0Ln4zPR2/r+v40POPOTQmF5E2tvhJvH7rMizOTDYKubeRpMfWwu+cCdEKohF1JFr/Ny2Ln07vyvdM0YFC/H3zN9HyZu/gWnXClhARU/4z4g5G9CywMxC1EJKFtC05g6zyWvpX92+7WTGsoge6biJdvAqda/eDi2hwBkk0xrwRuG7MITIMZH3DR4I+PFRAF93X3+Xvv+q7ICej819HO2r1JXWdxTmLUsHBq7bVFcqgw9JaOAelvookzejwkssewlYexlfiLISjEGlCJUdB6RjgUpjnmHn8PBrzP0Xll2BLxrdD0bVxT+VeXNtVkRxUBsNKs6CgaGk7YSbI1aj0BF/uIRRWNNhsELL7ETkqzB+tKPViVP7FtBX+k+6OD1Kf32FPsxo6dwZp45e8KJiiXqwdopX/QtRbUdoLdmeBLAN0KO+XoTmB5sIZbO64ZZLoFvkguuk0XDk0/bp+Igm4rFKra6XuBfsQKn+G71NTuEyIBlvpx7mL/B9uLEH7TYic768XjEGSgCkPYvk0D91YwufXmEtO/hedvHRcN3OVPnDNoY/NBb0UOJPWxefS0/mDMTERBLSzp5PM/EoQpXVjD2MTf9J4Om2zzkOlx4H1iwdnDKLu92/qUrDMwpWNtDZ/C61f7/+ug3Ao/xUr3cFRfX9EHYSSuVh7Kqp5NtAdziwxKDmDZMYX/Ocm7hAFt4h8Lje2Fdlpmbv4OTh1OTp9KraS+Tm5OuaqRlTuNTVjh6Rgsy4o/gq1+FLgq6i0oVbW43YvFFjTg7LvZuiAbkAzzCby5hIkuQCVm4ELXUwSsJUMaz9Ez6Z72IFpc6+P2nCAtY4sMxhjqa65JYiI2mvWTnsK6RNqK2Nw42bf2YoZdJZpKTwTrb88VlzOIrkUV1mLzT7BWC4Cx+YV99DddQbZ6LtwpgfnfMioM+VwLPxwbRUF0L/qPrpXtFMpfcV30MxMeP+Es+GdwPmOtlP3J8ldhUqPx5Ur/ntsPyZ7LzZ/CI6X4ex6cAZbKSHyFERfxqzFT/OD4zK/2hhe9Q9ELSQb/im2XP3+6j1bXNmiZAlJ7lhsBWx2D8bciXPKB/Lj/PsqGUn+PNraX1bbXhjbMw3pVs1ViChcpYTLyogCa7uxnE33+gVY+3ys+ROIw5kMV66g0xeh1RfZPue1MMjgEK4c/zFROAtKTmbWKW01k2jNsCqvR+l8OPf+1+FZpCZOuve5CDv6OkzpTzjj6soqCyuhQSSxk/eMscxdvAilvwPSjKuUcTbDVj5D2vQMuuedSLcr0O2ei7Nf8JonsyAjNXGU5PbHSQ5TWhfKfoIALl2PGf0Npnw1Zvg6xK72LxQtLNV+z1luAQFTGcWZih8A7W1gT6Z7w3Nx9uVALzjrn8kYVP4DzFn8Jl8HS/ec8U5kTAT2zv0KduRsbPkvfhKq1ktmcBWL0IBO34lKElx5AFv5E84+OpY0xjlspYLS+5DyHQ4uNMD59apayGa+jvLmz2GyPlxm6+q+Mr5vAz3Fh+guvphs5Bxc9ojvn6bu/dZgSr9naPRIeovfqYmVnq4OGD0GY27DkWHNKGb0uwxzBL1dX4BlMP8FM8lJJzr30lBHGc6Byb5ExT4VbDuOvyA4XKWM0IhKvktL4bQxx9XQnnu4kGz4HGz5Ti8mKpW6McjiXAWdfBedP65uhRkErB3wD7vRC66Wpi+R5F4fni/D2b/j3Kls2vhs37ZXnMho6Vis/avv424QstBX1lb71wVkQ2/EVEI9Vsb3L2dHkaoC3+DLzLpnI+pRbOXviCR16g6cLWFGr8WMXo0p/xYzch2WOwDHppXfwpYXYCr/hyO09yz86wy2cg+jHMmmVT8bO1elmNG76n+QynMwlZU450ORTXkN4p5HT/ErPgpp+wW32psFhDHWL2aUkCQarZVv0c5hrS+H2mtKISJebDzxBEV1/zxP2/zTmLtkMa2FV9FauAAlRVRyuN9rVxrRClNejtGvCCa2etmsAKG3+D9g7vbhg1V5LsovA8dVgZ8QRstfxrqKnyBEjf1MzE9xvpd3rvINdO4ZuHLFr6hUQmY/Tk/xa/RcPUj3iiuw9rwQKpfisgyVNJPKRbAgDYOk/9l03V10d70W616LozR2r6L8hKogKy/H8GIaR59Fz4ajsZwG9NX5HlSXeP/s77M+9DE4xPWs/AXG/BpJ8kiSw5lbMOVT6FnxA1iX0bPyDpxcECwpfilmKxZRb/QmWOy297dO//0214nN+mqix8+iBpUeSGrOGluxd/ptIly7/1ylh8z8bty1qnvSm1b8BLt5McZcgehqCKAPSXQyxf2FsrDyYV8ftuxD2ewDdBc/zqNXDvvvKGZQzEjyn8FU1iKJGsuGtlTT3/4nulecBPbr3hDh7ITVwLl0d72Y7q7T2bT8VLpXfnFs3/lSb0qqpB3Y7CFU0oDolCy7mGzjEm/6Xlehu/hLjFkZVrRSvTBanesF0aXbKegeC4709bJxxQ+olBfhzOWhXsKyXwSUxpphTOXzYBfQvfFYMnck1vwE0dW2m+IqFqWPZsge500aS3Wtn/Rf1Uvvyo9iSu041xu2lIKj57i+HZazhYSeVRdjs4/6ccBJsIop3w5cLyPXP+L7Y3XiWarZuOZPkJVQSQJuBd1db2Vk+cNwZA46LJXSMm9lK5fBCaITrL2Anq4P0V/sY9PKVZjKa7GMhiW4QUSj5JshTLjOTFrM6Om6mNLgSVj3MyRJx8oNhagU0QmmdBmmfBHO3o1j2K+n2OTfu65M88LDUfJWbNmGFXqCzb5Pd9d1Po158MMYumEDhn/GOfFbp2U3yX+nu/gjsvIirPsVktSPn3p8/y9601PPqovZdN2JOK4Nw2m9abeHpOcsurtOp7vrDN8vir/0Ly1I6Vm9jnLpNTg7MtZWCHWk2kiy/X0bqF8YLUjZtPouMPcF5+1BJFvKxhW3hVDkHWKvFBLWegGhtb/9e//+CN/47q94x/u+xBmv+XdOOP09LHzRuzn55R/gtW//FB//3HdZecOfGBkpebERBMUTTkhAK8IvwC1H6U50+gFEWnEm86ZD9wCV7L30dJ1C77UPTBH/Xh0QcmMOmVvVc0KSzNy6gg3x0S2LF6L0y3AV72QpWmGzO+jb+C3fkAvKdxJ+iclu8fkTEFzFoJIlzG5eVDdIVrfnBMPvgaGx+3YW0YK1v6Sn6wX0rvgND904AuvK9Hb9DmtuCJN+GJicAg5gytDHEElg9DKcG8WYb6C72/1+9FLt73mZguwfdXbM4IuS5HH2wHHWjW1o4rBM+ToyN02aeH01vSR4c/lBtcU8H5U825vCWU7/6nvH5WoYq4ccvWv7EW6ps29voV11eIuAyAFhSadx1iJ6f+YWXjN2v0s1LEhZ//shnH2vX5HRMKkMpxQrgAud2UcxTLwNX9+br+nBmM/h3AiZeSe9K86h//beUAd+wFSyakwriMIZBRzDrAcOHYtc2RNZmqN/dS+uev9StzJlFJe9nJ6uj7Bp5d2wNKO/2IezX8O5rM552oJ2OH3WON+YWl0WEvrW3IawPnzETd/+giXIuCuw2cNQzVkjGpeBqKW0LH6Wd6hdpmrbDq2LXoFKjsNWLM78l3/tyJyfsJcchqh3BwtIEsKaK2j1zVCHCSxI6V15O84s9yIJvx2h0kMwvN3fQ6Fu3Dotz8DN3QjL/a6tjN9TcNm76e5aSk/xXLobnoVTz6BSXgxcVmsLae5IROVrk74zoNQraC0cMOYwvMC37/6u6zDmQkQ3IGqK8jstT//qXsTeGO7HbdWHrc6xYRKVBj3162srPq/Q9X/Fus46Qen3UCSZQyL/4RdC1YXRMgVrK8w96ekgr8M5h7O/YdOqR+v8mHaIvc5HwliLVr7sf3nlKi78zs+5fu0djGzs9akR0gTU2DhOZsAYPjNnFk87ZH/e+JoX8ZbXn8FT9puLdS6sSZ9AnhSSqPG+ChqcDZuWbh+0/CttS16ItV+nt/Pqcc5LdcW8XcYhySxsY/CHuPOC6TsM6gqcuT2Y1Ca8d/HtkD6vdjuiHIl5F7C8zmrgV6u6sQlKEzYKBYR7w0SX89EZBQ1FizA4ed+3Gr5VnOAgGZy8+q+7lZbCsfQW/wzA4afl+RsZPCNsf0zMpSwuGEXmbn9FVide+22cfeHYQCIqWJdOpe34I+i+4U6/JNBnIDr1j22u2sKE6c2wQuO238u9CmmWMYGEgGvAqR/TuuRYlPkfNnXe7a+9VNPbeT2ti16EU4+E8tvebYUpHL1CQqVUfsDwaJGhNX8Jq+HQBp4hsJ9FVg7UORlICJttJM21TPbX2bOGtnC/MyaVhbhhSuqPYbKWmu+Dyu7HqT5Eza0TmoK4+VOL/qK3rrlisg1yygKa/tW9tC3+AZJ+JKTVDr46qUbsud6Kt05CiDGg3ogkDlv6Mz3DK/w2aMGG2aaASmeGRYQ3OLjKGjZ2/X3SmCP8FNSLgwevCo4dr4DC16DLBPHkYKTqIDBzchuyYIeupJZ75+oSPTwMPDzOtwhRiLixrQ/jkOTZiF1BW6GD7twv4Pch42shIXEfoeKuobFl02Tfp5Hp6nFr7X0H+kXwVcP+JzZ7g08uFyzFruIQ/TJaFx1HT8dN/lm7ghOSOhOVpN5nRP/IX3feTpnp9yohYYxFa8Utt93FBz92ISuX3+zbU0MOPWcWIuK3Ler9WxBEIMsMd9/1AJ/42Ne58KLL6PjY2zj3nJeGrTO3t4uJkBvCDWJLF6JkGEeCs3mQpyDqRahkHzCNiDoI5CCUPpPW9m/T0/Q+uHJk967UNohXu4UEkcPDinrM9C0EB5+FDcyfpRgcnEmSzMSq2XjRL1UnAIRn+QmkozLuniWbxsTkcowlgBkTH05K2/8cyxS9HX+u/fdvV5fGCS97YmlKG5+1OyAkQlKnLFtOotejk/khFFTAGXQ6k0r+RcCd7HfmDEqDLwgrsEfIuZAKe9oMha5u5bZ1ixNrK9j2UXS9F6vzwkslH8C6c2kt/BDM9+jp/EMw2V4z4Trbu3M59d82FoeoHW1aXS2urRO/7WbLPgl7eD+WKetFSLMZ0LmJeqfRxGVkU4l+2cJCoMMi7dtYFkf6+i/ri8ln54FqqoWPe2fjVzK78DH6O/024cwTj0LkdJwRnPtebdVcNeOLe+WYR7S44Eh6h6+7hY3sN1cY2tSATmfi5KDQZXUQz6DkBGbZpzIgd9eVQ2gbbur2LDOaqOXeqU9+1WlrixFjemvWj9pYmlmUPhzSH9Ka3QmFiyiVL2GouAEf0Plr+qZtr9vav7a3f7hJdenHpNtpbb8MlbxmkmO2mH8HXhm2UzJYprBdryMRR5bdTa9buZWx4oklJLLMkCSa/73kt7zvA//J4OZBVPPMmkOltRYVFoAmbI8q5f9vjRcT0phDZjSwYVM/7zr306xY+Ue+9/WPMKMxv7eLCd/4xW2me+VHJzW41pOfgs2WofTbcdbWOnOSezttA2108yp2axz5oC/YJuYgsr//+up+ngF4NW1LTgC3DyZrprGhCUcC5P22TDDDOmtxzKW5+SA2s63exW6LE9P2iIjqlsd+C2ZQnnU8uCU4aUXR5DcQZP+whSsTJjG7Y3W6TLG5o4e2xVeAelvIRqprLyveDPw3I5sXkCTH+hMd7U38Y/XGXRfyGDzklVsJ6tjaSrV6E65iETUDpd+Jzd5K25LLsfbT3mqzc+bSKRgLI551Shs5cxoizwbmgG3CSQYcEYxU+gkVszXJCXaXrHC3QpioBjr+Sq79qjBRhcgCY1DJfHR2NvBVAPLp2ahcDlvejC3/om7V7MIi4lnB1yIky8tA5Azmtl+HYy7lwRbShpkIKU7yOJvVQhl9gxcSexhw9zZblsYvMMZbGKtO46lei7X3oPShIbItiBfr45m1PgKSr9Cg3k9D4Zt08+XQrvecU1KtfB5llo7Phps5RJ/lrRKdNwPQsnwhkjwrWE1+CMXBXdFP9wohYYwlSTSf/eolfOyjX4N8nqS5icwYbzkWh6koTEn7as1bb6AaUWAEcg7J+3BGYxySJuj8bC794VU8sr6bK378WVrmzNr7LRMORdNJcxnUvWPZ3oCezoeBd9BaOBSdnuJNlCjv6Z17BS2Ll9K78tLdMPBPaG3lmbh8a922oeAcqPQwJDls8pzvxift9vqjDSkdAtwTBpPHYKUZJuWm448gn/s3KvJCRB3gT1F0NX84b0ot78KBPGxvZO6npPbtk1JmK/UsWk48EKVOqC5CsHzPf/+6XXQPYdU2ar5AvvxKVHpICBUMjprhCHKX+eO2Jfl/kJ3GnMLH6SteuAsHW2+Wnb3oZJLk/WBPQOnW6teP+feaUAe7qiNPd6CdPElOzF0noZ/+L86+isl+decAX6NlwSzg9SEk+hL6brh/7NwIoK3SCHk9rj6dBZU7GEkO3mrfh2pKlQN27fOFBHBzCuej5Idj4fEEZ1QJ4eLGodRBkPscc7OXk534Du8j9XgnPAtir6/jNloKvyLJvcJvHfk97XAuzEeAlwOg1ZtQaQ5TGcGperG3c0P7Hi8irN/O+PaPfsPHPvzf6KYZOCVkxvhULUYwI5p99yux5KhBnnngCEfsXyKfOB7sTln3UANr7p7BH//a5G2yDdaHhBpDuk8Lq393A29412f5xcWfRGvtj77am8WEJgtiQGBt1ckmgQ6DM1/G6VOoRmfgFFiHVu8CLt0VDWrLU4GaOFpYRClc5RZs5feI5PysUB28Vb1NQXxImAg2eaDO/L+7Kysk61r8EtDfRyetIQmQ83HfKsXaB3HlLnDNaP2yEBa0C+6r04ITcu03Yc2fUfqZfpUUUmaL1kjyUeDoYCZ+FFtevStMleMHKhSDqzeSW3wGLrsclf4TNgNsyAeBhLHECwols1H5r9G6WPsDw7Z0qNV2CLnWxctQyfleMFRzAliFKMFUbkfkBuDpiG6vy5myk21WKnVhXmNt17ncdli2qu+ZW/tfpvYSIVINtSxex9zCH5H0uJr53GUOlRxDy5KF4A5Ep/tjyxblfrINRWK9o3X5NqhcgciMaft+Vbg5FJm7ta7v76LnW6bo6/gRrSftg+S+gFKp30YMJ3ZW25ELTneSHId2y2ldfJJP3vR4JzyrLhrcl3HmzFqSN19HFqXOYO6i57Jp1a1YeSEKB24FvV1/CRainb73PVpI2OBYufa2u3jPBy5AzWjAKm9xUgrsqGLGDMMHX/ko737hJvbdpwKpC1trAokDC9mQ5qpbm/nsZfty0x1N6BkZxgmVSkY6r5XfdP6eTxx1GJ//+Nt8RIg80dJYhUZeyT2AshaprWyrznNP44CFjTzUMbJ7KzTZjGID8NSw5Aj7pNxFT9dHd8z8vzuFREh+NXvxc0BfglJN2KwSzOYhxDP7AmVzAYOrN9JaWAjqZZC5XbQidvBqzcbiIC2Fn6PUM6GWMtt7l4t6J9UsQ8LVbL6xZzcMbNZH0qy8g5nHt9NoP4STt6PS5pDkJwg68YLCWYtkDtGfZtbi3zDQeXdwjNyBcy/CoXIthbehc+eHPAF+RStK49wGTPbv9Gy8BNaVaW0/G63ax84o2eEJxk9h5dw/SM0AqOawJSjhxPUW9lswg0fXDm/DqtRxwMJGRmROKM4yWkZD39wLxo+wvWXVRWiOq+tzFkEj7l2I7IMoh7Gr6Nl3TV1Kb//e7hcM0VbM6nprNXNUH91dn9jBvr+rxkcH70jp+dZXaDrpJvLJxxB1OpL4PuYFs64JZlepoNJWTPnztZX+4y72lil6O26gtfB7dO7FdVYJh0pzZPb9NC/5NUo/1fvduxC18mq1Y/1y0mprT0Yolcqc95GvURocRtJ0nIh4+gEjrOi4m0+e8wj7tmSYEUWlPyEbSsiGtf99MCEReNlJvSz/9F2c++INmBFN1bUmywy6pZmvfPUSbv7jnT401D4hT9F15Mq7SyFsZdJsqp482A/uEW+ZqO4JOBA5gdbjmv1kU0i2/vNYbX6v8xOElg+i0ibvr0EaLPqCsf9GT/HDDK7eFMK4mnafCNO/wplSXcrsMYO/kOCsUDE/Hb9C2ZUEx8ahGzawqfivVNwCTOnjWHM/kqi68DPGEmclTeTUC/3fDpUdGgDotLSe1ozIh8FW7d0KlGDdMKbyCnqK34ejfMSIbJe3/NZFan/2AJZ7vbNm1dHQgXMHUs7PoXZY1paE0DLFSONB4PYPVdeLsv17z9ARRFU28ktstnF8KKgBxWvBneqdLO1P/MTWVZeXIghboRi2hOy4E21nF47xff/w/OPU9x18y4exDq5eQ3fXGTh3Cln5xzhbQtKxfBy+WSb+3uUkZp3SUpdB9HEkbEFZ8yWcqYw7T8lmAGeRuE8jOGz2AD2DP9uVlss9VkgYY1BKuPKaG7lx+c2o5pn+bwK2LByy3yjXfOJvHHfkIJX+BJsJSkGiHVr5n+rvFqgMJMzU8M3z7uc9L12PGVE+Vb1zoDXlgSE+9ZUfISJPQItEwZufRfYNeRmq+Y2rneMRn2Nhq+1hKguAArWVTGjzqrHfDsstdat15WPEk0OwjW/yk9Wg1JIbTf4xYydvPlZKv9CAyNHBEuD3+0UpbHYPvQ9d6AfJBYkfKI3bPfeA0L/8j1izBklkQk4JC1rhsvsQdVNt8t21K9IcrYWlPq4+5CPYXPwbPSs/gx04Glv+Z5x90CeCmrjRLftNFgfbsxLGwdARKDk0hMmrWo4Q566kd/UaeEfqI4N26XM7//3FDNwaH1MuYcKwFpXMxqUv8u97VE8vhO71k6h1r0clM0L5/JGNxfVBfO4NqxafU2LzjT1YLgpatu6+RaG0xmUPQz6I2WLdKjeICut+PZYALrRdSUC5s33fP9k+xn3f39fskw6lZcmrvXVoqU8c1b1iOb3FN2ArC8jK/4ur5kuujZ2CMItEz9j+dj1lc5MpWo/bvnHCQd/qYsjBocbyrTtQqgktT/NCWK6CtcN1CcuemELCAUopypWM/7roMlTIWFmtxnzi+OF593PwASXKgwmJdls0JAteYBgDZlTzlbc+zKJjNmOGFUo5jDFI00yuufYP3PaXe1Ai2D3XKiE+Ocp0CkxXE7sktU5R7YBOv2fCIGBBCc5cXCc4CAPyFE6XLk8tIcxSHe7DBotEMkWbFP++lrHzHob5L3/+hdSdSGccWn2M2Yue6geUBWkYZMX/W0i22uit2sJgPqmTy5Qd3yHQGK4TVpkzmIOjtW7wIyQJ6oW/lfwguYCQtKkyzRgRnmFgB1dU1RwM7ldTdhe/U3UF/cW+scl3a23IbSUxVN3g2PxgEyIXI/x4TBiGeuld20/3ym9gyidh7Z/9hDtO6KgJI87I5PsXcFXT8ToZS3BU00q5qYWIesD/vzecK7NMUIxOUwehX7Ad/hphJe7sJThbGZ/AyzlEljH7pBa/mq1LqMSCdKy9rq0wZ/EilHq/T18sQmb+17+2bnK7dNPVSzr57zantjApTdPOlinfzqdqE8u2MB8Ep9uK+zE2GxlvGXM2RAT/gt5r+yf31SAqyqzAVUJyq+B/4IxD63czu9Duy7FWdiGyo1quW0ucNl2iM6WnL4sw3im1kDT/M1rb3xgWD6pmSepd8xd6i2/DuteHE0DrF00KV1Hb1b/MxHEqtIGpxg5HijN1uVvCPU3Lq0PyPvufQXTXPbdzOCw2s2T2e7t6UtozhUTwU7jv/ke5ce0d2MZ8LbzTDmvOPmUTJz1ngMpAQqq3XVApBc4KOnV86bWPonIWF6zyKtWUNvXx22v/EMTznugLVZ0k1lbqTqga3/QGiz1eOKythNWsZebz59Pa/m2UPivkIlBABUlTbHkd5dxPGTtzw3+Hoz/Eevu8Ab5hHuG3IIqZv/baCrMXPZWk4SKUTpl4poRzJf++b1Vqx4WXin/H2q+iUkVIkYezDqX2JdFXMnfx0/y9d4SQrw479n1TDghBcNjNU5aJc/6gIH+wDn7CwSFMkQCLDK4u+WuGDj48MowwPOalH2LoFYd54VPMas9n1XymDDe1g/59V5d2bAUQJjTJXYbNeutSZofBwoKV326jSAlnjDC1P4zLBsYG8ert5xXIP9D5xbQUzvV1sS7xgiJktOxd8wCY74fx3NUUl3Mbxg+kPDTBaGERBUn2FGpHS1ePfa5mZlQTTcdhS8yeFCwwZf/TYTEcEb5+Qghupbd2/sx2rcRR9K66HlP5jk957CpjeQ30wSTJlbQUnjl2vs3ayljfKyS0Fd6ITn7uT29MElx2Lf0zr/QTwjgLSqjTujMv6vt15obGTyLLFLYy9RHTQmhnjXqCqK9uMUyxSBBfft5yOEU7CtEBg8U7cfYKbxmrZYrT2KwMpa+PEx3jrTuaweImjHzSZ5SV0J8tiMqRqh8zZ/GiunErbIFUy3U6GkO52cGpX8/6/etHbknEZzhjEfkyLace5MfBe8MYEARt74pLwNwbZhGfJ8LJAJkdqlv/1t3PlPUIado/vn+FNm7dg5MigYRWbFPL+LLYku9Tp4FlQs+q67BmRdhuNGPCVytwN7FZbg39xuyqmWmPdLa01qEUXFtcS9Y3gJ7dhLUWa4TGWRnveVE3LlM+geV2opXDjGiOO3KI0xZs5jfXt6BnhpMjcym/L67lw//yOhK1J2qsUPGtJ70ZUUcEz/SgVq0D10xr+4WIG6nlzxc5BMtCdDIv7PH7epckxZi/4tSrGbium5rDWMj8iFsBnE41RwXWofQ87IzLaCl8FyUakRNw7lXo/DxsZfzk7hccr2Fu+6GopBHct9hw3Q2wIKVx8JOU5Tmo3AtxlWxsi0MfiZXraS1cjJJfk8nfSUst2PSZiD4eaw9Eyq+n+/qBcYMAgB49A5fOrEsTGzqPOiqEtYZUvh1lOLgBeNo44eGsBbUvcwpn0le80seoL9XQuRm3+E5IDweThfz/DtEtJHI5LUu+jMseQusX4OTcYJ2R2mrcWUC/iJYlOZRLsObX/phuJ9sRQuijN7rlEdra/4Akp+Eq/jl9ivHb6N24os6atKU2VIYFs0GOHS+8nEUkj7VnAhdBR8b4pD8SQk4/RdPiLgY776gTuNCcfx5OvdMLVQyic9isF2OuqEkIgHL5jyjpRlRLcIisps7+Z9pOWAsMYJNnImp/erouB4Ryeg8NdhOiWv1navvrC2lpvwzUt8EJyr0KkTdPiNgIPg25c2g5+X6cHWC2u5z7i6NsW+iet74kXR/ClJ+Bzp2MK/tncUZQyQlgbqC1vQu4E8Wgt0C5/YFjEX20by+JYLM7sOYtXlA+f4LlqLMMR89BKEyqF9QMUtMOHZdTf/y0LFqMk+YxC5DzR807+SfmHz+P9VdvGP8cnYY5Jx6Nk3njzkj2EQpHMvuEY+gv/t/0RVHLtvo9nHlVSCqXIVrjzAq6X3gXvHAaR9/OavKkb9FaWECSfwe2rhzR+6PdtbS1/wjh51T0HehKHjgCZCEix2CTt/u08fX1dnWJWce2gZyBsy7cU/BnUQL5V0Dhm1DcgoBU4utSz8VlFwIvDYLQv7zfghmUZr0dUU/DWQNkqCSPLV3FYLF73InEXF1i9tFzcHK8v59x9agZGVwKXDwmwoo2THorUZmMPZr1UVm68m5aTv0MdlSRpIuwrpverjXTO1Sv8wLPyRfALWF88DxY+z1Yme3qUP89UkhUfRRuuvVOH20jggJMWbHgnzbzzINHcGVB7WAElbWgc5aXP6+f39zQUhMv5FJuvf1v9PYN7Gl5JbxDV0vXCYj6NFoX/Nwy4flFzUQn75qwIgdtgyUxHEFsK2Vc5RJG3UcYLv6DcbH+wQw5OvoD8vIBdLqvT0Ij1b7wAsS9wActpF7wZqXfIhzrO6It++tZi5YFSLoAlYds8zXADTAiPLpumJYFr8bN+hY6fXU42hucrSC0odIP4rL3kTCMy+VQOu/3UgWMXQJcUcuY17zkUBJ3Pqg3jD86opZr4TTmumsoF97B5vPvoanrCPJ8B5WcGI7frVu1SSuJ/jVt7d8ncx30dz4QGuQFOHMaotMwSVlvRZHnIPJjSEA1gBmxWDJfztVkOtai1GsQ/Rp/WuXgPcCD2+8tHd4v7us4e1pIHexApf7An3XlsZS/W9jiaVv0Elz6ebQ6YsLz+1WS1v9D65LTceY/6F0ZMkgawUmD3xdWbeTdz8gvWR4G7UbY9EzIHY2oxnCEfA5rR3D2nf7MD1TNs3yoYwO59m+QJP+Bq3jR4YxBqRfhcn8ERtDqEKxdT8up19J77QBDy9eTK3yBJPkSZPjBXHyyoES/3J/6qUClYEZHavfhMx6FHTz9YVQK2egQfeY3MM0WyJRCogM2MkjbCWdh3deQ5Gyv0zP8KaTMQOkzQZ05fvOlOs5rwVW6sOZNXkSOmwS8paB141nA51D6aWERmdRZXxpQcimthQ/SM+9rcKSjretcnPoKIvnxqXwtKH08puFGWhZ/nN6VPwMszQtb0Pl/Qal/Q6SR2jnJ1T10/VSS/PW0tn8ek32N/tV941fatYWM0Lvqd7S134TSzw85aRJc9u3auSxbKkec0CPvom1xCZW+J+RpAGzmI0CSt+DMW0jtAE4niDSiEn+0fHnorcCysNgxUNC0chaiP4+ow8a3Z6mamv+bNvMWaP8y3QO/8L4BEwSkI/E+N1mGkpfQVrjcb5u5BGQ/yu4YlDqstq2pUo0trUX4V8b7jSlaF78M0V9E6cMn1yOQ6O/T2n4WrvJxetesq1mX+q68kbama9ANL8SWqmOMQakP4rLXoBOH5A7Cla4GXlxzrpycSt5bfnsHltM26wZUcnw4aynx1kYTjkXoMrvSP3SP3NqoHsb18CObIE38hK4cZMJRTxnFJY6dcWtT4q/1jP1KkDOYatCB+CiR9Rt6why8R2xv+JVLa9f+KFmOVoXaUb5+9q37sQZTLo37sZUS1g7j7EZsdg2m8nlM5Ti6u97sRcQkhy+/lTH0h/W47FU481ckSVCp/6mewgtgS3/Glt9FT9cZWPkXrCsjaQ6VJkiahCOf76U8+AE2bbw8KOayH4zW9tPT9f8w2dkYe7PfbtApknpVrnIalc5C0jzOOrLS3VRGvo7R99e2YWYevw8p16LTN3iT86QysThTRnJLSOVieF4jOfkJKnciLitPUX4ZuAoqPQctv6X1tCZA6C52kWWvxLk7fYRCkiBp6g/1C/05K12HNYtw9u3gBsaVmWiw2SDZ8BeZWVnJDjlEhvdXzBqs2YAkKaJz3gJiL93Klpg3t7a2vxGV/yWaI/zgMkX7wVbQ+mUotYJ9ljw1dMgK8BCIRRzo/LNIZvwLycz3kDS8DZ1fiMo1hiCcCtZcha2cQk+xc3z76vB5Anq7zseULgCpINqXpSSg8/PRuUO8SJW/USrNoOro11v8Mtnov2LpRRKNSlNfB9X2aCtkoz/CVo7Fmq/7v1fLP028Ua30ANj3hklyexIJ+cmi+/oBuovngDkTm13ttwd16s+3meiaYr2Vy9g/YrNz2dS1xIuI+kPhQr3M2fhOdHoZWj3NZ3OcWC8uA7Ho3FeYu/E02rqei0q/gZBU1cy4H58R8qkk+R/TVvik323Pf4ck/wnE5ab9jJCi8x0o/e3py2Zp1XHye6AVkuax2X1Q+v02tGtX8zPpXvleMnMmxnQFC1aC5Hw2UklA5WZ5SyZgy49ghr6PtSvGXWuOfSc614niMJ8kbar2bDKUHINKf0Rr0/fGb28Evy2xPVgz6C21GvSMV5DMeB/JzPNIGl+JbjismuwS7COY0mfYVFnCxuI/xvx6cLQtPheV/zlKDt9y/0rPQtJraDpprm8o6wTWZijOJitdCWpsjJFUofMHehFRyYBNfptmS9sSS31ae2e/VLetAcZd6rcgl+pdnVBtj80jYa1lcGjEW52qUflOaJtlkMThtssyPMXazAr7zM5Qus7AqhSjpQp9m4cmSvHH1WXEb2c0bqSvvDB0DrXFZ6t3usrSDFF9qOHeCVsCaswHYcq9YaF39Rpmn3Q8Se7FiHkqlvkgAzg2odRd5DZf5+Polyl6Oy6huXAXiX0hTuYjdhOi7qEyEnIbTDEwA/4Ybn5ES/vxUHk2Ws3FMReMwemNCH1g76And/PYwTlhEpib20yfvBLJDMkWyoSSw6oKjGTYxrPRTkEiUJnKHOaoZI5UYOMDozVh1bfyCtpOWIFNTwN5WjBdDwLrUWotPStWhitcT8uJNyPJC3zKbAR4CFe5lt41f6Fnp9qB0L+6l9bC63HlQ7AYkM30DN86butrOhGCuw5nF/jDxbbUhsQgkqISf5ppf7GP/c4sUN58FMgzcGYOqFkIDTg7H5GNIJtxdhOOm2uHmk0+SdXVGmhP8V/Z58QfYpJFKGnDunmIdPu2ZW+le+WqySvhlRcwu3A5ilPRZj+cmwf0gnsUq1b6BDsAnMec9k60WQg8BdwATv2N0vBvGPrD+p0qf4BNXVcBV9Gy+FmIfR4i83DMQUL/EDbiXC/G3E7fvmvq6mWCaO+sHlt9JS77g/ddmKZeJCRkSt0DlBrLuPICxFqcVVMOhKItLkuQxPd5q/4DGf2Uv8404doiDjcioMuTrRET7jmXu4RsdAjULHBr6blp87ZvFYU+3BvKce6SBWTlBYiaizDXnxrrHsFKLyL3kek/hO3XQDDJK/UrnLnBt2e7hf6vfTm5Wocfnyq7d+Xv2OfYp2EanwXmQMiagCaU8wLRO8wN+nvJVtG/unfcOFQtE6OvIsn+4C1hW+hfFSyJVgw2bB7Xvr0weQlthXacXQC2DadaQB5Bsg2Y5Eb6um6boiyn2gIXelb+grbC9ajkBH9Iot1tp9Xtdad/KtmN87V4AVMqV/akR/aNxR8Q9cedv1wh8Rkst5qwyO8N93f0Aj/a8mo3JJ7ZXLwFuGXq90ya5Ny413q71gBrtr6y7nS1wdjvc29fmfTxpx3RtbBU0905wBYT/C9T0AG9a/5C7WCpSa/bnW4LPcVrd/BzD3nLwg7w6JXDwM3hZ9u24qZ/Vi/ONq65DbhtK5LfTWiPfwe+s8XtG3D0dRWZMk3rFrd/tq0c/TUsvStvB27f+sfC+yc7Rvrr+X3/B7bzXrav3feu+MsuHY/W/34IuGSautrG64S62LRiLTWHhC31reAbUmVn2vPE/r3x5n8A/9i2t9fqc3zG074V9wP377RQ7S52AV07/jjBZ2Puov1A7RdOWL6NXnXd+IXFk1hIPCYOCXtsHollO7gV1VHX4IvZtqfBriZaKeixszuqnvTzghKvDcohJPBK7d93r/KJqIpmywN3NRpjmfhQyvrvGRR/jUnftQNl0lG1tChYtj3vn3CfS5V/tqnKojbIqbFQ2toqyu66bJNL9YTv3taJcSvJk6as/wmfrSYaqq+bDTL+ObF1bW4L4myZmlzn9eU51WmH1bKd+Jnq99ZP9hPraWttcZu3mcz4eq6WRXswU1fb/pba7Y7WS7Vct+v9btvb/VRtf7p7LoQ9zvYdbNtT9f1quU0sww67C9rzlp4r9O1qWxmccN1tqs+d6V8ThGp9X6iWxbaW8zrvLGPli+jkqeGyV/qxf6eEdBQSTwwel3zubsy7d+223J8df6zztn5Hx5ilYavfs1NlYnciLXF10jZbuUdb88beLezMirrD7eRn7S5uz9tb53Vlu3ZrZWS2ry3tiKWqvp5rAt3s/nrZ7nq0uzgdd924UNzJ60zZrsxubs/T9e1d8Sy7un+bbS/nIBRaCqeh9BtwxmHtIM58y79+5G7Zsd/DU2RHIpFIJBLZBvxpyG0nzELLfyFYRAniVk4RLRSFRCQSiUQikXqWemdel/84kj4D52w4F+a7jEWX7BaikIhEIpFIZO8WEX5LY/ai5yLyHpzJEJVgs0dg9Fp24QFdUUhEIpFIJPLEQuBS74ic6K+iVKNPaqBA+L4Pzd11B3RFIRGJRCKRyBOKpT6XSEv7+9ENJ4UMn+JzR/CLx+IOopCIRCKRSGSv5dKQ2Exux1YuA9eLakhxdhXd824NB8SZ3XkHMfwzEolEIpG9lpDZtGfFNcA1zC4cgh49D2G1FxDTnn8ShUQkEolEIpEqIaNlf/HvwL+O/X33WiNgL93acG4X/cSWF4lEIpEnBB3VzK7KH4XAY5ai+TGzSDj8aZr+Z/LJmpXMkGZeOImS8Ue51yHiD/tLNP4Ycdn+G1FOQE9/bodzDmMsmTVY63wCf/GHUgpCfQbtPeSE0EgkEolEYLdn1n0chUR1Mtbaz8L5XOonZ+f/3tw0Y/wHFKgpZvrMwMioojKqUCJjR4BvI1r5iV9bSyWb+rMNDTm0VrXjzLd4vfCeqCcikUgk8mTkMRES1SP5SuUKw8OjGGvp7tlMpVIBrRgZKXH+ly6mNFpmcHiE0dEyA4Mj/PWeByGXeguBE5hh+PbyNi5Z04KxkBlhuKS23SrhYEbekmqHUpBqbx1BxguBj3/2uzz9sANoyOWYNWsGc1ub2W9+G/PntbDf/DZmNTWSaE0ul6JEmDGjgSSJATCRSCQSefKxC/dQqoeFLHk1ifoZzvoEGdaRy6c875hnsKmnn6HhEUZGy4yMlBkZLVFbzvcO+JlelN9zEIGZjZCo8c4MRupPtN++w2ur761/fzLFh4dGoJL5+7IO0gTyKeRz5PMpDfkcDfkcjQ158vmUA/ffh4ce3cSd6+5FcinOWYMkGpddwaaul7H9R+xGIpFIJBItEgAooVyucH1xLWgFSnmRoMT/DiBCMq9l3GzrHFhrJ/kgSOImzsrbO0FLvYKayhVDz5qJhG0VAaxzWOv9O0ojJUpDo/TXeW3+9ba7gtjIRZ+JSCQSiUQhsevtHoJqmgG4ui0EN27OzTJTjaMIf5X6Gblmg3DOifPujrKDVpXwJS7YJqTeRiEAxlqwru76MvaLVuD9PKSqSES8c6iNIiISiUQiUUjsEqqTs/XLdnHWjnMiVYRE4IyfkicaDpgQIjF26apzAza8INtwS1VTiPOhIdW9kUnfMVG/uKr0qdc61oEdp31w1Qs64lZGJBKJRKKQ2HEbBIgeMxxMnOQtOAvOlkBGcHYzMAhsxskQyg2BG8DJCMgQzo2gGMXShzCKlQEUg7hMI9KLs8Nhz2SaydsJWIvSjbisBZQls7PQNOFcI0pmY10johrAzUCYCTIT52YCTeFnJtAMMgOhAZRC1BQelhacjZ6XkUgkEolCYgeNEQLOgBvG2vXAfVj3IEg/uM0oN4DoR3D2USo8RFpeT6PNeKiSwdpsD1zJCxQ0B5MwTEJmWkAOQOQAVPkArMwC2wTSjJJ5OA4F9gdmY2MDi0QikcgTG9nF13LMf8E8Rs0BzDAP8GjjAFxd2rFrLRNYF+5vg8CgQFOdyJhX9/uR2yg+1tU974a636vXrl7zSAcdO7g9UUjYhwYsB+CMomf1utjMIpFIJBKFxE5RPTSkOnlXJ+zOqSZrt+eXUVXkTHoeS/SNiEQikUhkZyfeZYqpnSOeLOJMqDmURiKRSCQSiUQikUgkEolEIpFIJBKJRCKRSCQSiUQikUgkEolEIpFIJBKJRCKRSCQSiUQikUgkEolEIpFIJBKJRCKRSCQSiUQikUgkEolEIpFIJBKJRCKRSCQSiUQikUgkEolEIpFIJBKJRCKRSCQSiUQi28z/B5SpDu5q2wpSAAAAAElFTkSuQmCC" alt="Buena Vista University">
+    <p><b>Robert L. Cramer Student Managed Investment Fund</b> · Harold Walter Siebens School of Business, Buena Vista University, Storm Lake, Iowa.<br>
+    For educational purposes only; nothing here is investment advice. Market data from Yahoo Finance, delayed. Positions from the fund's brokerage ledger. Last updated <span id="foot-upd">—</span>.</p>
+  </div>
 </footer>
 
 <script>
-// ─── HOLDINGS DATA ───────────────────────────────────────────────────────────
-// Edit thesis, analyst, stance, sector, dateAdded for each position.
-// stance options: "buy" | "hold" | "sell"
+/* ═══════════════════════════════════════════════════════════════════════════
+   1. HOLDINGS — edit thesis / analyst / stance here.
+      qty and cost come from the ledger as of the ledger date below.
+      sector: GICS sector used for the sector donut. cls: class for the class donut.
+   ═══════════════════════════════════════════════════════════════════════════ */
+const LEDGER_DATE = "September 29, 2026";
+const CASH = 4320.77;           // estimated from ledger: 4/9 statement cash + trades, dividends & interest since
+const INITIAL = 100000;
+const RF = 0.03;
+
 const HOLDINGS = [
-  // ── EQUITIES ──
-  { sym:"AAPL",  name:"Apple Inc.",                  qty:2,   price:258.28, dayChg:-0.62,  dayPct:-0.24, mktVal:516.56,    gain:167.34,  gainPct:47.92,  pct:0.32, type:"equity", sector:"Technology",         stance:"hold", analyst:"[Analyst]", dateAdded:"[Date]", thesis:"Apple's services segment and ecosystem lock-in provide durable recurring revenue. We believe the market underestimates Services margin expansion and the Vision Pro platform cycle. Strong buybacks supported by a fortress balance sheet. [Update this thesis with your team's original analysis.]" },
-  { sym:"AMGN",  name:"Amgen Inc.",                  qty:1,   price:348.00, dayChg:-1.81,  dayPct:-0.52, mktVal:348.00,    gain:80.33,   gainPct:30.01,  pct:0.21, type:"equity", sector:"Healthcare",          stance:"hold", analyst:"[Analyst]", dateAdded:"[Date]", thesis:"Amgen's biosimilars pipeline and GLP-1 obesity drug candidate (MariTide) represent meaningful growth vectors beyond its core biologic franchise. A strong dividend and robust free cash flow generation support the thesis. [Update this thesis with your team's original analysis.]" },
-  { sym:"AMX",   name:"America Movil S.A.B. ADR",   qty:14,  price:26.38,  dayChg:0.09,   dayPct:0.34,  mktVal:369.32,    gain:39.77,   gainPct:12.07,  pct:0.23, type:"equity", sector:"Telecom",             stance:"hold", analyst:"[Analyst]", dateAdded:"[Date]", thesis:"America Movil is the dominant telecom operator across Latin America with significant pricing power in key markets. Peso depreciation and macro volatility are headwinds, but the company's scale and network infrastructure provide a durable competitive position. [Update with your team's thesis.]" },
-  { sym:"ASML",  name:"ASML Holding N.V. ADR",       qty:1,   price:1406.07,dayChg:-14.98, dayPct:-1.05, mktVal:1406.07,   gain:710.73,  gainPct:102.21, pct:0.86, type:"equity", sector:"Semiconductors",      stance:"buy",  analyst:"[Analyst]", dateAdded:"[Date]", thesis:"ASML holds a global monopoly on extreme ultraviolet (EUV) lithography machines—the single most critical piece of equipment in advanced semiconductor manufacturing. With no near-term competitor and explosive AI-driven chip demand, ASML is a long-duration compounder. [Update with your team's thesis.]" },
-  { sym:"AUR",   name:"Aurora Innovation Inc.",      qty:170, price:4.20,   dayChg:-0.03,  dayPct:-0.71, mktVal:714.00,    gain:-49.28,  gainPct:-6.46,  pct:0.44, type:"equity", sector:"Autonomous Vehicles", stance:"hold", analyst:"[Analyst]", dateAdded:"[Date]", thesis:"Aurora is launching its commercial driverless trucking service on the Dallas-Houston corridor. If AV trucking achieves commercial scale, the total addressable market is enormous. High risk given pre-revenue stage, but a meaningful option bet on autonomous logistics. [Update with your team's thesis.]" },
-  { sym:"BRK/B", name:"Berkshire Hathaway Cl. B",   qty:1,   price:479.75, dayChg:0.00,   dayPct:0.00,  mktVal:479.75,    gain:117.52,  gainPct:32.44,  pct:0.29, type:"equity", sector:"Financials",          stance:"hold", analyst:"[Analyst]", dateAdded:"[Date]", thesis:"Berkshire's $160B+ cash hoard provides both downside protection and optionality for large acquisitions in a volatile market. Insurance operations benefit from higher-for-longer rates. Held as a portfolio anchor and defensive ballast. [Update with your team's thesis.]" },
-  { sym:"CCJ",   name:"Cameco Corp.",                qty:6,   price:114.85, dayChg:-1.05,  dayPct:-0.91, mktVal:689.10,    gain:397.32,  gainPct:136.17, pct:0.42, type:"equity", sector:"Energy (Uranium)",    stance:"buy",  analyst:"[Analyst]", dateAdded:"[Date]", thesis:"Cameco is the world's largest publicly traded uranium producer. The global nuclear renaissance—driven by data center power demand and decarbonization policy—is creating a structural uranium supply deficit. Cameco is the clearest pure-play beneficiary with tier-one assets in Saskatchewan. [Update with your team's thesis.]" },
-  { sym:"CEG",   name:"Constellation Energy Corp.", qty:2,   price:282.97, dayChg:-1.30,  dayPct:-0.46, mktVal:565.94,    gain:-96.45,  gainPct:-14.56, pct:0.35, type:"equity", sector:"Utilities",           stance:"hold", analyst:"[Analyst]", dateAdded:"[Date]", thesis:"Constellation is the largest U.S. nuclear operator and is well-positioned to supply clean, baseload power to hyperscaler data centers. The Microsoft-Three Mile Island deal validated nuclear power purchase agreements as a growth model. Monitoring near-term margin pressure. [Update with your team's thesis.]" },
-  { sym:"CRWD",  name:"CrowdStrike Holdings Cl. A", qty:1,   price:424.99, dayChg:-1.52,  dayPct:-0.36, mktVal:424.99,    gain:97.93,   gainPct:29.94,  pct:0.26, type:"equity", sector:"Cybersecurity",       stance:"buy",  analyst:"[Analyst]", dateAdded:"[Date]", thesis:"CrowdStrike's Falcon platform has established best-in-class endpoint detection with an expanding platform across cloud, identity, and SIEM. The company has largely recovered from the 2024 software incident and accelerating annual recurring revenue suggests the thesis remains intact. [Update with your team's thesis.]" },
-  { sym:"CTVA",  name:"Corteva Inc.",                qty:5,   price:84.04,  dayChg:0.08,   dayPct:0.10,  mktVal:420.20,    gain:45.20,   gainPct:12.05,  pct:0.26, type:"equity", sector:"Agriculture",         stance:"buy",  analyst:"[Analyst]", dateAdded:"[Date]", thesis:"Corteva is the global leader in agricultural seed and crop protection, with a proprietary R&D pipeline providing long-term pricing power. Global food security concerns and precision agriculture trends are secular tailwinds. Valuation remains reasonable relative to its defensive earnings quality. [Update with your team's thesis.]" },
-  { sym:"CVX",   name:"Chevron Corp.",               qty:2,   price:194.00, dayChg:1.11,   dayPct:0.58,  mktVal:388.00,    gain:55.56,   gainPct:16.71,  pct:0.24, type:"equity", sector:"Energy",              stance:"hold", analyst:"[Analyst]", dateAdded:"[Date]", thesis:"Chevron offers an attractive combination of a well-covered 3.5% dividend, disciplined capital allocation, and long-duration LNG assets. Permian Basin production growth provides a clear volume driver. Held as an energy sector hedge and income generator. [Update with your team's thesis.]" },
-  { sym:"EXPE",  name:"Expedia Group Inc.",          qty:3,   price:236.90, dayChg:0.00,   dayPct:0.00,  mktVal:710.70,    gain:129.45,  gainPct:22.27,  pct:0.43, type:"equity", sector:"Travel/Leisure",      stance:"buy",  analyst:"[Analyst]", dateAdded:"[Date]", thesis:"Expedia is leveraging AI to improve conversion and reduce customer acquisition costs across its Vrbo, Hotels.com, and Expedia brands. Trading at a significant discount to Booking Holdings despite comparable travel demand, the valuation gap appears unjustified. [Update with your team's thesis.]" },
-  { sym:"GE",    name:"GE Aerospace",                qty:3,   price:307.00, dayChg:-1.06,  dayPct:-0.34, mktVal:921.00,    gain:650.93,  gainPct:241.02, pct:0.56, type:"equity", sector:"Industrials",         stance:"buy",  analyst:"[Analyst]", dateAdded:"[Date]", thesis:"Post-separation, GE Aerospace is a pure-play jet engine and services company with one of the strongest installed base moats in industrial history. Services revenue (higher-margin) grows as the global fleet ages. Massive multi-year order backlog provides revenue visibility through 2030+. [Update with your team's thesis.]" },
-  { sym:"GOOGL", name:"Alphabet Inc. Cl. A",         qty:3,   price:315.50, dayChg:-1.82,  dayPct:-0.57, mktVal:946.49,    gain:553.70,  gainPct:140.97, pct:0.58, type:"equity", sector:"Technology",         stance:"buy",  analyst:"[Analyst]", dateAdded:"[Date]", thesis:"Alphabet remains the dominant gateway to the internet and is aggressively monetizing its AI advantage through Gemini and Google Cloud. The market undervalues YouTube, Waymo, and the Search business's durability in an AI-assisted query environment. The valuation is compelling relative to earnings power. [Update with your team's thesis.]" },
-  { sym:"IHS",   name:"IHS Holding Ltd.",            qty:60,  price:8.26,   dayChg:0.00,   dayPct:0.00,  mktVal:495.60,    gain:-8.91,   gainPct:-1.77,  pct:0.30, type:"equity", sector:"Telecom Infrastructure",stance:"hold", analyst:"[Analyst]", dateAdded:"[Date]", thesis:"IHS Towers operates the largest independent tower portfolio in Africa, serving the continent's rapid mobile data growth. Currency and sovereign risk are real headwinds, but IHS's long-term contracts and irreplaceable tower assets provide structural value as African data consumption expands. [Update with your team's thesis.]" },
-  { sym:"IONQ",  name:"IonQ Inc.",                   qty:14,  price:28.75,  dayChg:-0.24,  dayPct:-0.83, mktVal:402.50,    gain:-143.50, gainPct:-26.28, pct:0.25, type:"equity", sector:"Quantum Computing",   stance:"hold", analyst:"[Analyst]", dateAdded:"[Date]", thesis:"IonQ is the leading pure-play quantum computing company with differentiated trapped-ion architecture. The position is a high-risk, long-horizon bet on quantum advantage becoming commercially viable. Revenue is early-stage but growing. Sized appropriately given the speculative risk profile. [Update with your team's thesis.]" },
-  { sym:"JPM",   name:"JPMorgan Chase & Co.",        qty:2,   price:304.08, dayChg:-3.89,  dayPct:-1.26, mktVal:608.16,    gain:157.34,  gainPct:34.90,  pct:0.37, type:"equity", sector:"Financials",          stance:"hold", analyst:"[Analyst]", dateAdded:"[Date]", thesis:"JPMorgan is the best-managed large bank in the world with industry-leading returns on equity and a dominant investment banking and consumer franchise. Higher-for-longer rates have meaningfully expanded net interest income. Held as a core financial sector anchor. [Update with your team's thesis.]" },
-  { sym:"KDK",   name:"Kodiak AI Inc.",              qty:85,  price:7.95,   dayChg:0.10,   dayPct:1.27,  mktVal:675.75,    gain:-84.15,  gainPct:-11.07, pct:0.41, type:"equity", sector:"AI / Defense Tech",   stance:"hold", analyst:"[Analyst]", dateAdded:"[Date]", thesis:"Kodiak AI is developing autonomous military vehicle technology under significant U.S. Army contracts. The defense autonomy market is early-stage but the government's clear commitment to unmanned ground systems creates a durable demand runway. Speculative but strategically relevant. [Update with your team's thesis.]" },
-  { sym:"KO",    name:"The Coca-Cola Co.",           qty:6,   price:77.27,  dayChg:-0.02,  dayPct:-0.03, mktVal:463.62,    gain:117.72,  gainPct:34.03,  pct:0.28, type:"equity", sector:"Consumer Staples",    stance:"hold", analyst:"[Analyst]", dateAdded:"[Date]", thesis:"Coca-Cola is one of the world's most durable consumer franchises with pricing power that has consistently outpaced inflation. The 2.8% dividend yield and Buffett's long-term endorsement provide downside support. Held as a defensive income position. [Update with your team's thesis.]" },
-  { sym:"LLY",   name:"Eli Lilly and Co.",           qty:2,   price:947.92, dayChg:-5.38,  dayPct:-0.56, mktVal:1895.84,   gain:804.86,  gainPct:73.77,  pct:1.16, type:"equity", sector:"Healthcare",          stance:"buy",  analyst:"[Analyst]", dateAdded:"[Date]", thesis:"Eli Lilly's GLP-1 franchise (Mounjaro, Zepbound) represents one of the largest drug launches in pharmaceutical history, addressing a global obesity epidemic. Manufacturing capacity is the primary gating factor on a revenue opportunity we believe the market still underestimates in the out-years. [Update with your team's thesis.]" },
-  { sym:"LOW",   name:"Lowe's Companies Inc.",       qty:2,   price:242.87, dayChg:-0.79,  dayPct:-0.32, mktVal:485.74,    gain:66.80,   gainPct:15.95,  pct:0.30, type:"equity", sector:"Consumer Discretionary",stance:"hold", analyst:"[Analyst]", dateAdded:"[Date]", thesis:"Lowe's benefits from a structurally undersupplied U.S. housing stock, deferred home improvement demand, and aging housing inventory. The Pro customer segment provides higher-ticket, higher-margin revenue stability. Monitoring the rate-sensitive housing market for improved remodeling activity. [Update with your team's thesis.]" },
-  { sym:"MAR",   name:"Marriott International Cl. A",qty:2,   price:346.59, dayChg:-1.99,  dayPct:-0.57, mktVal:693.18,    gain:181.94,  gainPct:35.59,  pct:0.42, type:"equity", sector:"Travel/Leisure",      stance:"buy",  analyst:"[Analyst]", dateAdded:"[Date]", thesis:"Marriott's asset-light franchise model generates high returns on invested capital with limited balance sheet risk. International travel normalization, particularly in Asia Pacific, provides a multi-year recovery tailwind. Bonvoy loyalty ecosystem deepens pricing power in premium segments. [Update with your team's thesis.]" },
-  { sym:"MSFT",  name:"Microsoft Corp.",             qty:1,   price:374.95, dayChg:0.62,   dayPct:0.17,  mktVal:374.95,    gain:53.55,   gainPct:16.66,  pct:0.23, type:"equity", sector:"Technology",         stance:"buy",  analyst:"[Analyst]", dateAdded:"[Date]", thesis:"Microsoft's Azure is capturing the enterprise AI wave through deep OpenAI integration and Copilot monetization. The combination of Office 365 pricing power, LinkedIn network effects, and Azure growth makes this one of the highest-quality compounders globally. [Update with your team's thesis.]" },
-  { sym:"NVDA",  name:"NVIDIA Corp.",                qty:6,   price:180.87, dayChg:-1.21,  dayPct:-0.66, mktVal:1085.22,   gain:835.79,  gainPct:335.08, pct:0.66, type:"equity", sector:"Semiconductors",      stance:"buy",  analyst:"[Analyst]", dateAdded:"[Date]", thesis:"NVIDIA's CUDA ecosystem creates a switching-cost moat that has translated GPU dominance into AI infrastructure dominance. Blackwell GPU demand continues to significantly outpace supply. We believe inference workload scaling will extend the AI capex cycle well beyond consensus expectations. [Update with your team's thesis.]" },
-  { sym:"PGR",   name:"Progressive Corp.",           qty:3,   price:194.81, dayChg:-3.28,  dayPct:-1.66, mktVal:584.43,    gain:156.87,  gainPct:36.69,  pct:0.36, type:"equity", sector:"Insurance",           stance:"hold", analyst:"[Analyst]", dateAdded:"[Date]", thesis:"Progressive is the best-underwritten auto insurer in the U.S., consistently achieving combined ratios that outperform peers. Telematics data advantage through Snapshot drives adverse selection away from the book. Held as a high-quality financial services compounder. [Update with your team's thesis.]" },
-  { sym:"PLD",   name:"Prologis Inc. (REIT)",        qty:4,   price:137.50, dayChg:0.09,   dayPct:0.07,  mktVal:550.00,    gain:46.52,   gainPct:9.24,   pct:0.34, type:"equity", sector:"Real Estate",         stance:"hold", analyst:"[Analyst]", dateAdded:"[Date]", thesis:"Prologis is the global leader in logistics real estate, with irreplaceable last-mile distribution facilities near major population centers. E-commerce structurally underpins demand for modern warehouse space. Rate pressure is a headwind but the industrial REIT thesis remains structurally intact. [Update with your team's thesis.]" },
-  { sym:"PLTR",  name:"Palantir Technologies Cl. A", qty:18,  price:141.69, dayChg:0.93,   dayPct:0.66,  mktVal:2550.42,   gain:2122.38, gainPct:495.84, pct:1.56, type:"equity", sector:"AI / Government Tech", stance:"hold", analyst:"[Analyst]", dateAdded:"[Date]", thesis:"Palantir's AIP platform is accelerating commercial enterprise adoption of its AI operating system, complementing a long-standing and sticky government business. After a massive runup, we are monitoring valuation carefully — the business is excellent but the stock is priced for continued hypergrowth execution. [Update with your team's thesis.]" },
-  { sym:"PONY",  name:"Pony AI Inc. ADR",            qty:70,  price:9.58,   dayChg:-0.17,  dayPct:-1.74, mktVal:670.60,    gain:-83.30,  gainPct:-11.05, pct:0.41, type:"equity", sector:"Autonomous Vehicles", stance:"hold", analyst:"[Analyst]", dateAdded:"[Date]", thesis:"Pony AI is one of the most advanced autonomous vehicle companies globally, with active robotaxi operations in China and international expansion plans. The position is speculative and sized accordingly. Ongoing regulatory progress in China is the key near-term catalyst to monitor. [Update with your team's thesis.]" },
-  { sym:"PSA",   name:"Public Storage (REIT)",       qty:1,   price:290.45, dayChg:0.45,   dayPct:0.16,  mktVal:290.45,    gain:27.45,   gainPct:10.44,  pct:0.18, type:"equity", sector:"Real Estate",         stance:"hold", analyst:"[Analyst]", dateAdded:"[Date]", thesis:"Public Storage is the largest self-storage REIT with dominant market share in high-barrier coastal markets. The business model has historically demonstrated recession resilience. The 4.3% dividend yield provides income while we await improved same-store revenue growth. [Update with your team's thesis.]" },
-  { sym:"QBTS",  name:"D-Wave Quantum Inc.",         qty:75,  price:14.47,  dayChg:-0.10,  dayPct:-0.69, mktVal:1085.25,   gain:666.36,  gainPct:159.08, pct:0.66, type:"equity", sector:"Quantum Computing",   stance:"hold", analyst:"[Analyst]", dateAdded:"[Date]", thesis:"D-Wave is the only company currently selling annealing-based quantum computers at commercial scale, with a SaaS-like Leap platform generating recurring revenue. While near-term profitability remains uncertain, the position benefits from growing quantum interest from enterprise and government customers. [Update with your team's thesis.]" },
-  { sym:"RGTI",  name:"Rigetti Computing Inc.",      qty:33,  price:14.35,  dayChg:-0.18,  dayPct:-1.24, mktVal:473.55,    gain:59.40,   gainPct:14.34,  pct:0.29, type:"equity", sector:"Quantum Computing",   stance:"hold", analyst:"[Analyst]", dateAdded:"[Date]", thesis:"Rigetti is pursuing superconducting qubit architecture and cloud-based quantum computing access. Revenue is nascent and the path to profitability is long, but the technology roadmap is credible. Maintained as a speculative, small-weight bet within a broader quantum basket. [Update with your team's thesis.]" },
-  { sym:"SNEX",  name:"StoneX Group Inc.",           qty:15,  price:91.29,  dayChg:-0.33,  dayPct:-0.36, mktVal:1369.35,   gain:947.28,  gainPct:224.44, pct:0.84, type:"equity", sector:"Financials",          stance:"buy",  analyst:"[Analyst]", dateAdded:"[Date]", thesis:"StoneX operates a global financial services network serving institutional and commercial clients in commodities, currencies, and equities. Its niche market-making role in frontier and emerging market currencies creates a durable and high-return business largely ignored by large-cap-focused investors. [Update with your team's thesis.]" },
-  { sym:"SPG",   name:"Simon Property Group (REIT)", qty:2,   price:194.58, dayChg:0.54,   dayPct:0.28,  mktVal:389.16,    gain:19.14,   gainPct:5.17,   pct:0.24, type:"equity", sector:"Real Estate",         stance:"hold", analyst:"[Analyst]", dateAdded:"[Date]", thesis:"Simon Property Group operates the highest-quality mall portfolio in the U.S. and has demonstrated that premium destination retail is more resilient than feared. The 4.6% dividend and ongoing international joint ventures (TRG, Klépierre) add return layers. Rate-sensitive valuation is the key risk. [Update with your team's thesis.]" },
-  { sym:"SPOT",  name:"Spotify Technology S.A.",     qty:3,   price:484.43, dayChg:1.26,   dayPct:0.26,  mktVal:1453.28,   gain:984.14,  gainPct:209.78, pct:0.89, type:"equity", sector:"Media / Streaming",   stance:"buy",  analyst:"[Analyst]", dateAdded:"[Date]", thesis:"Spotify has achieved true global audio dominance with 600M+ users and is finally demonstrating pricing power and operating leverage. The podcast and audiobook expansion expands the content moat. We believe the market is still underpricing Spotify's path to mid-teens EBIT margins at scale. [Update with your team's thesis.]" },
-  { sym:"TIGO",  name:"Millicom International Cellular",qty:8,price:80.47, dayChg:-0.01,  dayPct:-0.01, mktVal:643.76,    gain:128.88,  gainPct:25.03,  pct:0.39, type:"equity", sector:"Telecom",             stance:"buy",  analyst:"[Analyst]", dateAdded:"[Date]", thesis:"Millicom (Tigo) is the leading telecom operator in Central America and Africa, serving markets with rapidly growing mobile and broadband penetration. The company's recent delisting from Nasdaq and transition to a single Stockholm listing reflects strategic restructuring to drive long-term shareholder value. [Update with your team's thesis.]" },
-  { sym:"TTWO",  name:"Take-Two Interactive Software",qty:3,  price:201.93, dayChg:-0.20,  dayPct:-0.10, mktVal:605.79,    gain:129.72,  gainPct:27.25,  pct:0.37, type:"equity", sector:"Gaming",              stance:"hold", analyst:"[Analyst]", dateAdded:"[Date]", thesis:"Take-Two's entire thesis centers on GTA VI, anticipated to be the highest-grossing entertainment product in history. We believe the street is too conservative on launch-year revenue and the multi-year monetization tail. Holding through near-term cash burn in anticipation of the transformational release. [Update with your team's thesis.]" },
-  { sym:"UNP",   name:"Union Pacific Corp.",         qty:2,   price:247.07, dayChg:-2.04,  dayPct:-0.82, mktVal:494.14,    gain:72.72,   gainPct:17.26,  pct:0.30, type:"equity", sector:"Industrials",         stance:"hold", analyst:"[Analyst]", dateAdded:"[Date]", thesis:"Union Pacific is one of two Class I railroads serving the western U.S., operating an irreplaceable infrastructure network with significant pricing power. Precision scheduled railroading has structurally improved margins. Held as a long-duration industrial compounder with inflation-hedging characteristics. [Update with your team's thesis.]" },
-  { sym:"VIV",   name:"Telefônica Brasil S.A. ADR",  qty:34,  price:16.30,  dayChg:-0.27,  dayPct:-1.63, mktVal:554.20,    gain:17.69,   gainPct:3.30,   pct:0.34, type:"equity", sector:"Telecom",             stance:"hold", analyst:"[Analyst]", dateAdded:"[Date]", thesis:"Vivo (Telefônica Brasil) is the dominant mobile and broadband operator in Brazil, benefiting from a duopoly market structure and strong ARPU growth from 5G and fiber rollout. The 2.6% dividend yield and BRL appreciation potential offer an attractive total return profile. [Update with your team's thesis.]" },
-  { sym:"VZ",    name:"Verizon Communications Inc.", qty:11,  price:48.05,  dayChg:0.01,   dayPct:0.02,  mktVal:528.55,    gain:162.80,  gainPct:44.51,  pct:0.32, type:"equity", sector:"Telecom",             stance:"hold", analyst:"[Analyst]", dateAdded:"[Date]", thesis:"Verizon's 5.8% dividend yield and debt deleveraging story make it an attractive income holding. Fixed wireless access is gaining traction as a broadband substitute, adding a growth vector to an otherwise mature business. Held for yield and as a defensive portfolio anchor. [Update with your team's thesis.]" },
-  { sym:"WMT",   name:"Walmart Inc.",                qty:14,  price:127.05, dayChg:-0.21,  dayPct:-0.17, mktVal:1778.70,   gain:336.06,  gainPct:23.29,  pct:1.09, type:"equity", sector:"Consumer Staples",    stance:"buy",  analyst:"[Analyst]", dateAdded:"[Date]", thesis:"Walmart's omnichannel dominance and growing advertising and marketplace businesses are transforming it from a low-margin retailer into a high-margin platform company. International (Walmex, Flipkart) and Sam's Club provide meaningful upside optionality that the market is only beginning to price in. [Update with your team's thesis.]" },
-  // ── ETFs ──
-  { sym:"FRDM",  name:"Freedom 100 Emerging Markets ETF",        qty:147, price:59.37,  dayChg:-0.12,  dayPct:-0.20, mktVal:8727.39,   gain:4421.76, gainPct:102.70, pct:5.34,  type:"etf", sector:"Emerging Markets ETF",   stance:"hold", analyst:"", dateAdded:"", thesis:"" },
-  { sym:"GDX",   name:"VanEck Gold Miners ETF",                  qty:6,   price:97.79,  dayChg:-0.39,  dayPct:-0.40, mktVal:586.74,    gain:139.41,  gainPct:31.16,  pct:0.36,  type:"etf", sector:"Materials ETF",          stance:"hold", analyst:"", dateAdded:"", thesis:"" },
-  { sym:"VAW",   name:"Vanguard Materials ETF",                  qty:6,   price:234.21, dayChg:-0.45,  dayPct:-0.19, mktVal:1405.26,   gain:365.04,  gainPct:35.09,  pct:0.86,  type:"etf", sector:"Materials ETF",          stance:"hold", analyst:"", dateAdded:"", thesis:"" },
-  { sym:"VCR",   name:"Vanguard Consumer Discretionary ETF",     qty:19,  price:366.73, dayChg:0.00,   dayPct:0.00,  mktVal:6967.87,   gain:1767.76, gainPct:33.99,  pct:4.26,  type:"etf", sector:"Consumer Disc. ETF",     stance:"hold", analyst:"", dateAdded:"", thesis:"" },
-  { sym:"VDC",   name:"Vanguard Consumer Staples ETF",           qty:23,  price:227.68, dayChg:0.00,   dayPct:0.00,  mktVal:5236.64,   gain:710.08,  gainPct:15.69,  pct:3.20,  type:"etf", sector:"Consumer Stap. ETF",     stance:"hold", analyst:"", dateAdded:"", thesis:"" },
-  { sym:"VDE",   name:"Vanguard Energy ETF",                     qty:9,   price:164.41, dayChg:-0.37,  dayPct:-0.22, mktVal:1479.69,   gain:342.54,  gainPct:30.12,  pct:0.90,  type:"etf", sector:"Energy ETF",             stance:"hold", analyst:"", dateAdded:"", thesis:"" },
-  { sym:"VFH",   name:"Vanguard Financials ETF",                 qty:165, price:125.73, dayChg:0.20,   dayPct:0.16,  mktVal:20745.47,  gain:7137.92, gainPct:52.46,  pct:12.68, type:"etf", sector:"Financials ETF",         stance:"hold", analyst:"", dateAdded:"", thesis:"" },
-  { sym:"VGT",   name:"Vanguard Information Technology ETF",     qty:68,  price:735.74, dayChg:-3.36,  dayPct:-0.45, mktVal:50030.32,  gain:21722.60,gainPct:76.74,  pct:30.58, type:"etf", sector:"Technology ETF",         stance:"hold", analyst:"", dateAdded:"", thesis:"" },
-  { sym:"VHT",   name:"Vanguard Health Care ETF",                qty:54,  price:278.00, dayChg:-0.20,  dayPct:-0.07, mktVal:15012.00,  gain:2121.12, gainPct:16.45,  pct:9.18,  type:"etf", sector:"Health Care ETF",        stance:"hold", analyst:"", dateAdded:"", thesis:"" },
-  { sym:"VIS",   name:"Vanguard Industrials ETF",                qty:36,  price:331.22, dayChg:1.53,   dayPct:0.47,  mktVal:11924.05,  gain:4855.81, gainPct:68.70,  pct:7.29,  type:"etf", sector:"Industrials ETF",        stance:"hold", analyst:"", dateAdded:"", thesis:"" },
-  { sym:"VNQ",   name:"Vanguard Real Estate ETF",                qty:12,  price:92.01,  dayChg:-0.11,  dayPct:-0.12, mktVal:1104.12,   gain:167.40,  gainPct:17.87,  pct:0.67,  type:"etf", sector:"Real Estate ETF",        stance:"hold", analyst:"", dateAdded:"", thesis:"" },
-  { sym:"VOX",   name:"Vanguard Communication Services ETF",     qty:37,  price:186.39, dayChg:-1.30,  dayPct:-0.69, mktVal:6896.39,   gain:2971.06, gainPct:75.69,  pct:4.22,  type:"etf", sector:"Comm. Services ETF",     stance:"hold", analyst:"", dateAdded:"", thesis:"" },
-  { sym:"VPU",   name:"Vanguard Utilities ETF",                  qty:7,   price:200.91, dayChg:-1.18,  dayPct:-0.58, mktVal:1406.37,   gain:442.12,  gainPct:45.85,  pct:0.86,  type:"etf", sector:"Utilities ETF",          stance:"hold", analyst:"", dateAdded:"", thesis:"" },
-  { sym:"XME",   name:"SPDR S&P Metals & Mining ETF",           qty:3,   price:112.57, dayChg:-0.78,  dayPct:-0.69, mktVal:337.71,    gain:60.75,   gainPct:21.93,  pct:0.21,  type:"etf", sector:"Materials ETF",          stance:"hold", analyst:"", dateAdded:"", thesis:"" },
+  // ─── Individual equities ───
+  {sym:"AAPL", name:"Apple Inc.", qty:2, cost:349.22, sector:"Information Technology", cls:"stock", stance:"hold", analyst:"", thesis:"Apple's services segment and ecosystem lock-in provide durable recurring revenue, and a fortress balance sheet funds continued buybacks. [Update with the team's thesis.]"},
+  {sym:"AMGN", name:"Amgen Inc.", qty:1, cost:267.67, sector:"Health Care", cls:"stock", stance:"hold", analyst:"", thesis:"Biosimilars pipeline and the MariTide obesity candidate add growth beyond the core biologics franchise; strong dividend and free cash flow. [Update with the team's thesis.]"},
+  {sym:"AMX", name:"América Móvil (ADR)", qty:14, cost:329.55, sector:"Communication Services", cls:"stock", stance:"buy", analyst:"", thesis:"2026 global telecom theme: the dominant Latin American operator with pricing power and scale; currency volatility is the key risk. [Update with the team's thesis.]"},
+  {sym:"ASML", name:"ASML Holding (ADR)", qty:1, cost:695.34, sector:"Information Technology", cls:"stock", stance:"buy", analyst:"", thesis:"Monopoly on EUV lithography — the single most critical tool in advanced chipmaking — with no near-term competitor and AI-driven demand. [Update with the team's thesis.]"},
+  {sym:"AUR", name:"Aurora Innovation", qty:170, cost:763.28, sector:"Industrials", cls:"stock", stance:"hold", analyst:"", thesis:"2026 self-driving theme: commercial driverless trucking on the Dallas–Houston corridor. Pre-revenue and high risk; sized as an option on autonomous logistics. [Update with the team's thesis.]"},
+  {sym:"BRK/B", name:"Berkshire Hathaway Cl. B", qty:1, cost:362.23, sector:"Financials", cls:"stock", stance:"hold", analyst:"", thesis:"Fortress balance sheet with $160B+ cash provides downside protection and acquisition optionality; held as defensive ballast. [Update with the team's thesis.]"},
+  {sym:"CCJ", name:"Cameco Corp.", qty:6, cost:291.78, sector:"Energy", cls:"stock", stance:"buy", analyst:"", thesis:"Largest publicly traded uranium producer; the nuclear renaissance driven by data-center power demand creates a structural supply deficit. [Update with the team's thesis.]"},
+  {sym:"CEG", name:"Constellation Energy", qty:2, cost:662.39, sector:"Utilities", cls:"stock", stance:"hold", analyst:"", thesis:"Largest U.S. nuclear operator, positioned to supply clean baseload power to hyperscalers; the Microsoft–Three Mile Island deal validated the model. [Update with the team's thesis.]"},
+  {sym:"CRWD", name:"CrowdStrike Holdings", qty:4, cost:327.06, sector:"Information Technology", cls:"stock", stance:"buy", analyst:"", thesis:"Best-in-class endpoint security expanding into cloud, identity and SIEM; recovered from the 2024 outage with accelerating ARR. 4-for-1 split July 2026. [Update with the team's thesis.]"},
+  {sym:"CTVA", name:"Corteva Inc.", qty:5, cost:375.00, sector:"Materials", cls:"stock", stance:"buy", analyst:"", thesis:"2026 agriculture-science theme: Corteva plans to split its seed and crop-protection businesses, unlocking value; global food security is a secular tailwind. [Update with the team's thesis.]"},
+  {sym:"CVX", name:"Chevron Corp.", qty:2, cost:332.44, sector:"Energy", cls:"stock", stance:"hold", analyst:"", thesis:"Well-covered dividend, disciplined capital allocation and Permian volume growth; held as an energy hedge and income generator. [Update with the team's thesis.]"},
+  {sym:"EXPE", name:"Expedia Group", qty:3, cost:581.25, sector:"Consumer Discretionary", cls:"stock", stance:"buy", analyst:"", thesis:"Added Feb 2025 (exited ABNB) to rotate into travel. AI-driven conversion gains and a valuation discount to Booking that looks unjustified. [Update with the team's thesis.]"},
+  {sym:"GE", name:"GE Aerospace", qty:3, cost:338.70, sector:"Industrials", cls:"stock", stance:"buy", analyst:"", thesis:"Pure-play jet engines and services with one of the strongest installed-base moats in industry; multi-year backlog gives visibility through 2030+. [Update with the team's thesis.]"},
+  {sym:"GOOGL", name:"Alphabet Inc. Cl. A", qty:3, cost:392.79, sector:"Communication Services", cls:"stock", stance:"buy", analyst:"", thesis:"Dominant internet gateway monetizing its AI advantage through Gemini and Google Cloud; YouTube and Waymo remain undervalued. [Update with the team's thesis.]"},
+  {sym:"IHS", name:"IHS Holding", qty:60, cost:504.51, sector:"Communication Services", cls:"stock", stance:"buy", analyst:"", thesis:"2026 global telecom theme: Africa's largest independent tower operator, riding mobile-data growth; currency and sovereign risk are real. [Update with the team's thesis.]"},
+  {sym:"IONQ", name:"IonQ Inc.", qty:19, cost:752.45, sector:"Information Technology", cls:"stock", stance:"hold", analyst:"", thesis:"Leading pure-play quantum company with a trapped-ion architecture. Added 5 shares in April 2026 while trimming QBTS and RGTI to concentrate the quantum basket. [Update with the team's thesis.]"},
+  {sym:"JPM", name:"JPMorgan Chase", qty:2, cost:450.82, sector:"Financials", cls:"stock", stance:"hold", analyst:"", thesis:"Best-managed large bank with industry-leading ROE; higher-for-longer rates expanded net interest income. Core financials anchor. [Update with the team's thesis.]"},
+  {sym:"KDK", name:"Kodiak AI", qty:85, cost:759.90, sector:"Industrials", cls:"stock", stance:"hold", analyst:"", thesis:"2026 self-driving theme: autonomous trucking and defense ground-vehicle contracts with the U.S. Army. Speculative, small weight. [Update with the team's thesis.]"},
+  {sym:"KO", name:"The Coca-Cola Co.", qty:6, cost:345.90, sector:"Consumer Staples", cls:"stock", stance:"hold", analyst:"", thesis:"Durable consumer franchise with pricing power that outpaces inflation; defensive income position. [Update with the team's thesis.]"},
+  {sym:"LLY", name:"Eli Lilly and Co.", qty:2, cost:1090.98, sector:"Health Care", cls:"stock", stance:"buy", analyst:"", thesis:"GLP-1 franchise (Mounjaro, Zepbound) is one of the largest drug launches in history; manufacturing capacity is the gating factor on out-year revenue. [Update with the team's thesis.]"},
+  {sym:"LOW", name:"Lowe's Companies", qty:2, cost:418.94, sector:"Consumer Discretionary", cls:"stock", stance:"hold", analyst:"", thesis:"Structurally undersupplied housing stock and aging homes support deferred remodeling demand; Pro segment adds margin stability. [Update with the team's thesis.]"},
+  {sym:"MAR", name:"Marriott International", qty:2, cost:511.24, sector:"Consumer Discretionary", cls:"stock", stance:"buy", analyst:"", thesis:"Asset-light franchise model with high ROIC; international travel normalization and the Bonvoy loyalty ecosystem deepen pricing power. [Update with the team's thesis.]"},
+  {sym:"MSFT", name:"Microsoft Corp.", qty:1, cost:321.40, sector:"Information Technology", cls:"stock", stance:"buy", analyst:"", thesis:"Azure captures the enterprise AI wave through OpenAI integration and Copilot monetization on top of Office 365 pricing power. [Update with the team's thesis.]"},
+  {sym:"NVDA", name:"NVIDIA Corp.", qty:6, cost:249.43, sector:"Information Technology", cls:"stock", stance:"hold", analyst:"", thesis:"Sold 4 shares in January 2026 to recover the original cost basis; the remaining 6 shares ride the AI infrastructure cycle with the CUDA moat intact. [Update with the team's thesis.]"},
+  {sym:"PGR", name:"Progressive Corp.", qty:3, cost:427.56, sector:"Financials", cls:"stock", stance:"hold", analyst:"", thesis:"Best-underwritten U.S. auto insurer; telematics data (Snapshot) steers adverse selection away from the book. [Update with the team's thesis.]"},
+  {sym:"PLD", name:"Prologis (REIT)", qty:4, cost:503.48, sector:"Real Estate", cls:"stock", stance:"hold", analyst:"", thesis:"Global leader in logistics real estate with irreplaceable last-mile facilities; e-commerce underpins demand. Added Oct 2025, replacing REZ. [Update with the team's thesis.]"},
+  {sym:"PLTR", name:"Palantir Technologies", qty:10, cost:237.80, sector:"Information Technology", cls:"stock", stance:"hold", analyst:"", thesis:"AIP is accelerating commercial adoption on top of a sticky government business. Trimmed 8 shares at $138 in April 2026 after a ~500% run to manage concentration. [Update with the team's thesis.]"},
+  {sym:"PONY", name:"Pony AI (ADR)", qty:70, cost:753.90, sector:"Industrials", cls:"stock", stance:"hold", analyst:"", thesis:"2026 self-driving theme: robotaxi operations in China with international expansion; regulatory progress is the near-term catalyst. Speculative. [Update with the team's thesis.]"},
+  {sym:"PSA", name:"Public Storage (REIT)", qty:1, cost:263.00, sector:"Real Estate", cls:"stock", stance:"hold", analyst:"", thesis:"Largest self-storage REIT with dominant share in high-barrier coastal markets; recession-resilient model and 4%+ yield. [Update with the team's thesis.]"},
+  {sym:"QBTS", name:"D-Wave Quantum", qty:30, cost:167.56, sector:"Information Technology", cls:"stock", stance:"hold", analyst:"", thesis:"Only company selling annealing quantum computers at commercial scale. 2025's top performer (+342%); sold 45 of 75 shares at $17.80 in April 2026 to lock in gains. [Update with the team's thesis.]"},
+  {sym:"QUBT", name:"Quantum Computing Inc.", qty:25, cost:203.49, sector:"Information Technology", cls:"stock", stance:"hold", analyst:"", thesis:"Added April 2026 with proceeds from the QBTS/RGTI trims: photonic quantum computing and integrated photonics chips. Speculative, small weight. [Update with the team's thesis.]"},
+  {sym:"RGTI", name:"Rigetti Computing", qty:15, cost:188.25, sector:"Information Technology", cls:"stock", stance:"hold", analyst:"", thesis:"Superconducting-qubit architecture with cloud access. Sold 18 of 33 shares at $15.66 in April 2026; the remainder stays as part of the quantum basket. [Update with the team's thesis.]"},
+  {sym:"SNEX", name:"StoneX Group", qty:22, cost:443.17, sector:"Financials", cls:"stock", stance:"buy", analyst:"", thesis:"Global financial-services network in commodities, FX and equities with a niche in frontier-market currencies; largely ignored by large-cap investors. Three 3-for-2 splits since purchase. [Update with the team's thesis.]"},
+  {sym:"SPG", name:"Simon Property Group (REIT)", qty:2, cost:370.02, sector:"Real Estate", cls:"stock", stance:"hold", analyst:"", thesis:"Highest-quality U.S. mall portfolio; premium destination retail has proven more resilient than feared. Added Jan 2026 with NVDA proceeds. [Update with the team's thesis.]"},
+  {sym:"SPOT", name:"Spotify Technology", qty:3, cost:469.14, sector:"Communication Services", cls:"stock", stance:"buy", analyst:"", thesis:"Global audio dominance with 600M+ users, finally showing pricing power and operating leverage; podcasts and audiobooks widen the moat. [Update with the team's thesis.]"},
+  {sym:"TIGO", name:"Millicom International", qty:8, cost:514.88, sector:"Communication Services", cls:"stock", stance:"buy", analyst:"", thesis:"2026 global telecom theme: leading operator across Central America with rapidly growing mobile and broadband penetration. [Update with the team's thesis.]"},
+  {sym:"TTWO", name:"Take-Two Interactive", qty:3, cost:476.07, sector:"Communication Services", cls:"stock", stance:"hold", analyst:"", thesis:"The thesis is GTA VI — likely the highest-grossing entertainment launch in history — and its multi-year monetization tail. [Update with the team's thesis.]"},
+  {sym:"UNP", name:"Union Pacific", qty:2, cost:421.42, sector:"Industrials", cls:"stock", stance:"hold", analyst:"", thesis:"Irreplaceable western U.S. rail network with pricing power; precision scheduled railroading structurally improved margins. [Update with the team's thesis.]"},
+  {sym:"VIV", name:"Telefônica Brasil (ADR)", qty:34, cost:536.51, sector:"Communication Services", cls:"stock", stance:"hold", analyst:"", thesis:"2026 global telecom theme: Brazil's dominant mobile and broadband operator in a duopoly market; 5G and fiber drive ARPU growth. [Update with the team's thesis.]"},
+  {sym:"VZ", name:"Verizon Communications", qty:11, cost:365.75, sector:"Communication Services", cls:"stock", stance:"hold", analyst:"", thesis:"High dividend yield and deleveraging story; fixed wireless access adds a growth vector to a mature business. [Update with the team's thesis.]"},
+  {sym:"WMT", name:"Walmart Inc.", qty:14, cost:1442.64, sector:"Consumer Staples", cls:"stock", stance:"buy", analyst:"", thesis:"Initiated Sept 2025 for defensive staples exposure. Advertising and marketplace are turning a low-margin retailer into a higher-margin platform. [Update with the team's thesis.]"},
+  // ─── ETFs ───
+  {sym:"VGT", name:"Vanguard Information Technology ETF", qty:544, cost:28307.72, sector:"Information Technology", cls:"sector"},
+  {sym:"VFH", name:"Vanguard Financials ETF", qty:165, cost:13607.55, sector:"Financials", cls:"sector"},
+  {sym:"VHT", name:"Vanguard Health Care ETF", qty:54, cost:12890.88, sector:"Health Care", cls:"sector"},
+  {sym:"VIS", name:"Vanguard Industrials ETF", qty:36, cost:7068.24, sector:"Industrials", cls:"sector"},
+  {sym:"VCR", name:"Vanguard Consumer Discretionary ETF", qty:19, cost:5200.11, sector:"Consumer Discretionary", cls:"sector"},
+  {sym:"VOX", name:"Vanguard Communication Services ETF", qty:37, cost:3925.33, sector:"Communication Services", cls:"sector"},
+  {sym:"VDC", name:"Vanguard Consumer Staples ETF", qty:23, cost:4526.56, sector:"Consumer Staples", cls:"sector"},
+  {sym:"VDE", name:"Vanguard Energy ETF", qty:9, cost:1137.15, sector:"Energy", cls:"sector"},
+  {sym:"VAW", name:"Vanguard Materials ETF", qty:6, cost:1040.22, sector:"Materials", cls:"sector"},
+  {sym:"VPU", name:"Vanguard Utilities ETF", qty:7, cost:964.25, sector:"Utilities", cls:"sector"},
+  {sym:"VNQ", name:"Vanguard Real Estate ETF", qty:12, cost:936.72, sector:"Real Estate", cls:"reit"},
+  {sym:"FRDM", name:"Freedom 100 Emerging Markets ETF", qty:147, cost:4305.63, sector:"Emerging Markets (FRDM)", cls:"em"},
+  {sym:"GDX", name:"VanEck Gold Miners ETF", qty:6, cost:447.33, sector:"Materials", cls:"industry"},
+  {sym:"XME", name:"SPDR S&P Metals & Mining ETF", qty:3, cost:276.96, sector:"Materials", cls:"industry"},
 ];
 
-// ── LIVE PRICES ──────────────────────────────────────────────────────────────
-const liveCache = {};
-async function fetchLive(sym) {
-  const yfSym = sym === "BRK/B" ? "BRK-B" : sym;
-  try {
-    const r = await fetch(`https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(yfSym)}?interval=1d&range=2d`);
-    if (!r.ok) return null;
-    const j = await r.json();
-    const m = j.chart.result[0].meta;
-    return { price: m.regularMarketPrice, chg: m.regularMarketPrice - m.chartPreviousClose, pct: ((m.regularMarketPrice - m.chartPreviousClose) / m.chartPreviousClose) * 100 };
-  } catch { return null; }
+/* S&P 500 sector weights (Sept 2026, from the FINC 475 deck). Update as needed. */
+const SP500_WEIGHTS = {"Information Technology":37.9,"Financials":12.3,"Health Care":9.3,"Industrials":8.3,"Consumer Discretionary":9.1,"Communication Services":9.5,"Consumer Staples":4.5,"Energy":3.5,"Materials":1.8,"Utilities":2.0,"Real Estate":1.8};
+
+const SECTOR_COLORS = {"Information Technology":"#0089C3","Financials":"#3DBE6A","Health Care":"#1F3A5A","Industrials":"#8A8A8A","Consumer Discretionary":"#B8722E","Communication Services":"#FECB00","Consumer Staples":"#7A7A1F","Energy":"#C0392B","Materials":"#D9531E","Utilities":"#B8B8B8","Real Estate":"#E67E22","Emerging Markets (FRDM)":"#2BB3A3"};
+const CLASS_META = {sector:["Sector ETFs","#0089C3"],stock:["Individual stocks","#FECB00"],em:["FRDM (Emerging markets)","#1F3A5A"],cash:["Cash","#EDEBC3"],industry:["Industry ETFs","#C0392B"],reit:["REIT ETF","#8E44AD"]};
+const SECTOR_ETF = {"Information Technology":"VGT","Financials":"VFH","Health Care":"VHT","Industrials":"VIS","Consumer Discretionary":"VCR","Communication Services":"VOX","Consumer Staples":"VDC","Energy":"VDE","Materials":"VAW","Utilities":"VPU","Real Estate":"VNQ"};
+const NAMES = {}; HOLDINGS.forEach(h=>NAMES[h.sym]=h.name);
+Object.assign(NAMES,{PANW:"Palo Alto Networks",VHT:NAMES.VHT,REZ:"iShares Residential RE ETF",DASH:"DoorDash",TXRH:"Texas Roadhouse",FLUT:"Flutter Entertainment",TMUS:"T-Mobile US",ABNB:"Airbnb",CROX:"Crocs",MPC:"Marathon Petroleum",AMD:"Advanced Micro Devices",V:"Visa",HD:"Home Depot",JNJ:"Johnson & Johnson",CMI:"Cummins",CSCO:"Cisco Systems",CMCSA:"Comcast",NEE:"NextEra Energy",GM:"General Motors",BAC:"Bank of America",BMY:"Bristol-Myers Squibb"});
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   2. TRADE LEDGER — [date, action(B/S/X=split), symbol, qty, price, amount]
+      Generated from the brokerage transaction export. Append new trades here.
+   ═══════════════════════════════════════════════════════════════════════════ */
+const TRADES = [["2023-09-22","B","LOW",2.0,209.47,418.94],["2023-09-22","B","BRK/B",1.0,362.23,362.23],["2023-09-22","B","MSFT",1.0,321.4,321.4],["2023-09-22","B","GOOGL",3.0,130.93,392.79],["2023-09-22","B","VFH",190.0,82.47,15669.3],["2023-09-22","B","CVX",2.0,166.22,332.44],["2023-09-22","B","CSCO",8.0,53.4,427.2],["2023-09-22","B","FRDM",147.0,29.29,4305.63],["2023-09-22","B","AMD",3.0,96.95,290.85],["2023-09-22","B","VDC",15.0,188.32,2824.8],["2023-09-22","B","VOX",37.0,106.09,3925.33],["2023-09-22","B","VPU",7.0,137.75,964.25],["2023-09-22","B","CMI",2.0,229.18,458.36],["2023-09-22","B","GM",12.0,32.97,395.64],["2023-09-22","B","JNJ",3.0,161.3,483.9],["2023-09-22","B","PSA",1.0,263.0,263.0],["2023-09-22","B","NVDA",1.0,415.72,415.72],["2023-09-22","B","CMCSA",9.0,45.56,410.04],["2023-09-22","B","PGR",3.0,142.52,427.56],["2023-09-22","B","MPC",3.0,155.67,467.01],["2023-09-22","B","UNP",2.0,210.71,421.42],["2023-09-22","B","SPOT",3.0,156.38,469.14],["2023-09-22","B","VGT",68.0,416.29,28307.72],["2023-09-22","B","BMY",6.0,59.33,355.98],["2023-09-22","B","GE",3.0,112.9,338.7],["2023-09-22","B","VCR",19.0,273.69,5200.11],["2023-09-22","B","AAPL",2.0,174.61,349.22],["2023-09-22","B","HD",1.0,306.16,306.16],["2023-09-22","B","KO",6.0,57.65,345.9],["2023-09-22","B","BAC",13.0,28.08,365.04],["2023-09-22","B","VAW",6.0,173.37,1040.22],["2023-09-22","B","VIS",36.0,196.34,7068.24],["2023-09-22","B","NEE",5.0,66.5,332.5],["2023-09-22","B","VDE",9.0,126.35,1137.15],["2023-09-22","B","VHT",69.0,238.72,16471.68],["2023-09-22","B","AMGN",1.0,267.67,267.67],["2023-09-22","B","VZ",11.0,33.25,365.75],["2023-09-22","B","V",2.0,236.66,473.32],["2023-09-22","B","VNQ",12.0,78.06,936.72],["2023-09-22","B","TXRH",3.0,97.08,291.24],["2023-09-29","S","BMY",6.0,58.37,350.22],["2023-09-29","B","LLY",2.0,545.49,1090.98],["2023-11-17","S","BAC",13.0,29.8,387.4],["2023-11-17","S","VFH",25.0,84.6,2114.98],["2023-12-01","B","TTWO",3.0,158.69,476.07],["2023-12-01","S","GM",12.0,31.63,379.56],["2023-12-08","B","ASML",1.0,695.34,695.34],["2023-12-08","B","SNEX",7.0,63.31,443.17],["2023-12-08","B","REZ",6.0,68.74,412.44],["2024-02-01","S","CMCSA",9.0,46.5628,419.07],["2024-02-01","S","NEE",5.0,58.065,290.33],["2024-02-01","B","FLUT",3.0,208.63,625.89],["2024-02-22","B","PLTR",18.0,23.78,428.04],["2024-03-14","S","CSCO",8.0,50.27,402.16],["2024-03-22","B","ABNB",3.0,167.982,503.95],["2024-03-22","B","MAR",2.0,255.6199,511.24],["2024-03-22","B","CRWD",1.0,327.06,327.06],["2024-03-22","B","PANW",1.0,286.56,286.56],["2024-04-05","B","CROX",3.0,135.1,405.3],["2024-04-11","S","CMI",2.0,302.65,605.3],["2024-04-25","S","JNJ",3.0,149.37,448.11],["2024-04-25","B","CCJ",6.0,48.63,291.78],["2024-06-10","X","NVDA",9.0,120.888,null],["2024-09-23","S","HD",1.0,390.83,390.82],["2024-09-30","S","TXRH",1.0,175.5,175.5],["2024-10-30","B","JPM",2.0,225.41,450.82],["2024-10-30","S","V",2.0,292.9,585.78],["2024-12-10","S","AMD",3.0,127.5,382.49],["2024-12-16","X","PANW",1.0,196.56,null],["2025-02-03","B","IONQ",14.0,39.0,546.0],["2025-02-03","B","QBTS",75.0,5.5852,418.89],["2025-02-03","B","RGTI",33.0,12.55,414.15],["2025-02-14","S","ABNB",3.0,158.0,473.99],["2025-02-14","S","CROX",3.0,109.6,328.79],["2025-02-28","B","EXPE",3.0,193.75,581.25],["2025-03-17","S","MPC",3.0,141.69,425.06],["2025-03-24","X","SNEX",3.0,78.22,null],["2025-04-07","B","TMUS",3.0,247.95,743.85],["2025-09-17","S","PANW",2.0,203.0,406.0],["2025-09-25","B","CEG",2.0,331.195,662.39],["2025-09-25","B","WMT",4.0,103.07,412.28],["2025-09-25","B","WMT",10.0,103.0356,1030.36],["2025-09-25","B","VDC",8.0,212.72,1701.76],["2025-09-26","B","GDX",6.0,74.5556,447.33],["2025-09-26","B","XME",3.0,92.32,276.96],["2025-09-26","S","VHT",15.0,251.56,3773.4],["2025-10-22","B","PLD",4.0,125.87,503.48],["2025-10-22","S","REZ",6.0,84.8903,509.34],["2025-10-22","B","DASH",2.0,252.325,504.65],["2025-11-06","S","TXRH",2.0,165.47,330.94],["2025-11-21","S","FLUT",3.0,195.99,587.97],["2026-01-29","S","NVDA",4.0,192.0,768.0],["2026-01-29","B","SPG",2.0,185.01,370.02],["2026-02-11","B","IHS",60.0,8.4085,504.51],["2026-02-11","B","VIV",34.0,15.7797,536.51],["2026-02-11","B","AMX",14.0,23.5391,329.55],["2026-02-11","B","TIGO",8.0,64.36,514.88],["2026-02-11","S","TMUS",3.0,209.37,628.11],["2026-02-17","B","CTVA",5.0,75.0,375.0],["2026-02-19","S","DASH",2.0,184.98,369.96],["2026-03-06","B","AUR",170.0,4.4899,763.28],["2026-03-06","B","KDK",85.0,8.94,759.9],["2026-03-23","X","SNEX",5.0,69.6933,null],["2026-03-26","B","PONY",70.0,10.77,753.9],["2026-04-21","X","VGT",476.0,101.1412,null],["2026-04-29","B","QUBT",25.0,8.1394,203.49],["2026-04-29","S","RGTI",18.0,15.66,281.87],["2026-04-29","S","QBTS",45.0,17.8,800.97],["2026-04-29","B","IONQ",5.0,41.29,206.45],["2026-04-30","S","PLTR",8.0,138.23,1105.82],["2026-07-02","X","CRWD",3.0,193.185,null],["2026-07-20","X","SNEX",7.0,68.66,null]];
+/* Split ratios for price-adjusted history (Yahoo prices are split-adjusted). */
+const SPLITS = [["2024-06-10","NVDA",10],["2024-12-16","PANW",2],["2025-03-24","SNEX",1.5],["2026-03-23","SNEX",1.5],["2026-04-21","VGT",8],["2026-07-02","CRWD",4],["2026-07-20","SNEX",1.5]];
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   3. MARKET DATA — Yahoo Finance chart API, with CORS-proxy fallbacks.
+   ═══════════════════════════════════════════════════════════════════════════ */
+const YF_SYM = s => s.replace("/", "-");
+const yfUrl = s => `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(YF_SYM(s))}?interval=1d&range=1y`;
+const PROXIES = [u=>u, u=>"https://corsproxy.io/?url="+encodeURIComponent(u), u=>"https://api.allorigins.win/raw?url="+encodeURIComponent(u)];
+let proxy = null;
+const MARKET = {};   // sym -> {price, prev, ts:[], close:[]}
+
+async function fetchJSON(url, ms=15000){
+  const c = new AbortController(); const t = setTimeout(()=>c.abort(), ms);
+  try { const r = await fetch(url,{signal:c.signal}); if(!r.ok) throw new Error(r.status); return await r.json(); }
+  finally { clearTimeout(t); }
+}
+function parseChart(j){
+  const r = j && j.chart && j.chart.result && j.chart.result[0]; if(!r) return null;
+  const m = r.meta, ts = r.timestamp||[], q = (r.indicators.quote[0]||{}).close||[];
+  const out = {price:m.regularMarketPrice, prev:m.chartPreviousClose ?? m.previousClose, ts:[], close:[]};
+  let last=null;
+  for(let i=0;i<ts.length;i++){ const c=q[i]; if(c!=null) last=c; if(last!=null){ out.ts.push(ts[i]*1000); out.close.push(last);} }
+  if(out.close.length){
+    // chartPreviousClose on a 1y chart is the close BEFORE the range, so derive the prior session close ourselves.
+    const n=out.close.length, lastDay=new Date(out.ts[n-1]).toDateString(), today=new Date().toDateString();
+    if(lastDay===today){ out.prev = n>1? out.close[n-2] : out.prev; out.close[n-1]=out.price; }
+    else { out.prev = (Math.abs(out.close[n-1]-out.price)<1e-6 && n>1)? out.close[n-2] : out.close[n-1]; out.ts.push(Date.now()); out.close.push(out.price); }
+  }
+  return out;
+}
+async function pickProxy(){
+  for(const p of PROXIES){ try{ const j=await fetchJSON(p(yfUrl("SPY")),9000); const d=parseChart(j); if(d&&d.price){ proxy=p; MARKET.SPY=d; return true; } }catch(e){} }
+  return false;
+}
+async function fetchAll(syms, onProgress){
+  let i=0, done=0; const pool=6;
+  async function worker(){ while(i<syms.length){ const s=syms[i++]; try{ const d=parseChart(await fetchJSON(proxy(yfUrl(s)))); if(d&&d.price) MARKET[s]=d; }catch(e){} done++; onProgress&&onProgress(done,syms.length); } }
+  await Promise.all(Array.from({length:pool},worker));
 }
 
-// ── FORMATTING ────────────────────────────────────────────────────────────────
-const fmt$ = v => "$" + Math.abs(v).toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});
-const fmtChg = (v,p) => (v>=0?"+":"-") + fmt$(v) + " (" + (p>=0?"+":"") + p.toFixed(2) + "%)";
-const cls = v => v > 0 ? "up" : v < 0 ? "down" : "neutral";
+/* ═══════════════════════════════════════════════════════════════════════════
+   4. LEDGER MATH — shares held at any date, split-adjusted to match prices.
+   ═══════════════════════════════════════════════════════════════════════════ */
+const D = s => new Date(s+"T21:00:00Z").getTime();
+function rawSharesAt(sym, t){ let q=0; for(const [d,a,s,n] of TRADES){ if(s!==sym) continue; const td=D(d); if(td>t) break; if(a==="B"||a==="X") q+=n; else if(a==="S") q-=n; } return q; }
+function adjSharesAt(sym, t){ let q=rawSharesAt(sym,t); for(const [d,s,r] of SPLITS){ if(s===sym && D(d)>t) q*=r; } return q; }
+function firstBuy(sym){ for(const tr of TRADES){ if(tr[2]===sym&&tr[1]==="B") return tr; } return null; }
+function closeAt(sym, t){ const m=MARKET[sym]; if(!m||!m.ts.length) return null; let lo=0,hi=m.ts.length-1; if(m.ts[0]>t) return null; while(lo<hi){ const mid=(lo+hi+1)>>1; if(m.ts[mid]<=t) lo=mid; else hi=mid-1; } return m.close[lo]; }
 
-// ── CURRENT FILTER ────────────────────────────────────────────────────────────
-let currentFilter = "all";
-let highlighted = null;
+/* ═══════════════════════════════════════════════════════════════════════════
+   5. FORMATTERS
+   ═══════════════════════════════════════════════════════════════════════════ */
+const $ = id => document.getElementById(id);
+const money = (v,d=2) => (v<0?"-":"") + "$" + Math.abs(v).toLocaleString("en-US",{minimumFractionDigits:d,maximumFractionDigits:d});
+const pct = (v,d=2) => (v>0?"+":"") + (v*100).toFixed(d) + "%";
+const sgn = v => v>0.00001?"up":v<-0.00001?"dn":"flat";
+const esc = s => String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;");
+const MON = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 
-function filterTable(f, el) {
-  currentFilter = f;
-  document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
-  el.classList.add("active");
-  renderTable();
-}
+/* ═══════════════════════════════════════════════════════════════════════════
+   6. RENDER — holdings table, cards, allocation, performance, spotlight, ledger
+   ═══════════════════════════════════════════════════════════════════════════ */
+let rows = [], filter="all", sortKey="w", sortAsc=false, hl=null, chartsBuilt={};
+let totals = {};
 
-// ── TABLE RENDER ──────────────────────────────────────────────────────────────
-function renderTable() {
-  const tbody = document.getElementById("tbl-body");
-  tbody.innerHTML = "";
-  const rows = HOLDINGS.filter(h => currentFilter === "all" || (currentFilter === "equity" && h.type === "equity") || (currentFilter === "etf" && h.type === "etf"));
-  rows.forEach((h, i) => {
-    const live = liveCache[h.sym];
-    const px = live ? live.price : h.price;
-    const chg = live ? live.chg : h.dayChg;
-    const pct = live ? live.pct : h.dayPct;
-    const loading = !live;
-    const tr = document.createElement("tr");
-    tr.dataset.sym = h.sym;
-    if (highlighted === h.sym) tr.classList.add("row-active");
-    tr.innerHTML = `
-      <td><div class="td-sym">${h.sym}</div><div class="td-co">${h.name}</div></td>
-      <td>${loading ? '<span class="shim">$000.00</span>' : fmt$(px)}</td>
-      <td class="${cls(chg)}">${loading ? '<span class="shim">+0.00</span>' : (chg>=0?"+":"-")+fmt$(chg)}</td>
-      <td class="${cls(pct)}">${loading ? '<span class="shim">+0.00%</span>' : (pct>=0?"+":"")+pct.toFixed(2)+"%"}</td>
-      <td>${fmt$(h.mktVal)}</td>
-      <td class="${cls(h.gain)}">${(h.gain>=0?"+":"-")+fmt$(h.gain)}</td>
-      <td class="${cls(h.gainPct)}">${(h.gainPct>=0?"+":"")+h.gainPct.toFixed(2)+"%"}</td>
-      <td>${h.pct.toFixed(2)}%</td>
-      <td><span class="badge${h.type==='etf'?' etf':''}">${h.type==='etf'?'ETF':'Equity'}</span></td>`;
-    if (h.type === "equity") {
-      tr.addEventListener("click", () => {
-        highlighted = h.sym;
-        renderTable();
-        const card = document.querySelector(`.card[data-sym="${h.sym}"]`);
-        if (card) { card.classList.add("card-hl"); card.scrollIntoView({behavior:"smooth",block:"nearest"}); }
-        document.querySelectorAll(".card").forEach(c => { if(c.dataset.sym !== h.sym) c.classList.remove("card-hl"); });
-      });
-    }
-    tbody.appendChild(tr);
+function computeRows(){
+  rows = HOLDINGS.map(h=>{
+    const m=MARKET[h.sym]; const price=m?m.price:null; const prev=m?m.prev:null;
+    const mv=price!=null?price*h.qty:null; const gain=mv!=null?mv-h.cost:null;
+    return {...h, price, prev, dayPct:(price!=null&&prev)?price/prev-1:null, dayChg:(price!=null&&prev)?(price-prev)*h.qty:null, mv, gain, gainPct:gain!=null?gain/h.cost:null, w:null};
   });
+  const eq = rows.reduce((a,r)=>a+(r.mv||0),0); const tot=eq+CASH;
+  rows.forEach(r=>r.w = r.mv!=null? r.mv/tot : null);
+  totals = {equity:eq, total:tot, cost:rows.reduce((a,r)=>a+r.cost,0), day:rows.reduce((a,r)=>a+(r.dayChg||0),0), gain:rows.reduce((a,r)=>a+(r.gain||0),0), live:rows.filter(r=>r.mv!=null).length};
 }
 
-// ── THESIS CARDS ─────────────────────────────────────────────────────────────
-function renderCards() {
-  const grid = document.getElementById("cards-grid");
-  grid.innerHTML = "";
-  HOLDINGS.filter(h => h.type === "equity").forEach(h => {
-    const live = liveCache[h.sym];
-    const px = live ? live.price : h.price;
-    const chg = live ? live.chg : h.dayChg;
-    const pct = live ? live.pct : h.dayPct;
-    const isUp = pct >= 0;
-    const card = document.createElement("div");
-    card.className = "card";
-    card.dataset.sym = h.sym;
-    const isPlaceholder = h.thesis.includes("[Update this thesis");
-    card.innerHTML = `
-      <div class="card-top">
-        <div>
-          <div class="card-sym">${h.sym}</div>
-          <div class="card-co-name">${h.name}</div>
-        </div>
-        <div class="card-px">
-          <div class="card-px-val">${fmt$(px)}</div>
-          <div class="card-px-chg ${isUp?'up':'down'}">${(pct>=0?"+":"")+pct.toFixed(2)+"%"}</div>
-        </div>
-      </div>
-      <div class="card-body">
-        <div class="card-tags">
-          <span class="ctag ${h.stance}">${h.stance.charAt(0).toUpperCase()+h.stance.slice(1)}</span>
-          <span class="ctag">${h.sector}</span>
-          ${h.dateAdded && h.dateAdded !== "[Date]" ? `<span class="ctag">Added ${h.dateAdded}</span>` : ""}
-        </div>
-        <div class="card-thesis-lbl">Investment Thesis</div>
-        <p class="card-thesis${isPlaceholder?' placeholder':''}">${h.thesis}</p>
-        <div class="card-foot">
-          <span>${h.analyst && h.analyst !== "[Analyst]" ? "Analyst: <strong>"+h.analyst+"</strong>" : "<em style='color:var(--gray-400)'>Add analyst name in source</em>"}</span>
-          <span class="card-wt">${h.pct.toFixed(2)}% of acct</span>
-        </div>
-      </div>`;
-    card.addEventListener("click", () => {
-      highlighted = h.sym;
-      document.querySelectorAll(".card").forEach(c => c.classList.remove("card-hl"));
-      card.classList.add("card-hl");
-      renderTable();
-    });
-    grid.appendChild(card);
-  });
+function renderTable(){
+  const tb=$("tbody"); const list=rows.filter(r=>filter==="all"||(filter==="equity"?r.cls==="stock":r.cls!=="stock"));
+  list.sort((a,b)=>{ let x=a[sortKey],y=b[sortKey]; if(x==null)x=-1e18; if(y==null)y=-1e18; if(typeof x==="string") return sortAsc? x.localeCompare(y): y.localeCompare(x); return sortAsc? x-y : y-x; });
+  tb.innerHTML = list.map(r=>{
+    const L=r.price==null; const sh=(t)=>`<span class="shim">${t}</span>`;
+    return `<tr data-sym="${r.sym}" class="${hl===r.sym?'hl':''}">
+      <td><div class="sym">${r.sym}</div><div class="co">${esc(r.name)}</div></td>
+      <td class="mono">${r.qty}</td>
+      <td class="mono">${L?sh("$000.00"):money(r.price)}</td>
+      <td class="mono ${L?'':sgn(r.dayPct)}">${L?sh("+0.00%"):pct(r.dayPct)}</td>
+      <td class="mono">${L?sh("$0,000.00"):money(r.mv)}</td>
+      <td class="mono">${money(r.cost)}</td>
+      <td class="mono ${L?'':sgn(r.gain)}">${L?sh("+$000.00"):money(r.gain)}</td>
+      <td class="mono ${L?'':sgn(r.gainPct)}">${L?sh("+00.0%"):pct(r.gainPct,1)}</td>
+      <td class="mono">${L?sh("0.00%"):(r.w*100).toFixed(2)+"%"}</td>
+      <td><span class="pill ${r.cls==='stock'?'':'etf'}">${r.cls==="stock"?"Equity":"ETF"}</span></td></tr>`;
+  }).join("");
+  const T=totals, L=!T.live;
+  $("tfoot").innerHTML = `<td>${list.length} positions${filter==="all"?" + cash":""}</td><td></td><td></td><td class="${L?'':sgn(T.day)}">${L?"—":pct(T.day/(T.equity-T.day))}</td><td>${L?"—":money(filter==="all"?T.total:list.reduce((a,r)=>a+(r.mv||0),0))}</td><td>${money(filter==="all"?T.cost:list.reduce((a,r)=>a+r.cost,0))}</td><td class="${L?'':sgn(T.gain)}">${L?"—":money(list.reduce((a,r)=>a+(r.gain||0),0))}</td><td class="${L?'':sgn(T.gain)}">${L?"—":pct(list.reduce((a,r)=>a+(r.gain||0),0)/list.reduce((a,r)=>a+r.cost,0),1)}</td><td>${L?"—":(filter==="all"?"100%":(list.reduce((a,r)=>a+(r.w||0),0)*100).toFixed(1)+"%")}</td><td></td>`;
+  document.querySelectorAll("table.h th").forEach(th=>{ th.classList.toggle("sorted",th.dataset.k===sortKey); th.classList.toggle("asc",th.dataset.k===sortKey&&sortAsc); });
 }
 
-// ── ETF GRID ──────────────────────────────────────────────────────────────────
-function renderETFs() {
-  const grid = document.getElementById("etf-grid");
-  grid.innerHTML = "";
-  HOLDINGS.filter(h => h.type === "etf").forEach(h => {
-    const live = liveCache[h.sym];
-    const px = live ? live.price : h.price;
-    const pct = live ? live.pct : h.dayPct;
-    const isUp = pct >= 0;
-    const d = document.createElement("div");
-    d.className = "etf-card";
-    d.innerHTML = `
-      <div class="etf-left">
-        <div class="etf-sym">${h.sym}</div>
-        <div class="etf-name">${h.name}</div>
-      </div>
-      <div class="etf-right">
-        <div class="etf-px">${fmt$(px)}</div>
-        <div class="etf-chg ${isUp?'up':'down'}">${(pct>=0?"+":"")+pct.toFixed(2)+"%"}</div>
-        <div class="etf-mv">${fmt$(h.mktVal)} · ${h.pct.toFixed(2)}%</div>
-      </div>`;
-    grid.appendChild(d);
-  });
+function renderCards(){
+  const stocks=rows.filter(r=>r.cls==="stock");
+  $("cards").innerHTML = stocks.map(r=>{
+    const fb=firstBuy(r.sym); const added=fb? new Date(D(fb[0])).toLocaleDateString("en-US",{month:"short",year:"numeric"}):"";
+    const L=r.price==null; const th=esc(r.thesis||"").replace(/\[Update[^\]]*\]/g, m=>`<span class="todo">${m}</span>`);
+    return `<div class="tc" data-sym="${r.sym}">
+      <div class="tc-top"><div><div class="tc-sym">${r.sym}</div><div class="tc-co">${esc(r.name)}</div></div>
+        <div class="tc-px"><div class="p">${L?"—":money(r.price)}</div><div class="c ${L?'':sgn(r.dayPct)}">${L?"":pct(r.dayPct)}</div></div></div>
+      <div class="tc-body">
+        <div class="tc-tags"><span class="pill ${r.stance}">${r.stance}</span><span class="pill">${esc(r.sector)}</span>${added?`<span class="pill">Added ${added}</span>`:""}</div>
+        <div class="tc-stats"><div><div class="l">Shares</div><div class="v">${r.qty}</div></div><div><div class="l">Avg cost</div><div class="v">${money(r.cost/r.qty)}</div></div><div><div class="l">Gain</div><div class="v ${L?'':sgn(r.gainPct)}">${L?"—":pct(r.gainPct,1)}</div></div></div>
+        <div class="tc-lbl">Investment thesis</div><p class="tc-th">${th}</p>
+        <div class="tc-foot"><span>${r.analyst?`Analyst: <b>${esc(r.analyst)}</b>`:"<i>Analyst: add in source</i>"}</span><span class="w">${L?"—":(r.w*100).toFixed(2)+"% of fund"}</span></div>
+      </div></div>`;
+  }).join("");
 }
 
-// ── LOAD / REFRESH ────────────────────────────────────────────────────────────
-async function loadAll() {
-  renderTable(); renderCards(); renderETFs();
-  await Promise.all(HOLDINGS.map(async h => {
-    const live = await fetchLive(h.sym);
-    if (live) liveCache[h.sym] = live;
-  }));
-  renderTable(); renderCards(); renderETFs();
-  const now = new Date().toLocaleTimeString();
-  document.getElementById("last-upd").textContent = now;
-  document.getElementById("footer-upd").textContent = new Date().toLocaleString();
+function highlight(sym, scrollTo){
+  hl=sym; document.querySelectorAll(".tc").forEach(c=>c.classList.toggle("hl",c.dataset.sym===sym));
+  document.querySelectorAll("table.h tbody tr").forEach(t=>t.classList.toggle("hl",t.dataset.sym===sym));
+  if(scrollTo){ const el=document.querySelector(`.${scrollTo}[data-sym="${CSS.escape(sym)}"]`); if(el) el.scrollIntoView({behavior:"smooth",block:"center"}); }
 }
 
-loadAll();
-setInterval(loadAll, 60000);
+function donut(id, labels, values, colors){
+  const ctx=$(id); if(chartsBuilt[id]){ chartsBuilt[id].data.labels=labels; chartsBuilt[id].data.datasets[0].data=values; chartsBuilt[id].data.datasets[0].backgroundColor=colors; chartsBuilt[id].update(); return; }
+  chartsBuilt[id]=new Chart(ctx,{type:"doughnut",data:{labels,datasets:[{data:values,backgroundColor:colors,borderWidth:2,borderColor:"#fff"}]},options:{cutout:"62%",plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>` ${c.label}: ${c.parsed.toFixed(2)}%`}}},animation:{duration:400}}});
+}
+function legend(id, items){ $(id).innerHTML=items.map(([n,v,c])=>`<li><i style="background:${c}"></i><span class="n">${esc(n)}</span><span class="p">${v.toFixed(2)}%</span></li>`).join(""); }
+
+function renderAllocation(){
+  if(!totals.live) return;
+  const T=totals.total;
+  const byClass={}; rows.forEach(r=>{ if(r.mv!=null) byClass[r.cls]=(byClass[r.cls]||0)+r.mv; }); byClass.cash=CASH;
+  const cl=Object.entries(byClass).map(([k,v])=>[CLASS_META[k][0],v/T*100,CLASS_META[k][1]]).sort((a,b)=>b[1]-a[1]);
+  donut("donut-class",cl.map(x=>x[0]),cl.map(x=>x[1]),cl.map(x=>x[2])); legend("leg-class",cl);
+  const bySec={}; rows.forEach(r=>{ if(r.mv!=null) bySec[r.sector]=(bySec[r.sector]||0)+r.mv; });
+  const eq=totals.equity;
+  const sc=Object.entries(bySec).map(([k,v])=>[k,v/eq*100,SECTOR_COLORS[k]||"#999"]).sort((a,b)=>b[1]-a[1]);
+  donut("donut-sector",sc.map(x=>x[0]),sc.map(x=>x[1]),sc.map(x=>x[2])); legend("leg-sector",sc);
+  $("alloc-asof").textContent = `$${Math.round(T).toLocaleString()} total`;
+  const secs=Object.keys(SP500_WEIGHTS); const mx=Math.max(...secs.map(s=>Math.max(bySec[s]||0,0)/eq*100), ...Object.values(SP500_WEIGHTS));
+  $("sector-bars").innerHTML = secs.sort((a,b)=>(bySec[b]||0)-(bySec[a]||0)).map(s=>{ const f=(bySec[s]||0)/eq*100, p=SP500_WEIGHTS[s];
+    return `<div class="sbar"><span class="n">${s}</span><span class="bars"><i class="f" style="width:${f/mx*100}%"></i><i class="s" style="width:${p/mx*100}%"></i></span><span class="f-v">${f.toFixed(1)}%</span><span class="s-v">${p.toFixed(1)}%</span></div>`; }).join("");
+}
+
+/* Time-weighted daily returns of the fund (equity sleeve) and of a subset filter */
+function dailyReturns(filterFn){
+  const spy=MARKET.SPY; if(!spy) return null;
+  const ts=spy.ts, out={ts:[],r:[]};
+  const syms=[...new Set(TRADES.map(t=>t[2]))].filter(s=>MARKET[s] && (!filterFn||filterFn(s)));
+  for(let k=1;k<ts.length;k++){
+    const t0=ts[k-1], t1=ts[k]; let v0=0, v1=0;
+    for(const s of syms){ const q=adjSharesAt(s,t0); if(q<=0) continue; const c0=closeAt(s,t0), c1=closeAt(s,t1); if(c0==null||c1==null) continue; v0+=q*c0; v1+=q*c1; }
+    if(v0>0){ out.ts.push(t1); out.r.push(v1/v0-1); }
+  }
+  return out;
+}
+function spyReturns(){ const s=MARKET.SPY, out={ts:[],r:[]}; for(let k=1;k<s.ts.length;k++){ out.ts.push(s.ts[k]); out.r.push(s.close[k]/s.close[k-1]-1); } return out; }
+function chain(rs){ return rs.reduce((a,r)=>a*(1+r),1)-1; }
+function monthly(series){ const m={}; series.ts.forEach((t,i)=>{ const d=new Date(t), k=d.getFullYear()*100+d.getMonth(); (m[k]=m[k]||[]).push(series.r[i]); }); return Object.keys(m).sort().map(k=>({key:+k,label:MON[k%100]+" "+String(Math.floor(k/100)).slice(2),r:chain(m[k])})); }
+function ytd(series){ const y=new Date().getFullYear(); return chain(series.r.filter((_,i)=>new Date(series.ts[i]).getFullYear()===y)); }
+function stats(f,s){ // align by timestamp
+  const map=new Map(s.ts.map((t,i)=>[t,s.r[i]])); const a=[],b=[]; f.ts.forEach((t,i)=>{ if(map.has(t)){ a.push(f.r[i]); b.push(map.get(t)); } });
+  const n=a.length; if(n<20) return {};
+  const mean=x=>x.reduce((p,q)=>p+q,0)/x.length, ma=mean(a), mb=mean(b);
+  let va=0,vb=0,cov=0; for(let i=0;i<n;i++){ va+=(a[i]-ma)**2; vb+=(b[i]-mb)**2; cov+=(a[i]-ma)*(b[i]-mb); } va/=n-1; vb/=n-1; cov/=n-1;
+  return {sharpe:(ma-RF/252)/Math.sqrt(va)*Math.sqrt(252), beta:cov/vb, vol:Math.sqrt(va)*Math.sqrt(252)};
+}
+
+function lineChart(id, labels, datasets, opts){
+  if(chartsBuilt[id]){ chartsBuilt[id].data.labels=labels; chartsBuilt[id].data.datasets=datasets; chartsBuilt[id].update(); return; }
+  chartsBuilt[id]=new Chart($(id),{type:opts.type||"line",data:{labels,datasets},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:"index",intersect:false},
+    plugins:{legend:{labels:{color:"#C9D3E0",boxWidth:12,font:{family:"Montserrat",size:11}}},tooltip:{callbacks:{label:c=>` ${c.dataset.label}: ${opts.fmt(c.parsed.y)}`}}},
+    scales:{x:{stacked:!!opts.stacked,ticks:{color:"#9FB0C4",font:{family:"Montserrat",size:10},maxRotation:0,autoSkip:true,maxTicksLimit:opts.maxTicks||12},grid:{color:"rgba(255,255,255,.06)"}},
+            y:{stacked:!!opts.stacked,ticks:{color:"#9FB0C4",font:{family:"Montserrat",size:10},callback:v=>opts.tick(v)},grid:{color:"rgba(255,255,255,.08)"}}},animation:{duration:400}}});
+}
+
+function renderPerformance(){
+  const f=dailyReturns(); const s=spyReturns(); if(!f||f.r.length<20) return;
+  const fm=monthly(f).slice(-12), sm=monthly(s), smap=Object.fromEntries(sm.map(m=>[m.key,m.r]));
+  lineChart("ch-monthly", fm.map(m=>m.label), [
+    {label:"BVU Cramer Fund",data:fm.map(m=>m.r*100),borderColor:"#FECB00",backgroundColor:"#FECB00",pointRadius:3,tension:.3,borderWidth:2.5},
+    {label:"S&P 500 (SPY)",data:fm.map(m=>(smap[m.key]||0)*100),borderColor:"#0089C3",backgroundColor:"#0089C3",pointRadius:3,tension:.3,borderWidth:2}
+  ],{fmt:v=>v.toFixed(2)+"%",tick:v=>v+"%"});
+  // growth of 100
+  const smapD=new Map(s.ts.map((t,i)=>[t,s.r[i]])); let gf=100, gs=100; const gl=[], gfd=[], gsd=[];
+  f.ts.forEach((t,i)=>{ gf*=1+f.r[i]; gs*=1+(smapD.get(t)||0); gl.push(new Date(t).toLocaleDateString("en-US",{month:"short",day:"numeric"})); gfd.push(gf); gsd.push(gs); });
+  lineChart("ch-growth", gl, [
+    {label:"BVU Cramer Fund",data:gfd,borderColor:"#FECB00",backgroundColor:"rgba(254,203,0,.12)",fill:true,pointRadius:0,tension:.2,borderWidth:2},
+    {label:"S&P 500 (SPY)",data:gsd,borderColor:"#0089C3",backgroundColor:"transparent",pointRadius:0,tension:.2,borderWidth:1.5}
+  ],{fmt:v=>"$"+v.toFixed(2),tick:v=>"$"+v,maxTicks:8});
+  const st=stats(f,s); const fy=ytd(f), sy=ytd(s), f1=chain(f.r), s1=chain(s.r);
+  const mstd=(()=>{ const m=monthly(f).slice(-12).map(x=>x.r); const mu=m.reduce((a,b)=>a+b,0)/m.length; return Math.sqrt(m.reduce((a,b)=>a+(b-mu)**2,0)/(m.length-1))*100; })();
+  $("p-1y").textContent=pct(f1,1); $("p-1y-s").textContent="S&P 500: "+pct(s1,1);
+  $("p-ytd").textContent=pct(fy,1); $("p-ytd-s").textContent="S&P 500: "+pct(sy,1);
+  $("p-sharpe").textContent=st.sharpe!=null?st.sharpe.toFixed(2):"—"; $("p-beta").textContent=st.beta!=null?st.beta.toFixed(2):"—";
+  $("p-beta-s").textContent="std dev of monthly returns: "+mstd.toFixed(2)+"%";
+  $("s-ytd").textContent=pct(fy,1); $("s-ytd").className="v "+sgn(fy); $("s-ytd-s").textContent="S&P 500: "+pct(sy,1);
+  $("s-sharpe").textContent=st.sharpe!=null?st.sharpe.toFixed(2):"—"; $("s-beta").textContent=st.beta!=null?st.beta.toFixed(2):"—";
+  // sector strip
+  const y0=new Date(new Date().getFullYear(),0,1).getTime(); // closeAt(y0) = last close of prior year
+  const tiles=[]; const stk=dailyReturns(s=>{ const h=HOLDINGS.find(x=>x.sym===s); return h? h.cls==="stock" : !["VGT","VFH","VHT","VIS","VCR","VOX","VDC","VDE","VAW","VPU","VNQ","FRDM","GDX","XME","REZ"].includes(s); });
+  if(stk&&stk.r.length) tiles.push(["Individual equities",ytd(stk),"(VW)"]);
+  for(const [sec,etf] of Object.entries(SECTOR_ETF)){ const c0=closeAt(etf,y0), m=MARKET[etf]; if(c0&&m) tiles.push([sec,m.price/c0-1,etf]); }
+  { const c0=closeAt("FRDM",y0), m=MARKET.FRDM; if(c0&&m) tiles.push(["FRDM fund",m.price/c0-1,"Emerging ETF"]); }
+  const vals=tiles.map(t=>t[1]), mx=Math.max(...vals), mn=Math.min(...vals);
+  const col=v=>{ const x=mx===mn?0.5:(mx-v)/(mx-mn); const stops=[[30,138,76],[123,196,127],[233,228,200],[228,138,128],[200,50,43]]; const p=x*4, i=Math.min(3,Math.floor(p)), f=p-i; const c=stops[i].map((a,k)=>Math.round(a+(stops[i+1][k]-a)*f)); return `rgb(${c.join(",")})`; };
+  const lum=c=>{ const m=/\d+/g, [r,g,b]=c.match(m).map(Number); return (0.299*r+0.587*g+0.114*b)/255; };
+  $("strip").innerHTML=tiles.sort((a,b)=>b[1]-a[1]).map(([n,v,s])=>{ const bg=col(v); return `<div style="background:${bg};color:${lum(bg)>0.6?'#2C2C2A':'#fff'}"><div class="n">${n}</div><div class="v">${pct(v,1)}</div><div class="s">${s}</div></div>`; }).join("");
+  // weekly advance/decline of stocks
+  const spyTs=MARKET.SPY.ts; const weeks={}; spyTs.forEach(t=>{ const d=new Date(t); const day=(d.getDay()+6)%7; const mon=new Date(d); mon.setDate(d.getDate()-day); mon.setHours(0,0,0,0); const k=mon.getTime(); if(!weeks[k]) weeks[k]={start:t,end:t}; weeks[k].end=t; });
+  const wk=Object.values(weeks).slice(-52); const adv=[],dec=[],lab=[];
+  const stockSyms=[...new Set(TRADES.map(t=>t[2]))].filter(s=>{ const h=HOLDINGS.find(x=>x.sym===s); return h? h.cls==="stock" : !["VHT","REZ"].includes(s); });
+  wk.forEach(w=>{ let a=0,d=0; const prevT=w.start-86400000*3; for(const s of stockSyms){ if(adjSharesAt(s,w.start)<=0||!MARKET[s]) continue; const c0=closeAt(s,prevT), c1=closeAt(s,w.end); if(c0==null||c1==null) continue; if(c1>c0) a++; else if(c1<c0) d++; } adv.push(a); dec.push(-d); lab.push(new Date(w.start).toLocaleDateString("en-US",{month:"short",day:"numeric"})); });
+  lineChart("ch-ad", lab, [{label:"Advancing",data:adv,backgroundColor:"#3DBE6A"},{label:"Declining",data:dec,backgroundColor:"#E05A4E"}],{type:"bar",stacked:true,fmt:v=>Math.abs(v)+" stocks",tick:v=>Math.abs(v),maxTicks:13});
+  // spotlight
+  const y=new Date().getFullYear();
+  const perf=rows.filter(r=>r.cls==="stock"&&r.price!=null).map(r=>{ const fb=firstBuy(r.sym); const since=fb&&new Date(D(fb[0])).getFullYear()>=y; let ret; if(since){ ret=r.price/(fb[4]* (SPLITS.filter(x=>x[1]===r.sym&&D(x[0])>D(fb[0])).reduce((a,x)=>a*x[2],1)) )-1; } else { const c0=closeAt(r.sym,y0); ret=c0?r.price/c0-1:null; } return {sym:r.sym,name:r.name,ret,since}; }).filter(x=>x.ret!=null).sort((a,b)=>b.ret-a.ret);
+  const rowHtml=x=>`<tr><td class="sym">${x.sym}</td><td class="nm">${esc(x.name)}</td><td class="r ${sgn(x.ret)}">${pct(x.ret,1)}${x.since?'<div class="since">since purchase</div>':''}</td></tr>`;
+  $("winners").innerHTML=perf.slice(0,10).map(rowHtml).join(""); $("laggards").innerHTML=perf.slice(-10).reverse().map(rowHtml).join("");
+  // inception
+  const gainInc=totals.total-INITIAL; $("s-inc").textContent=pct(gainInc/INITIAL,1); $("s-inc").className="v "+sgn(gainInc);
+}
+
+function renderLedger(){
+  const byDay={}; [...TRADES].reverse().forEach(t=>{ (byDay[t[0]]=byDay[t[0]]||[]).push(t); });
+  const days=Object.keys(byDay);
+  const html=(keys)=>keys.map(d=>`<div class="tday"><div class="d">${new Date(D(d)).toLocaleDateString("en-US",{month:"long",day:"numeric",year:"numeric"})}</div>${byDay[d].map(([,a,s,q,p,amt])=>`<div class="trow"><span class="a ${a}">${a==="B"?"BUY":a==="S"?"SELL":"SPLIT"}</span><span class="s">${s}</span><span class="n">${a==="X"?`+${q} shares · ${esc(NAMES[s]||"")}`:`${q} sh @ ${money(p)} · ${esc(NAMES[s]||"")}`}</span><span class="amt">${a==="X"?"":money(amt,0)}</span></div>`).join("")}</div>`).join("");
+  const tl=$("timeline"); let expanded=false; const short=days.filter(d=>D(d)>=D("2025-09-01"));
+  const draw=()=>{ tl.innerHTML=html(expanded?days:short); $("tl-more").textContent=expanded?"Show recent only":`Show full history (${TRADES.length} trades)`; };
+  $("tl-more").onclick=()=>{ expanded=!expanded; draw(); }; draw();
+  const buys=TRADES.filter(t=>t[1]==="B"), sells=TRADES.filter(t=>t[1]==="S");
+  $("lg-buys").textContent=`${buys.length} orders · ${money(buys.reduce((a,t)=>a+t[5],0),0)} invested`;
+  $("lg-sells").textContent=`${sells.length} orders · ${money(sells.reduce((a,t)=>a+t[5],0),0)} proceeds`;
+  $("lg-splits").textContent=`${SPLITS.length} — NVDA 10:1, PANW 2:1, VGT 8:1, CRWD 4:1, SNEX 3:2 ×3`;
+  // realized: proceeds minus cost of shares sold (avg cost, split-aware)
+  let real=0; const lots={}; for(const [d,a,s,q,p,amt] of TRADES){ lots[s]=lots[s]||{q:0,c:0}; if(a==="B"){ lots[s].q+=q; lots[s].c+=amt; } else if(a==="X"){ lots[s].q+=q; } else if(a==="S"){ const cps=lots[s].q?lots[s].c/lots[s].q:0; real+=amt-cps*q; lots[s].q-=q; lots[s].c-=cps*q; } }
+  $("lg-real").textContent=`${money(real,0)} realized gains on closed lots`;
+  $("lg-cash").textContent=`${money(CASH)} (ledger estimate as of ${LEDGER_DATE})`;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   7. BOOT
+   ═══════════════════════════════════════════════════════════════════════════ */
+function setStatus(cls, txt){ $("dot").className="dot "+cls; $("status-txt").textContent=txt; }
+function renderHero(){
+  if(!totals.live){ return; }
+  const T=totals; $("s-val").textContent=money(T.total,0); $("s-val-s").textContent=`${money(T.equity,0)} equities + ${money(CASH,0)} cash`;
+  $("s-day").textContent=money(T.day,0); $("s-day").className="v "+sgn(T.day); $("s-day-s").textContent=pct(T.day/(T.equity-T.day))+" today";
+  if(T.live<HOLDINGS.length) $("s-val-s").textContent+=` · ${HOLDINGS.length-T.live} quote(s) missing`;
+  const now=new Date().toLocaleString("en-US",{hour:"numeric",minute:"2-digit",month:"short",day:"numeric"}); $("foot-upd").textContent=now;
+  setStatus("ok",`Live · ${T.live}/${HOLDINGS.length} quotes · ${now}`);
+}
+async function loadAll(retry){
+  $("banner").classList.add("hidden"); setStatus("", "Connecting to market data…");
+  if(!proxy || retry){ proxy=null; const ok=await pickProxy(); if(!ok){ setStatus("err","Live market data unavailable"); $("banner-msg").textContent="Live quotes could not be loaded (Yahoo Finance and the fallback proxies did not respond). Positions and ledger data are still shown below."; $("banner").classList.remove("hidden"); return; } }
+  const syms=[...new Set([...HOLDINGS.map(h=>h.sym), ...TRADES.filter(t=>D(t[0])>=Date.now()-400*86400000).map(t=>t[2])])];
+  await fetchAll(syms,(d,n)=>setStatus("",`Loading market data… ${d}/${n}`));
+  computeRows(); renderHero(); renderTable(); renderCards();
+  try{ renderAllocation(); }catch(e){ console.error(e); }
+  try{ renderPerformance(); }catch(e){ console.error(e); }
+}
+(function init(){
+  $("ledger-date").textContent=LEDGER_DATE; computeRows(); renderTable(); renderCards(); renderLedger();
+  document.querySelectorAll(".tab").forEach(t=>t.onclick=()=>{ document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active")); t.classList.add("active"); filter=t.dataset.f; renderTable(); });
+  document.querySelectorAll("table.h th").forEach(th=>th.onclick=()=>{ const k=th.dataset.k; if(sortKey===k) sortAsc=!sortAsc; else { sortKey=k; sortAsc=(k==="sym"||k==="cls"); } renderTable(); });
+  $("tbody").addEventListener("click",e=>{ const tr=e.target.closest("tr"); if(!tr) return; const r=rows.find(x=>x.sym===tr.dataset.sym); if(r&&r.cls==="stock") highlight(r.sym,"tc"); });
+  $("cards").addEventListener("click",e=>{ const c=e.target.closest(".tc"); if(c) highlight(c.dataset.sym,null); });
+  loadAll(); setInterval(()=>loadAll(false), 5*60*1000);
+})();
 </script>
 </body>
 </html>
