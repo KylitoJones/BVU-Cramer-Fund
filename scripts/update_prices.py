@@ -5,8 +5,11 @@ weekday after the close, or by hand:  python scripts/update_prices.py
 
 Tickers are discovered from index.html so there is nothing to keep in sync:
   - every  sym:"XXXX"  entry in the HOLDINGS array
-  - every ticker traded in the TRADES ledger within the last 400 days
+  - every ticker that ever appears in the TRADES ledger (needed to rebuild
+    monthly returns back to inception for beta / Sharpe)
   - SPY (benchmark)
+
+History is pulled back to the fund's first trade (PERIOD below).
 """
 import datetime as dt
 import json
@@ -21,16 +24,15 @@ import yfinance as yf
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 INDEX = ROOT / "index.html"
 OUT = ROOT / "data" / "prices.json"
+PERIOD = "4y"   # covers inception (Sept 2023); bump if the fund ages past that
 
 
 def discover_tickers(html: str) -> list[str]:
     syms = set(re.findall(r'sym:"([^"]+)"', html))
     m = re.search(r"const TRADES = (\[.*?\]);", html, re.S)
     if m:
-        cutoff = (dt.date.today() - dt.timedelta(days=400)).isoformat()
         for trade in json.loads(m.group(1)):
-            if trade[0] >= cutoff:
-                syms.add(trade[2])
+            syms.add(trade[2])
     syms.add("SPY")
     return sorted(syms)
 
@@ -40,10 +42,10 @@ def to_yahoo(sym: str) -> str:
 
 
 def fetch_batch(yahoo_syms: list[str]) -> dict[str, pd.Series]:
-    """Split-adjusted daily closes (not dividend-adjusted) for the last year."""
+    """Split-adjusted daily closes (not dividend-adjusted) since inception."""
     out: dict[str, pd.Series] = {}
     df = yf.download(
-        yahoo_syms, period="1y", interval="1d", auto_adjust=False,
+        yahoo_syms, period=PERIOD, interval="1d", auto_adjust=False,
         group_by="ticker", threads=True, progress=False,
     )
     if df is None or df.empty:
@@ -66,7 +68,7 @@ def fetch_batch(yahoo_syms: list[str]) -> dict[str, pd.Series]:
 def fetch_single(ys: str) -> pd.Series | None:
     for attempt in range(3):
         try:
-            h = yf.Ticker(ys).history(period="1y", interval="1d", auto_adjust=False)
+            h = yf.Ticker(ys).history(period=PERIOD, interval="1d", auto_adjust=False)
             s = h["Close"].dropna()
             if len(s):
                 return s
