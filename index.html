@@ -318,8 +318,8 @@ footer b{color:#fff}
       <div class="stat"><div class="l">Last session</div><div class="v" id="s-day">—</div><div class="s" id="s-day-s">day change</div></div>
       <div class="stat"><div class="l">YTD return</div><div class="v" id="s-ytd">—</div><div class="s" id="s-ytd-s">S&amp;P 500: —</div></div>
       <div class="stat"><div class="l">Since inception</div><div class="v" id="s-inc">—</div><div class="s">vs $100,000 · Sep 2023</div></div>
-      <div class="stat"><div class="l">Sharpe ratio</div><div class="v" id="s-sharpe">—</div><div class="s">trailing 1y · rf 3%</div></div>
-      <div class="stat"><div class="l">Market beta</div><div class="v" id="s-beta">—</div><div class="s">trailing 1y vs S&amp;P 500</div></div>
+      <div class="stat"><div class="l">Sharpe ratio</div><div class="v" id="s-sharpe">—</div><div class="s" id="s-sharpe-s">monthly · since inception · rf 3%</div></div>
+      <div class="stat"><div class="l">Market beta</div><div class="v" id="s-beta">—</div><div class="s" id="s-beta-s">monthly vs S&amp;P 500 · since inception</div></div>
     </div>
   </div>
 </header>
@@ -349,17 +349,17 @@ footer b{color:#fff}
 <section id="performance" class="dark">
   <div class="xpat"></div>
   <div class="container">
-    <div class="sec-head"><div class="eyebrow">As of last close · trailing twelve months</div><h2 class="wide">Performance</h2>
-      <p>Time-weighted returns reconstructed from the fund's full trade ledger and daily closing prices, so trades, splits and additions are reflected on the day they happened. Equity positions only; the small cash balance is excluded.</p></div>
+    <div class="sec-head"><div class="eyebrow">As of last close · since inception</div><h2 class="wide">Performance</h2>
+      <p>Time-weighted returns reconstructed from the fund's full trade ledger and daily closing prices back to September 2023, so trades, splits and additions are reflected on the day they happened. Beta and Sharpe use full calendar months since inception (up to 60), the standard convention; the partial inception month is excluded. Equity positions only; the small cash balance is excluded.</p></div>
     <div class="perf-stats">
       <div class="pstat"><div class="l">Trailing 1-year return</div><div class="v" id="p-1y">—</div><div class="s" id="p-1y-s">S&amp;P 500: —</div></div>
       <div class="pstat"><div class="l">YTD return</div><div class="v" id="p-ytd">—</div><div class="s" id="p-ytd-s">S&amp;P 500: —</div></div>
-      <div class="pstat"><div class="l">Sharpe ratio</div><div class="v" id="p-sharpe">—</div><div class="s">annualized, daily returns, rf 3%</div></div>
-      <div class="pstat"><div class="l">Market beta</div><div class="v" id="p-beta">—</div><div class="s" id="p-beta-s">std dev of monthly returns: —</div></div>
+      <div class="pstat"><div class="l">Sharpe ratio</div><div class="v" id="p-sharpe">—</div><div class="s" id="p-sharpe-s">monthly returns since inception, rf 3%</div></div>
+      <div class="pstat"><div class="l">Market beta</div><div class="v" id="p-beta">—</div><div class="s" id="p-beta-s">monthly returns vs S&amp;P 500, since inception</div></div>
     </div>
     <div class="grid2">
       <div class="card"><h3>Monthly returns <small>BVU fund vs S&amp;P 500</small></h3><div class="chartbox"><canvas id="ch-monthly"></canvas></div></div>
-      <div class="card"><h3>Growth of $100 <small>trailing 12 months</small></h3><div class="chartbox"><canvas id="ch-growth"></canvas></div></div>
+      <div class="card"><h3>Growth of $100 <small>since inception, Sept 2023</small></h3><div class="chartbox"><canvas id="ch-growth"></canvas></div></div>
     </div>
     <div class="card" style="margin-top:20px"><h3>Sector / class performance <small>year to date</small></h3>
       <div class="strip" id="strip"></div>
@@ -498,47 +498,47 @@ const RF = 0.03;
 
 const HOLDINGS = [
   // ─── Individual equities ───
-  {sym:"AAPL", name:"Apple Inc.", qty:2, cost:349.22, sector:"Information Technology", cls:"stock", stance:"hold", analyst:"Desmond Looft", thesis:"Apple's services segment and ecosystem lock-in provide durable recurring revenue, and a fortress balance sheet funds continued buybacks. "},
-  {sym:"AMGN", name:"Amgen Inc.", qty:1, cost:267.67, sector:"Health Care", cls:"stock", stance:"hold", analyst:"Nathaniel Green", thesis:"Biosimilars pipeline and the MariTide obesity candidate add growth beyond the core biologics franchise; strong dividend and free cash flow. "},
-  {sym:"AMX", name:"América Móvil (ADR)", qty:14, cost:329.55, sector:"Communication Services", cls:"stock", stance:"buy", analyst:"Lawson Haveman", thesis:"2026 global telecom theme: the dominant Latin American operator with pricing power and scale; currency volatility is the key risk. "},
-  {sym:"ASML", name:"ASML Holding (ADR)", qty:1, cost:695.34, sector:"Information Technology", cls:"stock", stance:"buy", analyst:"Angel Lopez", thesis:"Monopoly on EUV lithography — the single most critical tool in advanced chipmaking — with no near-term competitor and AI-driven demand. "},
-  {sym:"AUR", name:"Aurora Innovation", qty:170, cost:763.28, sector:"Industrials", cls:"stock", stance:"hold", analyst:"Joshua Giefer", thesis:"2026 self-driving theme: commercial driverless trucking on the Dallas–Houston corridor. Pre-revenue and high risk; sized as an option on autonomous logistics. "},
-  {sym:"BRK/B", name:"Berkshire Hathaway Cl. B", qty:1, cost:362.23, sector:"Financials", cls:"stock", stance:"hold", analyst:"Kyle Jones", thesis:"Fortress balance sheet with $160B+ cash provides downside protection and acquisition optionality; held as defensive ballast. "},
-  {sym:"CCJ", name:"Cameco Corp.", qty:6, cost:291.78, sector:"Energy", cls:"stock", stance:"buy", analyst:"Yedidia Kabalisa", thesis:"Largest publicly traded uranium producer; the nuclear renaissance driven by data-center power demand creates a structural supply deficit. "},
-  {sym:"CEG", name:"Constellation Energy", qty:2, cost:662.39, sector:"Utilities", cls:"stock", stance:"hold", analyst:"Cadence Klein", thesis:"Largest U.S. nuclear operator, positioned to supply clean baseload power to hyperscalers; the Microsoft–Three Mile Island deal validated the model. "},
-  {sym:"CRWD", name:"CrowdStrike Holdings", qty:4, cost:327.06, sector:"Information Technology", cls:"stock", stance:"buy", analyst:"Evan Taylor", thesis:"Best-in-class endpoint security expanding into cloud, identity and SIEM; recovered from the 2024 outage with accelerating ARR. 4-for-1 split July 2026. "},
-  {sym:"CTVA", name:"Corteva Inc.", qty:5, cost:375.00, sector:"Materials", cls:"stock", stance:"buy", analyst:"Kali Irlmeier", thesis:"2026 agriculture-science theme: Corteva plans to split its seed and crop-protection businesses, unlocking value; global food security is a secular tailwind. "},
-  {sym:"CVX", name:"Chevron Corp.", qty:2, cost:332.44, sector:"Energy", cls:"stock", stance:"hold", analyst:"Beau Wilken", thesis:"Well-covered dividend, disciplined capital allocation and Permian volume growth; held as an energy hedge and income generator. "},
-  {sym:"EXPE", name:"Expedia Group", qty:3, cost:581.25, sector:"Consumer Discretionary", cls:"stock", stance:"buy", analyst:"Brooke Stellmaker", thesis:"Added Feb 2025 (exited ABNB) to rotate into travel. AI-driven conversion gains and a valuation discount to Booking that looks unjustified. "},
-  {sym:"GE", name:"GE Aerospace", qty:3, cost:338.70, sector:"Industrials", cls:"stock", stance:"buy", analyst:"Teresa Todd", thesis:"Pure-play jet engines and services with one of the strongest installed-base moats in industry; multi-year backlog gives visibility through 2030+. "},
-  {sym:"GOOGL", name:"Alphabet Inc. Cl. A", qty:3, cost:392.79, sector:"Communication Services", cls:"stock", stance:"buy", analyst:"Payton Greenwood", thesis:"Dominant internet gateway monetizing its AI advantage through Gemini and Google Cloud; YouTube and Waymo remain undervalued. "},
-  {sym:"IHS", name:"IHS Holding", qty:60, cost:504.51, sector:"Communication Services", cls:"stock", stance:"buy", analyst:"Lawson Haveman", thesis:"2026 global telecom theme: Africa's largest independent tower operator, riding mobile-data growth; currency and sovereign risk are real. "},
-  {sym:"IONQ", name:"IonQ Inc.", qty:19, cost:752.45, sector:"Information Technology", cls:"stock", stance:"hold", analyst:"Jaron Vanderhoff", thesis:"Leading pure-play quantum company with a trapped-ion architecture. Added 5 shares in April 2026 while trimming QBTS and RGTI to concentrate the quantum basket. "},
-  {sym:"JPM", name:"JPMorgan Chase", qty:2, cost:450.82, sector:"Financials", cls:"stock", stance:"hold", analyst:"Mark Eddie", thesis:"Best-managed large bank with industry-leading ROE; higher-for-longer rates expanded net interest income. Core financials anchor. "},
-  {sym:"KDK", name:"Kodiak AI", qty:85, cost:759.90, sector:"Industrials", cls:"stock", stance:"hold", analyst:"Cadence Klein", thesis:"2026 self-driving theme: autonomous trucking and defense ground-vehicle contracts with the U.S. Army. Speculative, small weight. "},
-  {sym:"KO", name:"The Coca-Cola Co.", qty:6, cost:345.90, sector:"Consumer Staples", cls:"stock", stance:"hold", analyst:"Desmond Looft", thesis:"Durable consumer franchise with pricing power that outpaces inflation; defensive income position. "},
-  {sym:"LLY", name:"Eli Lilly and Co.", qty:2, cost:1090.98, sector:"Health Care", cls:"stock", stance:"buy", analyst:"Hannah Olson", thesis:"GLP-1 franchise (Mounjaro, Zepbound) is one of the largest drug launches in history; manufacturing capacity is the gating factor on out-year revenue. "},
-  {sym:"LOW", name:"Lowe's Companies", qty:2, cost:418.94, sector:"Consumer Discretionary", cls:"stock", stance:"hold", analyst:"Marcos Rosales", thesis:"Structurally undersupplied housing stock and aging homes support deferred remodeling demand; Pro segment adds margin stability. "},
-  {sym:"MAR", name:"Marriott International", qty:2, cost:511.24, sector:"Consumer Discretionary", cls:"stock", stance:"buy", analyst:"Brooke Stellmaker", thesis:"Asset-light franchise model with high ROIC; international travel normalization and the Bonvoy loyalty ecosystem deepen pricing power. "},
-  {sym:"MSFT", name:"Microsoft Corp.", qty:1, cost:321.40, sector:"Information Technology", cls:"stock", stance:"buy", analyst:"Charlie Adams", thesis:"Azure captures the enterprise AI wave through OpenAI integration and Copilot monetization on top of Office 365 pricing power. "},
-  {sym:"NVDA", name:"NVIDIA Corp.", qty:6, cost:249.43, sector:"Information Technology", cls:"stock", stance:"hold", analyst:"Dalton Pregon", thesis:"Sold 4 shares in January 2026 to recover the original cost basis; the remaining 6 shares ride the AI infrastructure cycle with the CUDA moat intact. "},
-  {sym:"PGR", name:"Progressive Corp.", qty:3, cost:427.56, sector:"Financials", cls:"stock", stance:"hold", analyst:"Desmond Looft", thesis:"Best-underwritten U.S. auto insurer; telematics data (Snapshot) steers adverse selection away from the book. "},
-  {sym:"PLD", name:"Prologis (REIT)", qty:4, cost:503.48, sector:"Real Estate", cls:"stock", stance:"hold", analyst:"Seth Busch", thesis:"Global leader in logistics real estate with irreplaceable last-mile facilities; e-commerce underpins demand. Added Oct 2025, replacing REZ. "},
-  {sym:"PLTR", name:"Palantir Technologies", qty:10, cost:237.80, sector:"Information Technology", cls:"stock", stance:"hold", analyst:"Spencer Zoot", thesis:"AIP is accelerating commercial adoption on top of a sticky government business. Trimmed 8 shares at $138 in April 2026 after a ~500% run to manage concentration. "},
-  {sym:"PONY", name:"Pony AI (ADR)", qty:70, cost:753.90, sector:"Industrials", cls:"stock", stance:"hold", analyst:"Lawson Haveman", thesis:"2026 self-driving theme: robotaxi operations in China with international expansion; regulatory progress is the near-term catalyst. Speculative. "},
-  {sym:"PSA", name:"Public Storage (REIT)", qty:1, cost:263.00, sector:"Real Estate", cls:"stock", stance:"hold", analyst:"Dylan Berens", thesis:"Largest self-storage REIT with dominant share in high-barrier coastal markets; recession-resilient model and 4%+ yield. "},
-  {sym:"QBTS", name:"D-Wave Quantum", qty:30, cost:167.56, sector:"Information Technology", cls:"stock", stance:"hold", analyst:"Jaron Vanderhoff", thesis:"Only company selling annealing quantum computers at commercial scale. 2025's top performer (+342%); sold 45 of 75 shares at $17.80 in April 2026 to lock in gains. "},
-  {sym:"QUBT", name:"Quantum Computing Inc.", qty:25, cost:203.49, sector:"Information Technology", cls:"stock", stance:"hold", analyst:"Jaron Vanderhoff", thesis:"Added April 2026 with proceeds from the QBTS/RGTI trims: photonic quantum computing and integrated photonics chips. Speculative, small weight. "},
-  {sym:"RGTI", name:"Rigetti Computing", qty:15, cost:188.25, sector:"Information Technology", cls:"stock", stance:"hold", analyst:"Jaron Vanderhoff", thesis:"Superconducting-qubit architecture with cloud access. Sold 18 of 33 shares at $15.66 in April 2026; the remainder stays as part of the quantum basket. "},
-  {sym:"SNEX", name:"StoneX Group", qty:22, cost:443.17, sector:"Financials", cls:"stock", stance:"buy", analyst:"Mark Eddie", thesis:"Global financial-services network in commodities, FX and equities with a niche in frontier-market currencies; largely ignored by large-cap investors. Three 3-for-2 splits since purchase. "},
-  {sym:"SPG", name:"Simon Property Group (REIT)", qty:2, cost:370.02, sector:"Real Estate", cls:"stock", stance:"hold", analyst:"Seth Busch", thesis:"Highest-quality U.S. mall portfolio; premium destination retail has proven more resilient than feared. Added Jan 2026 with NVDA proceeds. "},
-  {sym:"SPOT", name:"Spotify Technology", qty:3, cost:469.14, sector:"Communication Services", cls:"stock", stance:"buy", analyst:"Kyle Jones", thesis:"Global audio dominance with 600M+ users, finally showing pricing power and operating leverage; podcasts and audiobooks widen the moat. "},
-  {sym:"TIGO", name:"Millicom International", qty:8, cost:514.88, sector:"Communication Services", cls:"stock", stance:"buy", analyst:"Lawson Haveman", thesis:"2026 global telecom theme: leading operator across Central America with rapidly growing mobile and broadband penetration. "},
-  {sym:"TTWO", name:"Take-Two Interactive", qty:3, cost:476.07, sector:"Communication Services", cls:"stock", stance:"hold", analyst:"Connor Mahoney", thesis:"The thesis is GTA VI — likely the highest-grossing entertainment launch in history — and its multi-year monetization tail. "},
-  {sym:"UNP", name:"Union Pacific", qty:2, cost:421.42, sector:"Industrials", cls:"stock", stance:"hold", analyst:"Dylan Berens", thesis:"Irreplaceable western U.S. rail network with pricing power; precision scheduled railroading structurally improved margins. "},
-  {sym:"VIV", name:"Telefônica Brasil (ADR)", qty:34, cost:536.51, sector:"Communication Services", cls:"stock", stance:"hold", analyst:"Lawson Haveman", thesis:"2026 global telecom theme: Brazil's dominant mobile and broadband operator in a duopoly market; 5G and fiber drive ARPU growth. "},
-  {sym:"VZ", name:"Verizon Communications", qty:11, cost:365.75, sector:"Communication Services", cls:"stock", stance:"hold", analyst:"Ryan Mendoza", thesis:"High dividend yield and deleveraging story; fixed wireless access adds a growth vector to a mature business. "},
-  {sym:"WMT", name:"Walmart Inc.", qty:14, cost:1442.64, sector:"Consumer Staples", cls:"stock", stance:"buy", analyst:"Brooke Stellmaker", thesis:"Initiated Sept 2025 for defensive staples exposure. Advertising and marketplace are turning a low-margin retailer into a higher-margin platform. "},
+  {sym:"AAPL", name:"Apple Inc.", qty:2, cost:349.22, sector:"Information Technology", cls:"stock", stance:"hold", analyst:"Desmond Looft", thesis:"Apple's services segment and ecosystem lock-in provide durable recurring revenue, and a fortress balance sheet funds continued buybacks."},
+  {sym:"AMGN", name:"Amgen Inc.", qty:1, cost:267.67, sector:"Health Care", cls:"stock", stance:"hold", analyst:"Nathaniel Green", thesis:"Biosimilars pipeline and the MariTide obesity candidate add growth beyond the core biologics franchise; strong dividend and free cash flow."},
+  {sym:"AMX", name:"América Móvil (ADR)", qty:14, cost:329.55, sector:"Communication Services", cls:"stock", stance:"buy", analyst:"Lawson Haveman", thesis:"2026 global telecom theme: the dominant Latin American operator with pricing power and scale; currency volatility is the key risk."},
+  {sym:"ASML", name:"ASML Holding (ADR)", qty:1, cost:695.34, sector:"Information Technology", cls:"stock", stance:"buy", analyst:"Angel Lopez", thesis:"Monopoly on EUV lithography — the single most critical tool in advanced chipmaking — with no near-term competitor and AI-driven demand."},
+  {sym:"AUR", name:"Aurora Innovation", qty:170, cost:763.28, sector:"Industrials", cls:"stock", stance:"hold", analyst:"Joshua Giefer", thesis:"2026 self-driving theme: commercial driverless trucking on the Dallas–Houston corridor. Pre-revenue and high risk; sized as an option on autonomous logistics."},
+  {sym:"BRK/B", name:"Berkshire Hathaway Cl. B", qty:1, cost:362.23, sector:"Financials", cls:"stock", stance:"hold", analyst:"Kyle Jones", thesis:"Fortress balance sheet with $160B+ cash provides downside protection and acquisition optionality; held as defensive ballast."},
+  {sym:"CCJ", name:"Cameco Corp.", qty:6, cost:291.78, sector:"Energy", cls:"stock", stance:"buy", analyst:"Yedidia Kabalisa", thesis:"Largest publicly traded uranium producer; the nuclear renaissance driven by data-center power demand creates a structural supply deficit."},
+  {sym:"CEG", name:"Constellation Energy", qty:2, cost:662.39, sector:"Utilities", cls:"stock", stance:"hold", analyst:"Cadence Klein", thesis:"Largest U.S. nuclear operator, positioned to supply clean baseload power to hyperscalers; the Microsoft–Three Mile Island deal validated the model."},
+  {sym:"CRWD", name:"CrowdStrike Holdings", qty:4, cost:327.06, sector:"Information Technology", cls:"stock", stance:"buy", analyst:"Evan Taylor", thesis:"Best-in-class endpoint security expanding into cloud, identity and SIEM; recovered from the 2024 outage with accelerating ARR. 4-for-1 split July 2026."},
+  {sym:"CTVA", name:"Corteva Inc.", qty:5, cost:375.00, sector:"Materials", cls:"stock", stance:"buy", analyst:"Kali Irlmeier", thesis:"2026 agriculture-science theme: Corteva plans to split its seed and crop-protection businesses, unlocking value; global food security is a secular tailwind."},
+  {sym:"CVX", name:"Chevron Corp.", qty:2, cost:332.44, sector:"Energy", cls:"stock", stance:"hold", analyst:"Beau Wilken", thesis:"Well-covered dividend, disciplined capital allocation and Permian volume growth; held as an energy hedge and income generator."},
+  {sym:"EXPE", name:"Expedia Group", qty:3, cost:581.25, sector:"Consumer Discretionary", cls:"stock", stance:"buy", analyst:"Brooke Stellmaker", thesis:"Added Feb 2025 (exited ABNB) to rotate into travel. AI-driven conversion gains and a valuation discount to Booking that looks unjustified."},
+  {sym:"GE", name:"GE Aerospace", qty:3, cost:338.70, sector:"Industrials", cls:"stock", stance:"buy", analyst:"Teresa Todd", thesis:"Pure-play jet engines and services with one of the strongest installed-base moats in industry; multi-year backlog gives visibility through 2030+."},
+  {sym:"GOOGL", name:"Alphabet Inc. Cl. A", qty:3, cost:392.79, sector:"Communication Services", cls:"stock", stance:"buy", analyst:"Payton Greenwood", thesis:"Dominant internet gateway monetizing its AI advantage through Gemini and Google Cloud; YouTube and Waymo remain undervalued."},
+  {sym:"IHS", name:"IHS Holding", qty:60, cost:504.51, sector:"Communication Services", cls:"stock", stance:"buy", analyst:"Lawson Haveman", thesis:"2026 global telecom theme: Africa's largest independent tower operator, riding mobile-data growth; currency and sovereign risk are real."},
+  {sym:"IONQ", name:"IonQ Inc.", qty:19, cost:752.45, sector:"Information Technology", cls:"stock", stance:"hold", analyst:"Jaron Vanderhoff", thesis:"Leading pure-play quantum company with a trapped-ion architecture. Added 5 shares in April 2026 while trimming QBTS and RGTI to concentrate the quantum basket."},
+  {sym:"JPM", name:"JPMorgan Chase", qty:2, cost:450.82, sector:"Financials", cls:"stock", stance:"hold", analyst:"Mark Eddie", thesis:"Best-managed large bank with industry-leading ROE; higher-for-longer rates expanded net interest income. Core financials anchor."},
+  {sym:"KDK", name:"Kodiak AI", qty:85, cost:759.90, sector:"Industrials", cls:"stock", stance:"hold", analyst:"Cadence Klein", thesis:"2026 self-driving theme: autonomous trucking and defense ground-vehicle contracts with the U.S. Army. Speculative, small weight."},
+  {sym:"KO", name:"The Coca-Cola Co.", qty:6, cost:345.90, sector:"Consumer Staples", cls:"stock", stance:"hold", analyst:"Desmond Looft", thesis:"Durable consumer franchise with pricing power that outpaces inflation; defensive income position."},
+  {sym:"LLY", name:"Eli Lilly and Co.", qty:2, cost:1090.98, sector:"Health Care", cls:"stock", stance:"buy", analyst:"Hannah Olson", thesis:"GLP-1 franchise (Mounjaro, Zepbound) is one of the largest drug launches in history; manufacturing capacity is the gating factor on out-year revenue."},
+  {sym:"LOW", name:"Lowe's Companies", qty:2, cost:418.94, sector:"Consumer Discretionary", cls:"stock", stance:"hold", analyst:"Marcos Rosales", thesis:"Structurally undersupplied housing stock and aging homes support deferred remodeling demand; Pro segment adds margin stability."},
+  {sym:"MAR", name:"Marriott International", qty:2, cost:511.24, sector:"Consumer Discretionary", cls:"stock", stance:"buy", analyst:"Brooke Stellmaker", thesis:"Asset-light franchise model with high ROIC; international travel normalization and the Bonvoy loyalty ecosystem deepen pricing power."},
+  {sym:"MSFT", name:"Microsoft Corp.", qty:1, cost:321.40, sector:"Information Technology", cls:"stock", stance:"buy", analyst:"Charlie Adams", thesis:"Azure captures the enterprise AI wave through OpenAI integration and Copilot monetization on top of Office 365 pricing power."},
+  {sym:"NVDA", name:"NVIDIA Corp.", qty:6, cost:249.43, sector:"Information Technology", cls:"stock", stance:"hold", analyst:"Dalton Pregon", thesis:"Sold 4 shares in January 2026 to recover the original cost basis; the remaining 6 shares ride the AI infrastructure cycle with the CUDA moat intact."},
+  {sym:"PGR", name:"Progressive Corp.", qty:3, cost:427.56, sector:"Financials", cls:"stock", stance:"hold", analyst:"Desmond Looft", thesis:"Best-underwritten U.S. auto insurer; telematics data (Snapshot) steers adverse selection away from the book."},
+  {sym:"PLD", name:"Prologis (REIT)", qty:4, cost:503.48, sector:"Real Estate", cls:"stock", stance:"hold", analyst:"Seth Busch", thesis:"Global leader in logistics real estate with irreplaceable last-mile facilities; e-commerce underpins demand. Added Oct 2025, replacing REZ."},
+  {sym:"PLTR", name:"Palantir Technologies", qty:10, cost:237.80, sector:"Information Technology", cls:"stock", stance:"hold", analyst:"Spencer Zoot", thesis:"AIP is accelerating commercial adoption on top of a sticky government business. Trimmed 8 shares at $138 in April 2026 after a ~500% run to manage concentration."},
+  {sym:"PONY", name:"Pony AI (ADR)", qty:70, cost:753.90, sector:"Industrials", cls:"stock", stance:"hold", analyst:"Lawson Haveman", thesis:"2026 self-driving theme: robotaxi operations in China with international expansion; regulatory progress is the near-term catalyst. Speculative."},
+  {sym:"PSA", name:"Public Storage (REIT)", qty:1, cost:263.00, sector:"Real Estate", cls:"stock", stance:"hold", analyst:"Dylan Berens", thesis:"Largest self-storage REIT with dominant share in high-barrier coastal markets; recession-resilient model and 4%+ yield."},
+  {sym:"QBTS", name:"D-Wave Quantum", qty:30, cost:167.56, sector:"Information Technology", cls:"stock", stance:"hold", analyst:"Jaron Vanderhoff", thesis:"Only company selling annealing quantum computers at commercial scale. 2025's top performer (+342%); sold 45 of 75 shares at $17.80 in April 2026 to lock in gains."},
+  {sym:"QUBT", name:"Quantum Computing Inc.", qty:25, cost:203.49, sector:"Information Technology", cls:"stock", stance:"hold", analyst:"Jaron Vanderhoff", thesis:"Added April 2026 with proceeds from the QBTS/RGTI trims: photonic quantum computing and integrated photonics chips. Speculative, small weight."},
+  {sym:"RGTI", name:"Rigetti Computing", qty:15, cost:188.25, sector:"Information Technology", cls:"stock", stance:"hold", analyst:"Jaron Vanderhoff", thesis:"Superconducting-qubit architecture with cloud access. Sold 18 of 33 shares at $15.66 in April 2026; the remainder stays as part of the quantum basket."},
+  {sym:"SNEX", name:"StoneX Group", qty:22, cost:443.17, sector:"Financials", cls:"stock", stance:"buy", analyst:"Mark Eddie", thesis:"Global financial-services network in commodities, FX and equities with a niche in frontier-market currencies; largely ignored by large-cap investors. Three 3-for-2 splits since purchase."},
+  {sym:"SPG", name:"Simon Property Group (REIT)", qty:2, cost:370.02, sector:"Real Estate", cls:"stock", stance:"hold", analyst:"Seth Busch", thesis:"Highest-quality U.S. mall portfolio; premium destination retail has proven more resilient than feared. Added Jan 2026 with NVDA proceeds."},
+  {sym:"SPOT", name:"Spotify Technology", qty:3, cost:469.14, sector:"Communication Services", cls:"stock", stance:"buy", analyst:"Kyle Jones", thesis:"Global audio dominance with 600M+ users, finally showing pricing power and operating leverage; podcasts and audiobooks widen the moat."},
+  {sym:"TIGO", name:"Millicom International", qty:8, cost:514.88, sector:"Communication Services", cls:"stock", stance:"buy", analyst:"Lawson Haveman", thesis:"2026 global telecom theme: leading operator across Central America with rapidly growing mobile and broadband penetration."},
+  {sym:"TTWO", name:"Take-Two Interactive", qty:3, cost:476.07, sector:"Communication Services", cls:"stock", stance:"hold", analyst:"Connor Mahoney", thesis:"The thesis is GTA VI — likely the highest-grossing entertainment launch in history — and its multi-year monetization tail."},
+  {sym:"UNP", name:"Union Pacific", qty:2, cost:421.42, sector:"Industrials", cls:"stock", stance:"hold", analyst:"Dylan Berens", thesis:"Irreplaceable western U.S. rail network with pricing power; precision scheduled railroading structurally improved margins."},
+  {sym:"VIV", name:"Telefônica Brasil (ADR)", qty:34, cost:536.51, sector:"Communication Services", cls:"stock", stance:"hold", analyst:"Lawson Haveman", thesis:"2026 global telecom theme: Brazil's dominant mobile and broadband operator in a duopoly market; 5G and fiber drive ARPU growth."},
+  {sym:"VZ", name:"Verizon Communications", qty:11, cost:365.75, sector:"Communication Services", cls:"stock", stance:"hold", analyst:"Ryan Mendoza", thesis:"High dividend yield and deleveraging story; fixed wireless access adds a growth vector to a mature business."},
+  {sym:"WMT", name:"Walmart Inc.", qty:14, cost:1442.64, sector:"Consumer Staples", cls:"stock", stance:"buy", analyst:"Brooke Stellmaker", thesis:"Initiated Sept 2025 for defensive staples exposure. Advertising and marketplace are turning a low-margin retailer into a higher-margin platform."},
   // ─── ETFs ───
   {sym:"VGT", name:"Vanguard Information Technology ETF", qty:544, cost:28307.72, sector:"Information Technology", cls:"sector"},
   {sym:"VFH", name:"Vanguard Financials ETF", qty:165, cost:13607.55, sector:"Financials", cls:"sector"},
@@ -718,12 +718,18 @@ function spyReturns(){ const s=MARKET.SPY, out={ts:[],r:[]}; for(let k=1;k<s.ts.
 function chain(rs){ return rs.reduce((a,r)=>a*(1+r),1)-1; }
 function monthly(series){ const m={}; series.ts.forEach((t,i)=>{ const d=new Date(t), k=d.getFullYear()*100+d.getMonth(); (m[k]=m[k]||[]).push(series.r[i]); }); return Object.keys(m).sort().map(k=>({key:+k,label:MON[k%100]+" "+String(Math.floor(k/100)).slice(2),r:chain(m[k])})); }
 function ytd(series){ const y=new Date().getFullYear(); return chain(series.r.filter((_,i)=>new Date(series.ts[i]).getFullYear()===y)); }
-function stats(f,s){ // align by timestamp
-  const map=new Map(s.ts.map((t,i)=>[t,s.r[i]])); const a=[],b=[]; f.ts.forEach((t,i)=>{ if(map.has(t)){ a.push(f.r[i]); b.push(map.get(t)); } });
-  const n=a.length; if(n<20) return {};
+/* Beta and Sharpe from MONTHLY returns over the full history (up to 60 months).
+   Only full calendar months are used; the current partial month is dropped. */
+function stats(f,s){
+  const fm=monthly(f), sm=monthly(s), smap=new Map(sm.map(m=>[m.key,m.r]));
+  const cur=new Date().getFullYear()*100+new Date().getMonth();
+  const d0=new Date(f.ts[0]); const partialFirst = d0.getDate()>5 ? d0.getFullYear()*100+d0.getMonth() : null; // inception month (Sept 2023) is only a week long
+  const pairs=fm.filter(m=>m.key!==cur && m.key!==partialFirst && smap.has(m.key)).slice(-60);
+  const a=pairs.map(m=>m.r), b=pairs.map(m=>smap.get(m.key)); const n=a.length; if(n<6) return {n};
   const mean=x=>x.reduce((p,q)=>p+q,0)/x.length, ma=mean(a), mb=mean(b);
   let va=0,vb=0,cov=0; for(let i=0;i<n;i++){ va+=(a[i]-ma)**2; vb+=(b[i]-mb)**2; cov+=(a[i]-ma)*(b[i]-mb); } va/=n-1; vb/=n-1; cov/=n-1;
-  return {sharpe:(ma-RF/252)/Math.sqrt(va)*Math.sqrt(252), beta:cov/vb, vol:Math.sqrt(va)*Math.sqrt(252)};
+  const sd=Math.sqrt(va);
+  return {n, beta:cov/vb, corr:cov/(sd*Math.sqrt(vb)), sharpe:(ma-RF/12)/sd*Math.sqrt(12), monthlySd:sd, annVol:sd*Math.sqrt(12), first:pairs[0].label, last:pairs[n-1].label};
 }
 
 function lineChart(id, labels, datasets, opts){
@@ -741,21 +747,24 @@ function renderPerformance(){
     {label:"BVU Cramer Fund",data:fm.map(m=>m.r*100),borderColor:"#FECB00",backgroundColor:"#FECB00",pointRadius:3,tension:.3,borderWidth:2.5},
     {label:"S&P 500 (SPY)",data:fm.map(m=>(smap[m.key]||0)*100),borderColor:"#0089C3",backgroundColor:"#0089C3",pointRadius:3,tension:.3,borderWidth:2}
   ],{fmt:v=>v.toFixed(2)+"%",tick:v=>v+"%"});
-  // growth of 100
+  // growth of 100 since inception (first day the fund held positions)
   const smapD=new Map(s.ts.map((t,i)=>[t,s.r[i]])); let gf=100, gs=100; const gl=[], gfd=[], gsd=[];
-  f.ts.forEach((t,i)=>{ gf*=1+f.r[i]; gs*=1+(smapD.get(t)||0); gl.push(new Date(t).toLocaleDateString("en-US",{month:"short",day:"numeric"})); gfd.push(gf); gsd.push(gs); });
+  f.ts.forEach((t,i)=>{ gf*=1+f.r[i]; gs*=1+(smapD.get(t)||0); gl.push(new Date(t).toLocaleDateString("en-US",{month:"short",year:"2-digit"})); gfd.push(gf); gsd.push(gs); });
   lineChart("ch-growth", gl, [
     {label:"BVU Cramer Fund",data:gfd,borderColor:"#FECB00",backgroundColor:"rgba(254,203,0,.12)",fill:true,pointRadius:0,tension:.2,borderWidth:2},
     {label:"S&P 500 (SPY)",data:gsd,borderColor:"#0089C3",backgroundColor:"transparent",pointRadius:0,tension:.2,borderWidth:1.5}
   ],{fmt:v=>"$"+v.toFixed(2),tick:v=>"$"+v,maxTicks:8});
-  const st=stats(f,s); const fy=ytd(f), sy=ytd(s), f1=chain(f.r), s1=chain(s.r);
-  const mstd=(()=>{ const m=monthly(f).slice(-12).map(x=>x.r); const mu=m.reduce((a,b)=>a+b,0)/m.length; return Math.sqrt(m.reduce((a,b)=>a+(b-mu)**2,0)/(m.length-1))*100; })();
+  const st=stats(f,s); const fy=ytd(f), sy=ytd(s);
+  const yr=Date.now()-365*86400000, f1=chain(f.r.filter((_,i)=>f.ts[i]>yr)), s1=chain(s.r.filter((_,i)=>s.ts[i]>yr));
+  const win=st.n? `${st.n} months (${st.first}–${st.last})` : "insufficient history";
   $("p-1y").textContent=pct(f1,1); $("p-1y-s").textContent="S&P 500: "+pct(s1,1);
   $("p-ytd").textContent=pct(fy,1); $("p-ytd-s").textContent="S&P 500: "+pct(sy,1);
-  $("p-sharpe").textContent=st.sharpe!=null?st.sharpe.toFixed(2):"—"; $("p-beta").textContent=st.beta!=null?st.beta.toFixed(2):"—";
-  $("p-beta-s").textContent="std dev of monthly returns: "+mstd.toFixed(2)+"%";
+  $("p-sharpe").textContent=st.sharpe!=null?st.sharpe.toFixed(2):"—"; $("p-sharpe-s").textContent=`monthly returns, ${win}, rf 3%`;
+  $("p-beta").textContent=st.beta!=null?st.beta.toFixed(2):"—";
+  $("p-beta-s").textContent=st.n? `monthly vs S&P 500, ${win} · ρ ${st.corr.toFixed(2)} · σ ${ (st.monthlySd*100).toFixed(2)}%/mo` : win;
   $("s-ytd").textContent=pct(fy,1); $("s-ytd").className="v "+sgn(fy); $("s-ytd-s").textContent="S&P 500: "+pct(sy,1);
   $("s-sharpe").textContent=st.sharpe!=null?st.sharpe.toFixed(2):"—"; $("s-beta").textContent=st.beta!=null?st.beta.toFixed(2):"—";
+  $("s-sharpe-s").textContent=st.n?`monthly · ${st.n} mo · rf 3%`:"—"; $("s-beta-s").textContent=st.n?`monthly vs S&P 500 · ${st.n} mo`:"—";
   // sector strip
   const y0=new Date(new Date().getFullYear(),0,1).getTime(); // closeAt(y0) = last close of prior year
   const tiles=[]; const stk=dailyReturns(s=>{ const h=HOLDINGS.find(x=>x.sym===s); return h? h.cls==="stock" : !["VGT","VFH","VHT","VIS","VCR","VOX","VDC","VDE","VAW","VPU","VNQ","FRDM","GDX","XME","REZ"].includes(s); });
